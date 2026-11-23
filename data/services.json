@@ -1,0 +1,116 @@
+[
+  {
+    "id": "SVC-1",
+    "slug": "interior-painting",
+    "title": "Interior Painting",
+    "sub": "Walls, ceilings & woodwork",
+    "desc": "Expertly painted interiors, from a single room to a complete home. Carefully prepared, beautifully finished.",
+    "kicker": "THE ART OF A FRESH START",
+    "tint": "#FFF3CF",
+    "accent": "#F9D870",
+    "heroImage": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/bfda9f33af15cb04141cba80a461381f.jpg",
+    "features": [
+      "Premium paints & finishes",
+      "Colour advice included",
+      "Careful preparation"
+    ],
+    "startingPrice": "£450",
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "SVC-2",
+    "slug": "exterior-painting",
+    "title": "Exterior Painting",
+    "sub": "Beautiful, lasting exteriors",
+    "desc": "Weather-resistant masonry paints, sash window restoration, fascia and ironwork painting with high-durability protection.",
+    "kicker": "WEATHERPROOF CURB APPEAL",
+    "tint": "#E4EDCF",
+    "accent": "#B5D17A",
+    "heroImage": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/98172832b84b637c8e72182b631b5d17.jpg",
+    "features": [
+      "Masonry coatings",
+      "Sash window restoration",
+      "Scaffolding optional"
+    ],
+    "startingPrice": "£950",
+    "active": true,
+    "order": 2
+  },
+  {
+    "id": "SVC-3",
+    "slug": "limewash-specialist",
+    "title": "Limewash Specialist",
+    "sub": "Breathable, natural lime finish",
+    "desc": "Hand-trowelled and brushed artisanal limewash with textured clouds of subtle tone that change gracefully with natural light.",
+    "kicker": "NATURAL MINERAL ELEGANCE",
+    "tint": "#FCF0E8",
+    "accent": "#E8A578",
+    "heroImage": "https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350",
+    "features": [
+      "Bauwerk / Roman Clay certified",
+      "Zero VOC & breathable",
+      "Cloud effect layering"
+    ],
+    "startingPrice": "£750",
+    "active": true,
+    "order": 3
+  },
+  {
+    "id": "SVC-4",
+    "slug": "decorative-finishes",
+    "title": "Decorative Finishes",
+    "sub": "Venetian plaster & faux effects",
+    "desc": "Polished plaster, Marmorino, microcement, and specialty textures creating tactile depth for statement architectural walls.",
+    "kicker": "ARCHITECTURAL WALL ART",
+    "tint": "#F3E8FF",
+    "accent": "#C084FC",
+    "heroImage": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/c5720d1bfe8b0637facfdb8c4598c171.jpg",
+    "features": [
+      "Venetian plaster",
+      "Microcement & concrete look",
+      "Metallic glazes"
+    ],
+    "startingPrice": "£850",
+    "active": true,
+    "order": 4
+  },
+  {
+    "id": "SVC-5",
+    "slug": "cabinet-refinishing",
+    "title": "Spray Refinishing",
+    "sub": "Kitchen units, doors & furniture",
+    "desc": "Factory-smooth spray booth finish on existing kitchen cupboards, wardrobes, and bespoke joinery for a brand new kitchen look.",
+    "kicker": "LIKE-NEW FACTORY FINISH",
+    "tint": "#FFE4E6",
+    "accent": "#FB7185",
+    "heroImage": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/8ba755097ae612ca5ca2e1e96f5769fb.jpg",
+    "features": [
+      "HVLP spray application",
+      "Catalysed polyurethane lacquer",
+      "fraction of replacement cost"
+    ],
+    "startingPrice": "£1,200",
+    "active": true,
+    "order": 5
+  },
+  {
+    "id": "SVC-6",
+    "slug": "commercial-painting",
+    "title": "Commercial Painting",
+    "sub": "Offices, boutiques & retail",
+    "desc": "Flexible out-of-hours painting and fast-turnaround commercial decorating with zero business downtime and immaculate results.",
+    "kicker": "FAST OUT-OF-HOURS TURNAROUND",
+    "tint": "#E0F2FE",
+    "accent": "#38BDF8",
+    "heroImage": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/b54ea55bc7b8c685428e70abf7dc1d32.jpg",
+    "features": [
+      "Weekend / night work",
+      "Health & Safety compliant",
+      "Durable scrubbable finishes"
+    ],
+    "startingPrice": "£1,500",
+    "active": true,
+    "order": 6
+  }
+]

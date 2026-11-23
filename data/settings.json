@@ -1,0 +1,142 @@
+{
+  "theme": {
+    "primaryColor": "#c5a880",
+    "accentColor": "#12b5b0",
+    "swatches": [
+      {
+        "hex": "#FFC62E",
+        "name": "Sunshine",
+        "active": true
+      },
+      {
+        "hex": "#E8663D",
+        "name": "Terracotta",
+        "active": true
+      },
+      {
+        "hex": "#2F6B57",
+        "name": "Forest",
+        "active": true
+      },
+      {
+        "hex": "#6C9BD1",
+        "name": "Sky blue",
+        "active": true
+      },
+      {
+        "hex": "#F2A7B8",
+        "name": "Blush",
+        "active": true
+      },
+      {
+        "hex": "#12B5B0",
+        "name": "Teal",
+        "active": true
+      },
+      {
+        "hex": "#8B4DFF",
+        "name": "Violet",
+        "active": true
+      }
+    ]
+  },
+  "hero": {
+    "headline": "Make your walls unforgettable.",
+    "subheading": "Grab the roller. Paint this wall.",
+    "description": "28+ years. 1,247 happy clients. 4.9/5. Professional interior & exterior painting, limewash and spray finishes across London and Surrey. Fully insured, spotlessly tidy.",
+    "primaryCtaText": "Get a free quote",
+    "primaryCtaLink": "#contact",
+    "secondaryCtaText": "Browse portfolio",
+    "secondaryCtaLink": "/portfolio",
+    "phoneBadge": "07309 092376",
+    "statsYears": "28+",
+    "statsClients": "1,247",
+    "statsRating": "4.9/5"
+  },
+  "about": {
+    "tagline": "WHO WE ARE",
+    "headline": "Quality you can see.",
+    "subtitle": "Passionate painters and decorating specialists dedicated to bringing craftsmanship, care, and clean luxury to every home.",
+    "bgImage": "https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350",
+    "storyTitle": "Our Story & Heritage",
+    "storyText": "Over nearly three decades, AR Matt & Gloss Decorators has grown from a dedicated local family business into London and Surrey’s premier independent decorating company. We combine time-honoured brush skills with the finest modern mineral and spray finishes.",
+    "stats": [
+      {
+        "number": "28",
+        "suffix": "+",
+        "label": "Years of experience"
+      },
+      {
+        "number": "1247",
+        "suffix": "",
+        "label": "Happy clients"
+      },
+      {
+        "number": "1500",
+        "suffix": "+",
+        "label": "Projects completed"
+      },
+      {
+        "number": "24/7",
+        "suffix": "",
+        "label": "Customer support"
+      }
+    ],
+    "values": [
+      {
+        "title": "Spotless Cleanliness",
+        "desc": "Full furniture & floor protection. Tidy every night.",
+        "icon": "🧹"
+      },
+      {
+        "title": "Licensed & Insured",
+        "desc": "Comprehensive £5M liability cover for total peace of mind.",
+        "icon": "🛡️"
+      },
+      {
+        "title": "Artisan Preparation",
+        "desc": "90% of a lasting finish is in meticulous surface prep.",
+        "icon": "🎨"
+      },
+      {
+        "title": "Guaranteed Results",
+        "desc": "We only finish when you are 100% delighted.",
+        "icon": "⭐"
+      }
+    ]
+  },
+  "announcement": {
+    "enabled": false,
+    "text": "✨ Free In-Home Colour Consultation with every Spring booking!",
+    "link": "/contact"
+  },
+  "whatsapp": {
+    "enabled": true,
+    "phone": "447309092376",
+    "message": "Hello AR Matt & Gloss! I would like to enquire about painting and decorating services.",
+    "label": "Chat with Decorators"
+  },
+  "company": {
+    "name": "AR Matt & Gloss Decorators",
+    "phone1": "07309 092376",
+    "phone2": "02034 880652",
+    "email": "contact@ar-mattandgloss-decorators.com",
+    "address": "23 Church Road, Richmond, Surrey TW9 2QA",
+    "hours": "Mon–Sat: 8am – 5pm",
+    "coverage": "Richmond, Surrey, Central London, and 30 miles around M25"
+  },
+  "footer": {
+    "aboutText": "Professional painters and decorators across Surrey, London and Greater London. We undertake jobs within Greater London areas and up to 30 miles outside M25.",
+    "logoUrl": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/1275896739a421cf642ea5e88346c08b.png",
+    "contactHeading": "Contact us",
+    "phone1": "07309 092376",
+    "phone2": "02034 880652",
+    "email": "contact@ar-mattandgloss-decorators.com",
+    "address": "23 Church Road, Richmond, Surrey TW9 2QA",
+    "hoursHeading": "Business hours",
+    "hoursWeekday": "Monday to Friday: 8am – 5pm",
+    "hoursSaturday": "Saturday: 8am – 5pm",
+    "hoursSunday": "Sunday: on request",
+    "copyright": "© 2026 AR Matt & Gloss Decorators"
+  }
+}

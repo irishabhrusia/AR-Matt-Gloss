@@ -1,0 +1,57 @@
+[
+  {
+    "id": "PRJ-1",
+    "title": "Living Room Transformation",
+    "category": "Interior",
+    "imgBefore": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/bfda9f33af15cb04141cba80a461381f.jpg",
+    "imgAfter": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/f5ed7b606cf533a77de25540a1017ea4.jpg",
+    "editorialNote": "Spaces made to feel like home",
+    "location": "Richmond Upon Thames",
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "PRJ-2",
+    "title": "Master Bedroom Suite",
+    "category": "Interior",
+    "imgBefore": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/527481712b60269a0d4b123030a6b736.jpg",
+    "imgAfter": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/c13046f98b8b35e7b31523d0693b3d64.jpg",
+    "editorialNote": "Spaces made to feel like home",
+    "location": "Kensington, London",
+    "active": true,
+    "order": 2
+  },
+  {
+    "id": "PRJ-3",
+    "title": "Kitchen Cabinet Spray Refinish",
+    "category": "Interior",
+    "imgBefore": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/8ba755097ae612ca5ca2e1e96f5769fb.jpg",
+    "imgAfter": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/1a7bf25816b1b58901d555a3686cb44a.jpg",
+    "editorialNote": "Spaces made to feel like home",
+    "location": "Wimbledon, London",
+    "active": true,
+    "order": 3
+  },
+  {
+    "id": "PRJ-4",
+    "title": "Victorian Townhouse Exterior",
+    "category": "Exterior",
+    "imgBefore": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/98172832b84b637c8e72182b631b5d17.jpg",
+    "imgAfter": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/5861761c66ae7248702bfc0bb9ca2b9d.jpg",
+    "editorialNote": "A first impression that lasts",
+    "location": "Fulham, London",
+    "active": true,
+    "order": 4
+  },
+  {
+    "id": "PRJ-5",
+    "title": "Heritage Front Door Painting",
+    "category": "Exterior",
+    "imgBefore": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/00cdb2fbe0eac1ae22b4ed767006b4d1.jpg",
+    "imgAfter": "https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/d07c58a7b42a0ca28a9c2ff6a88bfa4f.jpg",
+    "editorialNote": "A first impression that lasts",
+    "location": "Chelsea, London",
+    "active": true,
+    "order": 5
+  }
+]

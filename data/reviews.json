@@ -1,0 +1,68 @@
+[
+  {
+    "id": "REV-1",
+    "n": "Lisa Anderson",
+    "l": "Hampstead, London",
+    "q": "I can’t thank enough Jimmy and the team who was able to paint exterior of our house and most importantly repair my entire roof soffits and fascia in my four store house without need of putting £4k scaffolding. Incredible top notch work!",
+    "t": [
+      "Exterior"
+    ],
+    "rating": 5,
+    "verified": true,
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "REV-2",
+    "n": "Marcus Thompson",
+    "l": "Kensington, London",
+    "q": "Outstanding work from start to finish. The team was professional, punctual, and the quality of their painting exceeded my expectations. My living room looks absolutely stunning.",
+    "t": [
+      "Interior"
+    ],
+    "rating": 5,
+    "verified": true,
+    "active": true,
+    "order": 2
+  },
+  {
+    "id": "REV-3",
+    "n": "Priya Sharma",
+    "l": "Fulham, London",
+    "q": "I hired Jimmy and the team from AR Matt & Gloss for my entire home exterior. They were meticulous with preparation and the finish is flawless. Highly recommend their services.",
+    "t": [
+      "Exterior"
+    ],
+    "rating": 5,
+    "verified": true,
+    "active": true,
+    "order": 3
+  },
+  {
+    "id": "REV-4",
+    "n": "Elena Rodriguez",
+    "l": "Paddington, London",
+    "q": "The attention to detail was impressive. They took the time to protect all my furniture and cleaned up thoroughly each day. The color consultation was incredibly helpful.",
+    "t": [
+      "Interior",
+      "Colour advice"
+    ],
+    "rating": 5,
+    "verified": true,
+    "active": true,
+    "order": 4
+  },
+  {
+    "id": "REV-5",
+    "n": "James Chen",
+    "l": "Putney, London",
+    "q": "Professional team that delivered exactly what they promised. The cabinet refinishing transformed my kitchen completely. Great value for the quality of work.",
+    "t": [
+      "Cabinets"
+    ],
+    "rating": 5,
+    "verified": true,
+    "active": true,
+    "order": 5
+  }
+]

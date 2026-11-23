@@ -1,0 +1,72 @@
+[
+  {
+    "id": "LEAD-1042",
+    "name": "Sarah Jenkins",
+    "email": "sarah.jenkins@example.co.uk",
+    "phone": "07700 900123",
+    "postcode": "TW9 2QA",
+    "service": "Limewash Specialist",
+    "budget": "£2,500 – £5,000",
+    "details": "Looking for a textured limewash finish in our master bedroom, guest room and high-ceiling hallway. Would love advice on warm sand or sage tones.",
+    "source": "Contact Page (/contact)",
+    "status": "New",
+    "createdAt": "2026-11-23T06:48:04.338Z",
+    "notes": "Urgent enquiry. Wants site visit before Friday."
+  },
+  {
+    "id": "LEAD-1041",
+    "name": "David Miller",
+    "email": "david.m@btinternet.com",
+    "phone": "07890 123456",
+    "postcode": "KT1 2BA",
+    "service": "Cabinet Refinishing",
+    "budget": "£1,000 – £2,500",
+    "details": "Complete kitchen cabinets spray refinishing from dark oak to modern matt off-white.",
+    "source": "Homepage Quick Quote (/)",
+    "status": "Contacted",
+    "createdAt": "2026-11-22T06:48:04.338Z",
+    "notes": "Spoke on phone. Customer sent photos on WhatsApp. Preparing estimate."
+  },
+  {
+    "id": "LEAD-1040",
+    "name": "Victoria Thorne",
+    "email": "v.thorne@kensingtonlaw.com",
+    "phone": "07911 234567",
+    "postcode": "SW19 4RF",
+    "service": "Exterior Painting",
+    "budget": "£5,000+",
+    "details": "Full exterior painting for 4-storey Victorian townhouse facade, front porch, and 12 sash windows.",
+    "source": "Exterior Service Page",
+    "status": "Quote Sent",
+    "createdAt": "2026-11-21T06:48:04.339Z",
+    "notes": "Quote sent for £6,200. Follow-up call scheduled for Wednesday."
+  },
+  {
+    "id": "LEAD-1039",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@gmail.com",
+    "phone": "07455 678901",
+    "postcode": "SW15 1AB",
+    "service": "Interior Painting",
+    "budget": "£500 – £1,000",
+    "details": "Double reception room ceiling and walls emulsion painting in Richmond.",
+    "source": "Homepage Quick Quote (/)",
+    "status": "Booked",
+    "createdAt": "2026-11-20T06:48:04.339Z",
+    "notes": "Deposit paid. Job scheduled starting next week."
+  },
+  {
+    "id": "LEAD-1038",
+    "name": "Oliver King",
+    "email": "oliver.king@chelseadesign.co.uk",
+    "phone": "07322 345678",
+    "postcode": "SW3 3HY",
+    "service": "Decorative Finishes",
+    "budget": "£2,500 – £5,000",
+    "details": "Feature wall with microcement / venetian plaster effect for modern luxury apartment.",
+    "source": "Contact Page (/contact)",
+    "status": "New",
+    "createdAt": "2026-11-19T06:48:04.339Z",
+    "notes": ""
+  }
+]
