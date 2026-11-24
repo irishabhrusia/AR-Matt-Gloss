@@ -437,13 +437,13 @@ export function Home() {
   }, [lightboxIdx, portfolioList.length]);
 
   return (
-    <main>
+    <main suppressHydrationWarning>
       {/* Hero */}
       <div className="hero" id="home" ref={heroRef}>
         <canvas id="cv" ref={canvasRef}></canvas>
         <h1>{heroData.headline || 'Make your walls unforgettable.'}</h1>
         <div className="hint">{heroData.subheading || 'Grab the roller. Paint this wall.'}</div>
-        <button className="rs" id="rs" onClick={handleRepaint}>↻ Repaint</button>
+        <button className="rs" id="rs" onClick={handleRepaint} suppressHydrationWarning>↻ Repaint</button>
         <div className="roller" id="rl" ref={rollerRef}>
           <svg viewBox="0 0 110 100">
             <rect x="0" y="0" width="110" height="34" rx="17" style={{ fill: activeColor }} stroke="#12251F" strokeWidth="3" />
@@ -508,6 +508,7 @@ export function Home() {
                     aria-pressed={activeService === idx ? 'true' : 'false'}
                     aria-controls="discover-stage"
                     onClick={() => selectService(idx)}
+                    suppressHydrationWarning
                     onKeyDown={(e) => {
                       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
                         e.preventDefault();
@@ -628,6 +629,7 @@ export function Home() {
                         aria-pressed={j === activeImageIdx ? 'true' : 'false'}
                         aria-label={`Show ${curSvc.title} project photo ${j + 1}`}
                         onClick={() => setDiscoverImage(j)}
+                        suppressHydrationWarning
                       >
                         <img src={img} alt="" loading="lazy" />
                       </button>
@@ -650,6 +652,7 @@ export function Home() {
                       id="discover-next"
                       aria-label="Preview next service"
                       onClick={handleDiscoverNext}
+                      suppressHydrationWarning
                     >→</button>
                     <small>Next finish</small>
                   </div>
@@ -701,6 +704,7 @@ export function Home() {
                 key={i}
                 className={i === recentIdx ? 'on' : ''}
                 onClick={() => setRecentIdx(i)}
+                suppressHydrationWarning
               >
                 {p.title}
               </button>
@@ -712,6 +716,7 @@ export function Home() {
               id="rfp"
               aria-label="Previous project"
               onClick={() => setRecentIdx((recentIdx - 1 + portfolioList.length) % portfolioList.length)}
+              suppressHydrationWarning
             >←</button>
             <div className="rfd" id="rfd">
               <figure
@@ -744,6 +749,7 @@ export function Home() {
               id="rfn"
               aria-label="Next project"
               onClick={() => setRecentIdx((recentIdx + 1) % portfolioList.length)}
+              suppressHydrationWarning
             >→</button>
           </div>
           <div className="rfm rvl">
@@ -953,6 +959,7 @@ export function Home() {
             <form
               id="f"
               className="rvl"
+              suppressHydrationWarning
               onSubmit={(e) => {
                 e.preventDefault();
                 if (!phoneVal.trim()) {
@@ -985,7 +992,7 @@ export function Home() {
                 <div id="fb" style={{ display: 'grid', gap: '16px' }}>
                   <div>
                     <label htmlFor="s">Service</label>
-                    <select id="s">
+                    <select id="s" suppressHydrationWarning>
                       <option>Interior painting</option>
                       <option>Exterior painting</option>
                       <option>Limewash painting</option>
@@ -997,7 +1004,7 @@ export function Home() {
                   <div className="two">
                     <div>
                       <label htmlFor="n">Name</label>
-                      <input id="n" placeholder="Your name" autoComplete="name" />
+                      <input id="n" placeholder="Your name" autoComplete="name" suppressHydrationWarning />
                     </div>
                     <div>
                       <label htmlFor="p">Phone</label>
@@ -1008,17 +1015,18 @@ export function Home() {
                         autoComplete="tel"
                         value={phoneVal}
                         onChange={(e) => setPhoneVal(e.target.value)}
+                        suppressHydrationWarning
                       />
                     </div>
                   </div>
                   <div className="two">
                     <div>
                       <label htmlFor="a">Postcode</label>
-                      <input id="a" placeholder="e.g. TW9 2QA" autoComplete="postal-code" />
+                      <input id="a" placeholder="e.g. TW9 2QA" autoComplete="postal-code" suppressHydrationWarning />
                     </div>
                     <div>
                       <label htmlFor="bd">Budget</label>
-                      <select id="bd" defaultValue="">
+                      <select id="bd" defaultValue="" suppressHydrationWarning>
                         <option value="">Select a range</option>
                         <option>Under £500</option>
                         <option>£500 – £1,000</option>
@@ -1029,7 +1037,7 @@ export function Home() {
                       </select>
                     </div>
                   </div>
-                  <button className="btn p" type="submit" style={{ justifyContent: 'center' }}>
+                  <button className="btn p" type="submit" style={{ justifyContent: 'center' }} suppressHydrationWarning>
                     Get my free quote{' '}
                     <svg className="i">
                       <use href="#ar" />
@@ -1077,7 +1085,7 @@ export function Home() {
           }
         }}
       >
-        <button className="x" aria-label="Close" onClick={() => setLightboxIdx(null)}>×</button>
+        <button className="x" aria-label="Close" onClick={() => setLightboxIdx(null)} suppressHydrationWarning>×</button>
         <button
           className="pv2"
           aria-label="Previous"
@@ -1085,6 +1093,7 @@ export function Home() {
             e.stopPropagation();
             setLightboxIdx((lightboxIdx - 1 + PORTFOLIO_PROJECTS.length) % PORTFOLIO_PROJECTS.length);
           }}
+          suppressHydrationWarning
         >‹</button>
         {lightboxIdx !== null && (
           <>
@@ -1099,6 +1108,7 @@ export function Home() {
             e.stopPropagation();
             setLightboxIdx((lightboxIdx + 1) % PORTFOLIO_PROJECTS.length);
           }}
+          suppressHydrationWarning
         >›</button>
       </div>
 
@@ -1114,6 +1124,7 @@ export function Home() {
               title={label}
               aria-label={label}
               onClick={() => handleColorChange(hex)}
+              suppressHydrationWarning
             ></button>
           ))}
         </span>

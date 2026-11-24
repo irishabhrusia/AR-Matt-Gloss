@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-GB">
+    <html lang="en-GB" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
 
         <link id="active-page-style" rel="stylesheet" href="/assets/css/home.css" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ClientLayoutWrapper>
           {children}
         </ClientLayoutWrapper>
