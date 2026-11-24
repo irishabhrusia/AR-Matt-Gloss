@@ -408,7 +408,7 @@ export function Home() {
     };
 
     function shouldIgnoreTarget(target) {
-      return !!(target && target.closest('.rs, .hbar, .dock'));
+      return !!(target && target.closest('.dock, button, a'));
     }
 
     function onPointerDown(e) {
@@ -566,8 +566,6 @@ export function Home() {
       <div className="hero" id="home" ref={heroRef}>
         <canvas id="cv" ref={canvasRef}></canvas>
         <h1>{heroData.headline || 'Make your walls unforgettable.'}</h1>
-        <div className="hint">{heroData.subheading || 'Grab the roller. Paint this wall.'}</div>
-        <button className="rs" id="rs" onClick={handleRepaint} suppressHydrationWarning>↻ Repaint</button>
         <div className="roller" id="rl" ref={rollerRef}>
           <svg viewBox="-6 -4 126 112" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
             <defs>
@@ -706,23 +704,6 @@ export function Home() {
             <circle cx="55" cy="95.5" r="3.2" fill="#070D0B" stroke="#253D34" strokeWidth="0.8" />
             <circle cx="55" cy="95.5" r="1.8" fill="#EEF1EF" fillOpacity="0.8" />
           </svg>
-        </div>
-        <div className="hbar">
-          <p>
-            <b>{heroData.statsYears || '28+'} years. {heroData.statsClients || '1,247'} happy clients. {heroData.statsRating || '4.9/5'}.</b>{' '}
-            {heroData.description || 'Professional interior & exterior painting across London and Surrey.'}
-          </p>
-          <div className="cta">
-            <a className="btn p" href={heroData.primaryCtaLink || '#contact'}>
-              {heroData.primaryCtaText || 'Get a free quote'}{' '}
-              <svg className="i">
-                <use href="#ar" />
-              </svg>
-            </a>
-            <Link className="btn o" href={heroData.secondaryCtaLink || '/portfolio'}>
-              {heroData.secondaryCtaText || 'See our work'}
-            </Link>
-          </div>
         </div>
       </div>
 
