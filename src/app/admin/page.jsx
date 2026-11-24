@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import ImageUploadField from '@/components/ImageUploadField';
 
@@ -8,6 +8,13 @@ export default function AdminDashboard() {
   const [aboutSubTab, setAboutSubTab] = useState('banner');
   const [homeSubTab, setHomeSubTab] = useState('all');
   const [loading, setLoading] = useState(true);
+
+  // Live real website preview iframe state & ref
+  const iframeRef = useRef(null);
+  const previewContainerRef = useRef(null);
+  const [previewDevice, setPreviewDevice] = useState('desktop');
+  const [previewScale, setPreviewScale] = useState(0.48);
+  const [iframeKey, setIframeKey] = useState(0);
 
   // Data states
   const [queries, setQueries] = useState([]);
@@ -60,6 +67,84 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchAllData();
   }, []);
+
+  // Compute scale for live preview iframe
+  useEffect(() => {
+    const computeScale = () => {
+      if (previewContainerRef.current) {
+        const cw = previewContainerRef.current.clientWidth;
+        if (cw > 0 && previewDevice === 'desktop') {
+          setPreviewScale(Math.min(cw / 1200, 0.65));
+        } else {
+          setPreviewScale(1);
+        }
+      }
+    };
+    computeScale();
+    const t = setTimeout(computeScale, 250);
+    window.addEventListener('resize', computeScale);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', computeScale);
+    };
+  }, [previewDevice, activeTab]);
+
+  // Sync settings to live iframe in real time
+  useEffect(() => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'AR_ADMIN_SYNC',
+        hero: settings?.hero,
+        home: settings?.home,
+      }, '*');
+    }
+  }, [settings]);
+
+  // Auto-scroll iframe when changing sub-tab in Home section
+  useEffect(() => {
+    if (iframeRef.current && iframeRef.current.contentWindow && (activeTab === 'home' || activeTab === 'hero')) {
+      const targetMap = {
+        hero: 'home',
+        marquee: 'tr',
+        services_portfolio: 'services',
+        limewash: 'limewash',
+        why_process: 'why',
+        testimonials_contact: 'testimonials',
+      };
+      if (targetMap[homeSubTab]) {
+        iframeRef.current.contentWindow.postMessage({
+          type: 'AR_SCROLL_TO',
+          target: targetMap[homeSubTab],
+        }, '*');
+      }
+    }
+  }, [homeSubTab, activeTab]);
+
+  const handleIframeLoad = () => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'AR_ADMIN_SYNC',
+        hero: settings?.hero,
+        home: settings?.home,
+      }, '*');
+      const targetMap = {
+        hero: 'home',
+        marquee: 'tr',
+        services_portfolio: 'services',
+        limewash: 'limewash',
+        why_process: 'why',
+        testimonials_contact: 'testimonials',
+      };
+      if (targetMap[homeSubTab]) {
+        setTimeout(() => {
+          iframeRef.current?.contentWindow?.postMessage({
+            type: 'AR_SCROLL_TO',
+            target: targetMap[homeSubTab],
+          }, '*');
+        }, 400);
+      }
+    }
+  };
 
   // Save Settings handler
   const handleSaveSettings = async (sectionName = 'Settings') => {
@@ -2208,29 +2293,79 @@ export default function AdminDashboard() {
 
               </div>
 
-              {/* RIGHT SIDE: Mockup Desktop Browser Frame with Live Sync */}
+              {/* RIGHT SIDE: 1:1 Real Website Live Preview Mockup Frame */}
               <div style={{ position: 'sticky', top: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
                 {/* Mockup Toolbar Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a' }}>Live Home Page Preview</span>
-                    <span style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.68rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px' }}>
-                      LIVE SYNC
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981' }}></span>
+                    <span style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>Real Website Live Preview</span>
+                    <span style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.68rem', fontWeight: 800, padding: '2px 8px', borderRadius: '10px' }}>
+                      1:1 ASALI PREVIEW
                     </span>
                   </div>
-                  <a
-                    href="/#home"
-                    target="_blank"
-                    style={{ fontSize: '0.74rem', background: '#0f172a', color: '#ffffff', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700 }}
-                  >
-                    ↗ Open Full Page
-                  </a>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {/* Device View Toggle */}
+                    <div style={{ display: 'flex', background: '#e2e8f0', padding: '2px', borderRadius: '8px' }}>
+                      <button
+                        type="button"
+                        onClick={() => setPreviewDevice('desktop')}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          border: 'none',
+                          background: previewDevice === 'desktop' ? '#ffffff' : 'transparent',
+                          color: previewDevice === 'desktop' ? '#0f172a' : '#64748b',
+                          fontSize: '0.74rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          boxShadow: previewDevice === 'desktop' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                        }}
+                      >
+                        🖥️ Desktop
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPreviewDevice('mobile')}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          border: 'none',
+                          background: previewDevice === 'mobile' ? '#ffffff' : 'transparent',
+                          color: previewDevice === 'mobile' ? '#0f172a' : '#64748b',
+                          fontSize: '0.74rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          boxShadow: previewDevice === 'mobile' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                        }}
+                      >
+                        📱 Mobile
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setIframeKey((k) => k + 1)}
+                      title="Reload Preview Frame"
+                      style={{ padding: '5px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#475569', fontSize: '0.76rem', fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      🔄
+                    </button>
+
+                    <a
+                      href="/"
+                      target="_blank"
+                      style={{ fontSize: '0.74rem', background: '#0f172a', color: '#ffffff', padding: '5px 12px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700 }}
+                    >
+                      ↗ Full Screen
+                    </a>
+                  </div>
                 </div>
 
-                {/* Dark Mockup Window */}
-                <div style={{ background: '#0f172a', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 14px 40px rgba(0,0,0,0.25)', border: '1px solid #334155' }}>
+                {/* Real Browser Mockup Window */}
+                <div style={{ background: '#0f172a', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.22)', border: '1px solid #334155', display: 'flex', flexDirection: 'column' }}>
                   {/* Browser Bar */}
                   <div style={{ background: '#1e293b', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid #334155' }}>
                     <div style={{ display: 'flex', gap: '6px' }}>
@@ -2242,83 +2377,58 @@ export default function AdminDashboard() {
                       <span>🔒</span>
                       <span>https://ar-mattandgloss-decorators.com/</span>
                     </div>
-                    <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 700 }}>HOME HUB</span>
+                    <span style={{ fontSize: '0.68rem', color: '#94a3b8', fontWeight: 700 }}>
+                      {previewDevice === 'desktop' ? 'DESKTOP 1240px' : 'MOBILE 375px'}
+                    </span>
                   </div>
 
-                  {/* Browser Viewport Content */}
-                  <div style={{ background: '#12251F', padding: '24px 20px', color: '#ffffff', position: 'relative', minHeight: '440px', maxHeight: '580px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-
-                    {/* Live Hero Header */}
-                    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px' }}>
-                      <div style={{ color: '#c5a880', fontSize: '0.74rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-                        {settings?.hero?.subheading || 'Grab the roller. Paint this wall.'}
+                  {/* Browser Viewport Content - Real Asali Website */}
+                  <div
+                    ref={previewContainerRef}
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '700px',
+                      overflow: 'hidden',
+                      background: previewDevice === 'desktop' ? '#ffffff' : '#0f172a',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: previewDevice === 'desktop' ? 'flex-start' : 'center',
+                    }}
+                  >
+                    {previewDevice === 'desktop' ? (
+                      <iframe
+                        key={iframeKey}
+                        ref={iframeRef}
+                        src="/"
+                        onLoad={handleIframeLoad}
+                        title="Live Website Desktop Preview"
+                        style={{
+                          width: '1240px',
+                          height: `${700 / (previewScale || 0.48)}px`,
+                          border: 'none',
+                          transform: `scale(${previewScale || 0.48})`,
+                          transformOrigin: 'top left',
+                          background: '#ffffff',
+                        }}
+                      />
+                    ) : (
+                      <div style={{ width: '375px', height: '650px', borderRadius: '36px', overflow: 'hidden', border: '8px solid #334155', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', background: '#ffffff', position: 'relative' }}>
+                        <iframe
+                          key={iframeKey}
+                          ref={iframeRef}
+                          src="/"
+                          onLoad={handleIframeLoad}
+                          title="Live Website Mobile Preview"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            border: 'none',
+                            background: '#ffffff',
+                          }}
+                        />
                       </div>
-                      <h2 style={{ margin: '0 0 10px', fontSize: '1.45rem', fontWeight: 900, lineHeight: '1.2', color: '#ffffff' }}>
-                        {settings?.hero?.headline || 'Make your walls unforgettable.'}
-                      </h2>
-                      <p style={{ margin: '0 0 14px', color: '#cbd5e1', fontSize: '0.78rem', lineHeight: '1.5' }}>
-                        {settings?.hero?.description || 'Professional interior & exterior painting across London and Surrey.'}
-                      </p>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                        <span style={{ padding: '6px 14px', borderRadius: '6px', background: '#c5a880', color: '#12251F', fontWeight: 800, fontSize: '0.76rem' }}>
-                          {settings?.hero?.primaryCtaText || 'Get a free quote'} →
-                        </span>
-                        <span style={{ padding: '6px 14px', borderRadius: '6px', background: 'rgba(255,255,255,0.1)', color: '#ffffff', fontWeight: 700, fontSize: '0.76rem', border: '1px solid rgba(255,255,255,0.2)' }}>
-                          📞 {settings?.hero?.phoneBadge || '07309 092376'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Live Marquee Strip */}
-                    <div style={{ background: '#f59e0b', color: '#0f172a', padding: '8px 12px', borderRadius: '8px', fontSize: '0.72rem', fontWeight: 800, display: 'flex', gap: '12px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                      {(settings?.home?.marquee || ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).map((kw, i) => (
-                        <span key={i}>• {kw}</span>
-                      ))}
-                    </div>
-
-                    {/* Live Limewash Spotlight Preview */}
-                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                      <span style={{ fontSize: '0.68rem', color: '#c5a880', fontWeight: 800, textTransform: 'uppercase' }}>
-                        {settings?.home?.limewash?.eyebrow || 'The beauty of limewash'}
-                      </span>
-                      <h4 style={{ margin: '4px 0 8px', fontSize: '1rem', color: '#ffffff' }}>
-                        {settings?.home?.limewash?.headline || 'Walls with a little soul.'}
-                      </h4>
-                      <p style={{ margin: 0, fontSize: '0.74rem', color: '#cbd5e1', lineHeight: '1.4' }}>
-                        {settings?.home?.limewash?.lead || 'Not every wall needs to shout. Hand-applied limewash brings soft movement...'}
-                      </p>
-                      <div style={{ marginTop: '8px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
-                          ✓ {settings?.home?.limewash?.feature1Title || 'Soft movement'}
-                        </span>
-                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
-                          ✓ {settings?.home?.limewash?.feature2Title || 'Rich in character'}
-                        </span>
-                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
-                          ✓ {settings?.home?.limewash?.feature3Title || 'Made for your space'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Live Why & Process Preview */}
-                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '0.72rem' }}>
-                      <div style={{ fontWeight: 800, color: '#c5a880', marginBottom: '4px' }}>
-                        {settings?.home?.why?.headline || 'Quality you can see.'}
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', color: '#94a3b8' }}>
-                        <div><b>Years:</b> {settings?.home?.why?.statsYears || '28+'}</div>
-                        <div><b>Clients:</b> {settings?.home?.why?.statsClients || '1,247'}</div>
-                        <div><b>Projects:</b> {settings?.home?.why?.statsProjects || '1500+'}</div>
-                        <div><b>Support:</b> {settings?.home?.why?.statsSupport || '24/7'}</div>
-                      </div>
-                    </div>
-
-                    {/* Live Contact Strip */}
-                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px', fontSize: '0.7rem', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <span>📞 {settings?.home?.contactIntro?.phone || '07309 092376'}</span>
-                      <span>✉️ {settings?.home?.contactIntro?.email || 'contact@ar-mattandgloss-decorators.com'}</span>
-                    </div>
-
+                    )}
                   </div>
 
                 </div>

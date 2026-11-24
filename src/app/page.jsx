@@ -212,6 +212,38 @@ export function Home() {
       .catch((e) => console.error(e));
   }, []);
 
+  // Live Sync with Admin Preview
+  useEffect(() => {
+    function handleAdminMsg(event) {
+      if (event.data?.type === 'AR_ADMIN_SYNC') {
+        if (event.data.hero) {
+          setHeroData((prev) => ({ ...prev, ...event.data.hero }));
+        }
+        if (event.data.home) {
+          setHomeData((prev) => ({
+            ...prev,
+            ...event.data.home,
+            servicesIntro: { ...prev.servicesIntro, ...(event.data.home.servicesIntro || {}) },
+            portfolioIntro: { ...prev.portfolioIntro, ...(event.data.home.portfolioIntro || {}) },
+            limewash: { ...prev.limewash, ...(event.data.home.limewash || {}) },
+            why: { ...prev.why, ...(event.data.home.why || {}) },
+            process: { ...prev.process, ...(event.data.home.process || {}) },
+            testimonialsIntro: { ...prev.testimonialsIntro, ...(event.data.home.testimonialsIntro || {}) },
+            contactIntro: { ...prev.contactIntro, ...(event.data.home.contactIntro || {}) },
+          }));
+        }
+      } else if (event.data?.type === 'AR_SCROLL_TO') {
+        const id = event.data.target;
+        const el = document.getElementById(id) || document.querySelector(id.startsWith('.') ? id : `.${id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+    window.addEventListener('message', handleAdminMsg);
+    return () => window.removeEventListener('message', handleAdminMsg);
+  }, []);
+
   // 1. Hero Canvas Setup - Production-Grade Paint Roller & Brush Interaction
   useEffect(() => {
     const cv = canvasRef.current;
