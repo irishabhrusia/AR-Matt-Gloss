@@ -568,10 +568,142 @@ export function Home() {
         <div className="hint">{heroData.subheading || 'Grab the roller. Paint this wall.'}</div>
         <button className="rs" id="rs" onClick={handleRepaint} suppressHydrationWarning>↻ Repaint</button>
         <div className="roller" id="rl" ref={rollerRef}>
-          <svg viewBox="0 0 110 100">
-            <rect x="0" y="0" width="110" height="34" rx="17" style={{ fill: activeColor }} stroke="rgb(128, 128, 128)" strokeWidth="3" />
-            <path d="M110 17h10v26H55v20" fill="none" stroke="rgb(128, 128, 128)" strokeWidth="4" strokeLinejoin="round" />
-            <rect x="46" y="60" width="18" height="40" rx="6" fill="rgb(128, 128, 128)" />
+          <svg viewBox="-6 -4 126 112" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+            <defs>
+              {/* 3D Cylindrical Wet Paint Specular Glaze & Shading */}
+              <linearGradient id="rl_cyl_shading" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#000000" stopOpacity="0.25" />
+                <stop offset="18%" stopColor="#FFFFFF" stopOpacity="0.75" />
+                <stop offset="35%" stopColor="#FFFFFF" stopOpacity="0.2" />
+                <stop offset="65%" stopColor="#000000" stopOpacity="0.05" />
+                <stop offset="90%" stopColor="#000000" stopOpacity="0.38" />
+                <stop offset="100%" stopColor="#000000" stopOpacity="0.6" />
+              </linearGradient>
+
+              {/* Stainless Steel Chrome Wire Frame */}
+              <linearGradient id="rl_chrome_frame" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#FFFFFF" />
+                <stop offset="25%" stopColor="#E2E8F0" />
+                <stop offset="50%" stopColor="#64748B" />
+                <stop offset="75%" stopColor="#CBD5E1" />
+                <stop offset="100%" stopColor="#334155" />
+              </linearGradient>
+
+              {/* Luxury Brass Ferrule Collar */}
+              <linearGradient id="rl_brass_collar" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#78350F" />
+                <stop offset="30%" stopColor="#FDE68A" />
+                <stop offset="60%" stopColor="#D97706" />
+                <stop offset="85%" stopColor="#FDE68A" />
+                <stop offset="100%" stopColor="#451A03" />
+              </linearGradient>
+
+              {/* 3D Ergonomic Rubber Grip Handle */}
+              <linearGradient id="rl_handle_3d" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#0B1311" />
+                <stop offset="25%" stopColor="#253D34" />
+                <stop offset="45%" stopColor="#3B5A4E" />
+                <stop offset="70%" stopColor="#1B2D26" />
+                <stop offset="100%" stopColor="#050C0A" />
+              </linearGradient>
+            </defs>
+
+            {/* 1. Ambient Contact Shadow under Cylinder */}
+            <ellipse cx="55" cy="33.5" rx="52" ry="3" fill="#000000" fillOpacity="0.28" />
+
+            {/* 2. Stainless Steel Chrome Arm Behind */}
+            <path
+              d="M110 17h10v26H55v20"
+              fill="none"
+              stroke="#000000"
+              strokeOpacity="0.25"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              transform="translate(1, 2)"
+            />
+            <path
+              d="M110 17h10v26H55v20"
+              fill="none"
+              stroke="url(#rl_chrome_frame)"
+              strokeWidth="4.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M110 16.5h9.5v25.5H55v19"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeOpacity="0.75"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* 3. Roller Cylinder (Base Paint Color) */}
+            <rect x="0" y="0" width="110" height="34" rx="17" style={{ fill: activeColor }} />
+
+            {/* 3D Cylindrical Wet Paint Specular Glaze & Shading */}
+            <rect x="0" y="0" width="110" height="34" rx="17" fill="url(#rl_cyl_shading)" />
+
+            {/* Wet Gloss Sheen Stripe across center */}
+            <rect x="6" y="5" width="98" height="3.5" rx="1.75" fill="#FFFFFF" fillOpacity="0.65" />
+            <rect x="12" y="9.5" width="86" height="1.5" rx="0.75" fill="#FFFFFF" fillOpacity="0.35" />
+
+            {/* Microfiber nap texture fibers */}
+            <path d="M15 15h12M40 18h16M75 14h14M28 24h18M65 25h20" stroke="#FFFFFF" strokeOpacity="0.25" strokeWidth="1" strokeLinecap="round" />
+
+            {/* Left End-Cap with Bolt (3D Ellipse) */}
+            <ellipse cx="6" cy="17" rx="4" ry="12" fill="#0F172A" stroke="#334155" strokeWidth="0.8" />
+            <ellipse cx="6" cy="17" rx="2.5" ry="5.5" fill="url(#rl_chrome_frame)" />
+            <circle cx="6" cy="17" r="1.5" fill="#FFFFFF" />
+
+            {/* Right End-Cap with Chrome Pivot Entry */}
+            <ellipse cx="104" cy="17" rx="4" ry="12" fill="#0F172A" stroke="#334155" strokeWidth="0.8" />
+            <ellipse cx="104" cy="17" rx="3" ry="6" fill="url(#rl_chrome_frame)" />
+            <circle cx="104" cy="17" r="1.8" fill="#1E293B" />
+
+            {/* Cylinder Outer Contour Stroke for Crisp Contrast */}
+            <rect x="0" y="0" width="110" height="34" rx="17" fill="none" stroke="#0F172A" strokeWidth="1.5" strokeOpacity="0.45" />
+
+            {/* 4. Luxury Brass Collar / Ferrule at Top of Handle */}
+            <rect x="44" y="56" width="22" height="7" rx="2" fill="url(#rl_brass_collar)" stroke="#451A03" strokeWidth="0.6" />
+            <rect x="45" y="57" width="20" height="1.5" rx="0.75" fill="#FFFFFF" fillOpacity="0.5" />
+
+            {/* 5. 3D Ergonomic Rubber Grip Handle */}
+            <path
+              d="M45 62 C44 70 42 80 43 92 C43.5 99 47 103 55 103 C63 103 66.5 99 67 92 C68 80 66 70 65 62 Z"
+              fill="url(#rl_handle_3d)"
+              stroke="#050C0A"
+              strokeWidth="1.2"
+            />
+
+            {/* Ergonomic handle rubber ribs */}
+            <rect x="44.5" y="67" width="21" height="2.5" rx="1.25" fill="#070D0B" />
+            <rect x="44.5" y="67" width="21" height="1" rx="0.5" fill="#3B5A4E" fillOpacity="0.4" />
+
+            <rect x="43.5" y="73" width="23" height="2.5" rx="1.25" fill="#070D0B" />
+            <rect x="43.5" y="73" width="23" height="1" rx="0.5" fill="#3B5A4E" fillOpacity="0.4" />
+
+            <rect x="43" y="79" width="24" height="2.5" rx="1.25" fill="#070D0B" />
+            <rect x="43" y="79" width="24" height="1" rx="0.5" fill="#3B5A4E" fillOpacity="0.4" />
+
+            <rect x="43.5" y="85" width="23" height="2.5" rx="1.25" fill="#070D0B" />
+            <rect x="43.5" y="85" width="23" height="1" rx="0.5" fill="#3B5A4E" fillOpacity="0.4" />
+
+            {/* Handle Left Specular 3D Highlight Curve */}
+            <path
+              d="M45.5 64 C44.5 72 43.5 80 44.5 91"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeOpacity="0.25"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+
+            {/* Bottom hanging hole with 3D inner rim */}
+            <circle cx="55" cy="95.5" r="3.2" fill="#070D0B" stroke="#253D34" strokeWidth="0.8" />
+            <circle cx="55" cy="95.5" r="1.8" fill="#EEF1EF" fillOpacity="0.8" />
           </svg>
         </div>
         <div className="hbar">
