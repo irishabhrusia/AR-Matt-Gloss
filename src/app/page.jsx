@@ -1007,7 +1007,7 @@ export function Home() {
       </section>
 
       {/* Limewash feature */}
-      <section className="dk lw lw-home-feature" id="limewash">
+      <section className="dk lw lw-home-feature" id="limewash" style={{ background: '#B0BBC0', color: '#111111' }}>
         <div className="w lw-home-grid">
           <div className="lw-home-art rvl">
             <div className="lw-home-artframe" style={{ position: 'relative', zIndex: 1 }}>
