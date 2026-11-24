@@ -1053,6 +1053,43 @@ section {
 }
 
 /* quote */
+#contact {
+    background: #B0BBC0;
+    color: #111111;
+}
+
+#contact h2 {
+    color: #111111;
+}
+
+#contact .lead {
+    color: #222222;
+}
+
+#contact .ct {
+    color: #111111;
+}
+
+#contact .eb {
+    color: #8F6A00;
+}
+
+#contact details {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+#contact summary {
+    color: #111111;
+}
+
+#contact summary:after {
+    color: #8F6A00;
+}
+
+#contact details p {
+    color: #222222;
+}
+
 .qt {
     display: grid;
     grid-template-columns: 1.1fr 1fr;

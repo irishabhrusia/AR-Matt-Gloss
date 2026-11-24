@@ -1193,16 +1193,16 @@ export function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="dk" id="contact">
+      <section className="dk" id="contact" style={{ background: '#B0BBC0', color: '#111111' }}>
         <div className="w">
           <div className="qt">
             <div className="rvl">
-              <div className="eb">{homeData.contactIntro?.eyebrow || 'Contact'}</div>
-              <h2>{homeData.contactIntro?.headline || 'Let’s make it unforgettable.'}</h2>
-              <p className="lead">
+              <div className="eb" style={{ color: '#8F6A00' }}>{homeData.contactIntro?.eyebrow || 'Contact'}</div>
+              <h2 style={{ color: '#111111' }}>{homeData.contactIntro?.headline || 'Let’s make it unforgettable.'}</h2>
+              <p className="lead" style={{ color: '#222222' }}>
                 {homeData.contactIntro?.lead || 'No job is too small or too big. Tell us your idea and we’ll reply with expert advice and a fair quote within 24 hours.'}
               </p>
-              <div className="ct">
+              <div className="ct" style={{ color: '#111111' }}>
                 <div>
                   <svg className="i"><use href="#ph" /></svg>{homeData.contactIntro?.phone || '07309 092376 / 02034 880652'}
                 </div>
@@ -1316,19 +1316,19 @@ export function Home() {
             </form>
           </div>
 
-          <div style={{ maxWidth: '820px', marginTop: '80px' }}>
-            <div className="eb">FAQs</div>
-            <details>
-              <summary>Which areas do you cover?</summary>
-              <p>Greater London, West London and Surrey, plus up to 30 miles outside the M25.</p>
+          <div style={{ maxWidth: '820px', marginTop: '80px', color: '#111111' }}>
+            <div className="eb" style={{ color: '#8F6A00' }}>FAQs</div>
+            <details style={{ borderBottomColor: 'rgba(0, 0, 0, 0.18)' }}>
+              <summary style={{ color: '#111111' }}>Which areas do you cover?</summary>
+              <p style={{ color: '#222222' }}>Greater London, West London and Surrey, plus up to 30 miles outside the M25.</p>
             </details>
-            <details>
-              <summary>Are you insured and licensed?</summary>
-              <p>Yes, fully insured and licensed, with a satisfaction guarantee on every job.</p>
+            <details style={{ borderBottomColor: 'rgba(0, 0, 0, 0.18)' }}>
+              <summary style={{ color: '#111111' }}>Are you insured and licensed?</summary>
+              <p style={{ color: '#222222' }}>Yes, fully insured and licensed, with a satisfaction guarantee on every job.</p>
             </details>
-            <details>
-              <summary>Do you offer colour advice?</summary>
-              <p>Yes. Free colour consultations come with every quote.</p>
+            <details style={{ borderBottomColor: 'rgba(0, 0, 0, 0.18)' }}>
+              <summary style={{ color: '#111111' }}>Do you offer colour advice?</summary>
+              <p style={{ color: '#222222' }}>Yes. Free colour consultations come with every quote.</p>
             </details>
           </div>
         </div>
