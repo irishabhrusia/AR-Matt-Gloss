@@ -1160,20 +1160,20 @@ export function Home() {
                 q: 'I hired Jimmy and the team from AR Matt & Gloss for my entire home exterior. They were meticulous with preparation and the finish is flawless.',
                 n: 'Priya Sharma',
                 l: 'Fulham, London',
-                c: '#E4EDCF',
+                c: '#A8D2EB',
               },
               {
                 q: 'The attention to detail was impressive. They took the time to protect all my furniture and cleaned up thoroughly each day.',
                 n: 'Elena Rodriguez',
                 l: 'Paddington, London',
-                c: '#FCF0E8',
+                c: '#F5BFA7',
               },
             ]).map((rev, i) => (
               <figure
                 key={i}
                 className="tc rvl"
                 style={{
-                  background: rev.c || (i % 3 === 0 ? 'var(--butter)' : i % 3 === 1 ? 'var(--sage)' : 'var(--peach)')
+                  background: (rev.c && rev.c !== '#E4EDCF') ? rev.c : (i % 3 === 0 ? 'var(--butter)' : i % 3 === 1 ? 'var(--mist)' : 'var(--peach)')
                 }}
               >
                 <div className="ts">★★★★★</div>

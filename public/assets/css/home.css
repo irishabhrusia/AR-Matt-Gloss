@@ -3,16 +3,16 @@
     --on: #1A1411;
     --acct: #8F6A00;
     --pc: #FFC62E;
-    --ink: #12251F;
-    --ink2: #1B3229;
+    --ink: #111111;
+    --ink2: #1A1A1A;
     --paper: #FFFFFF;
     --paper2: #F2F6F4;
-    --mut: #43524A;
+    --mut: #333333;
     --line: #E1E7E3;
-    --sage: #C6DC9E;
-    --peach: #F7C4AF;
-    --butter: #FAD872;
-    --mist: #B7D8EC;
+    --sage: #EADBCA;
+    --peach: #F5BFA7;
+    --butter: #F7D265;
+    --mist: #A8D2EB;
     --nz: none;
     --nzd: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
 }
@@ -902,7 +902,9 @@ section {
     gap: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
-    font-size: .95rem
+    font-size: .95rem;
+    color: var(--ink);
+    font-weight: 500;
 }
 
 .bx li:last-child {
@@ -944,12 +946,15 @@ section {
     font-size: clamp(2.2rem, 4.6vw, 3.8rem);
     display: block;
     line-height: 1;
-    font-weight: 800
+    font-weight: 800;
+    color: var(--ink);
 }
 
 .stats span {
-    font-size: .85rem;
-    opacity: .9
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--ink);
+    opacity: .95;
 }
 
 .steps {
@@ -2963,7 +2968,7 @@ footer :focus-visible,
 
 .discover-photo-button.is-active {
     border-color: #FFC62E;
-    box-shadow: 0 0 0 2px #12251F, 0 6px 15px #0005;
+    box-shadow: 0 0 0 2px #111111, 0 6px 15px #0005;
     transform: translateY(-3px)
 }
 
@@ -3085,7 +3090,7 @@ footer :focus-visible,
     align-items: center;
     white-space: nowrap;
     align-self: end;
-    background: #12251F;
+    background: #111111;
     color: #fff;
     border-radius: 99px;
     font-size: .78rem;
@@ -3123,7 +3128,7 @@ footer :focus-visible,
     display: inline-flex;
     align-items: center;
     gap: 25px;
-    border-bottom: 2px solid #12251F;
+    border-bottom: 2px solid #111111;
     font-size: .92rem;
     font-weight: 700;
     padding-bottom: 7px;
