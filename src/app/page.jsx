@@ -14,8 +14,19 @@ const COLORS = [
   ['#F2A7B8', 'Blush'],
   ['#12B5B0', 'Teal'],
   ['#8B4DFF', 'Violet'],
-  ['#303D37', 'Grey']
+  ['#9AA6A0', 'Light Grey']
 ];
+
+const TEXT_COLORS = {
+  '#FFC62E': '#0039D1',
+  '#E8663D': '#1799C2',
+  '#2F6B57': '#D094A8',
+  '#6C9BD1': '#93642E',
+  '#F2A7B8': '#0D5847',
+  '#12B5B0': '#ED4A4F',
+  '#8B4DFF': '#74B200',
+  '#9AA6A0': '#FFFFFF'
+};
 
 export function Home() {
   usePageStyle('/assets/css/home.css');
@@ -27,6 +38,7 @@ export function Home() {
   const canvasRef = useRef(null);
   const heroRef = useRef(null);
   const rollerRef = useRef(null);
+  const overlayRef = useRef(null);
   const animRef = useRef(null);
   const initialTimerRef = useRef(null);
 
@@ -336,6 +348,9 @@ export function Home() {
         clearTimeout(initialTimerRef.current);
         initialTimerRef.current = null;
       }
+      if (overlayRef.current) {
+        overlayRef.current.style.clipPath = 'none';
+      }
     }
 
     function sweep(color) {
@@ -343,12 +358,26 @@ export function Home() {
       if (RM) {
         cx.fillStyle = color;
         cx.fillRect(0, 0, W, H);
+        if (overlayRef.current) {
+          const isLg = color === '#9AA6A0';
+          overlayRef.current.style.color = TEXT_COLORS[color] || (isLg ? '#FFFFFF' : '#0039D1');
+          overlayRef.current.style.textShadow = isLg ? '0 2px 14px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.55)' : 'none';
+          overlayRef.current.style.clipPath = 'none';
+        }
         return;
       }
       auto = true;
       lx = null;
       ly = null;
       lastTime = null;
+
+      if (overlayRef.current) {
+        const isLg = color === '#9AA6A0';
+        overlayRef.current.style.color = TEXT_COLORS[color] || (isLg ? '#FFFFFF' : '#0039D1');
+        overlayRef.current.style.textShadow = isLg ? '0 2px 14px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.55)' : 'none';
+        overlayRef.current.style.clipPath = 'polygon(0 0, 0 0, 0 100%, 0 100%)';
+      }
+
       path = [];
       let d = 1;
       const margin = CH + 40;
@@ -388,11 +417,19 @@ export function Home() {
         stamp(px, py, color);
         place(px, py);
 
+        if (overlayRef.current) {
+          const revealX = Math.min(W, Math.max(0, px + RW * 0.5));
+          overlayRef.current.style.clipPath = `polygon(0 0, ${revealX}px 0, ${revealX}px 100%, 0 100%)`;
+        }
+
         if (pi >= path.length) {
           auto = false;
           lx = null;
           ly = null;
           rl.style.opacity = '0';
+          if (overlayRef.current) {
+            overlayRef.current.style.clipPath = 'none';
+          }
           return;
         }
         animRef.current = requestAnimationFrame(f);
@@ -424,6 +461,9 @@ export function Home() {
       ly = coords.y;
       stamp(coords.x, coords.y, activeColorRef.current);
       place(coords.cssX, coords.cssY);
+      if (overlayRef.current) {
+        overlayRef.current.style.clipPath = 'none';
+      }
     }
 
     function onPointerMove(e) {
@@ -443,6 +483,9 @@ export function Home() {
       const coords = getCanvasCoords(e);
       stamp(coords.x, coords.y, activeColorRef.current);
       place(coords.cssX, coords.cssY);
+      if (overlayRef.current) {
+        overlayRef.current.style.clipPath = 'none';
+      }
     }
 
     function onPointerUp() {
@@ -508,6 +551,9 @@ export function Home() {
   };
 
   const handleRepaint = () => {
+    if (overlayRef.current) {
+      overlayRef.current.style.clipPath = 'polygon(0 0, 0 0, 0 100%, 0 100%)';
+    }
     if (heroRef.current && heroRef.current._clear && heroRef.current._sweep) {
       heroRef.current._clear();
       heroRef.current._sweep(activeColorRef.current);
@@ -564,8 +610,20 @@ export function Home() {
     <main suppressHydrationWarning>
       {/* Hero */}
       <div className="hero" id="home" ref={heroRef}>
+        <h1 className="hero-h1-base" aria-hidden="true">
+          {heroData.headline || 'Make your walls unforgettable.'}
+        </h1>
         <canvas id="cv" ref={canvasRef}></canvas>
-        <h1>{heroData.headline || 'Make your walls unforgettable.'}</h1>
+        <h1
+          ref={overlayRef}
+          className="hero-h1-overlay"
+          style={{
+            clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+            color: TEXT_COLORS[activeColor] || '#0039D1'
+          }}
+        >
+          {heroData.headline || 'Make your walls unforgettable.'}
+        </h1>
         <div className="hint">{heroData.subheading || 'Grab the roller. Paint this wall.'}</div>
         <button className="rs" id="rs" onClick={handleRepaint} suppressHydrationWarning>↻ Repaint</button>
         <div className="roller" id="rl" ref={rollerRef}>
