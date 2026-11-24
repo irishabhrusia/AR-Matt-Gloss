@@ -9,10 +9,9 @@ export const PaintTransitionContext = createContext({
 export const usePaintTransition = () => useContext(PaintTransitionContext);
 
 const COLOR = '#FFC62E';
-const DUR = 2000; // 1s sweep-in to full yellow paint, 1s sweep-out to unveil new page
-const S = 0.91;
-const TIPX = 380 * S;
-const TIPY = 100 * S;
+const DUR = 1800; // 900ms sweep-in to full yellow paint, 900ms sweep-out to unveil new page
+const TIPX = 40;
+const TIPY = 95;
 
 const easeIO = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
 
@@ -21,7 +20,7 @@ export function PaintTransition({ children }) {
   const pathname = usePathname() || '/';
 
   const canvasRef = useRef(null);
-  const brushRef = useRef(null);
+  const rollerRef = useRef(null);
   const animRef = useRef(null);
   const isTransitioningRef = useRef(false);
   const rafIdRef = useRef(null);
@@ -32,11 +31,11 @@ export function PaintTransition({ children }) {
   }, [pathname]);
 
   const runTransition = (targetDestination) => {
-    if (isTransitioningRef.current || !canvasRef.current || !brushRef.current) return;
+    if (isTransitioningRef.current || !canvasRef.current || !rollerRef.current) return;
 
     isTransitioningRef.current = true;
     const canvas = canvasRef.current;
-    const brush = brushRef.current;
+    const roller = rollerRef.current;
     const ctx = canvas.getContext('2d');
 
     const dpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
@@ -50,7 +49,7 @@ export function PaintTransition({ children }) {
     canvas.style.display = 'block';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    brush.style.display = 'block';
+    roller.style.display = 'block';
 
     animRef.current = {
       t0: performance.now(),
@@ -61,7 +60,7 @@ export function PaintTransition({ children }) {
       H,
       ctx,
       canvas,
-      brush
+      roller
     };
 
     const frame = (now) => {
@@ -91,8 +90,8 @@ export function PaintTransition({ children }) {
       }
 
       const lead = t < half ? b : a;
-      const y = curH / 2 + Math.sin(t * Math.PI * 6) * curH * 0.25;
-      const ang = Math.cos(t * Math.PI * 6) * 18 - 10;
+      const y = curH / 2 + Math.sin(t * Math.PI * 4) * curH * 0.18;
+      const ang = Math.cos(t * Math.PI * 4) * 8 - 2;
 
       // Draw wavy paint edge on canvas
       anim.ctx.clearRect(0, 0, curW, curH);
@@ -115,13 +114,13 @@ export function PaintTransition({ children }) {
 
       // Splatter particles
       if (t > 0.02 && t < 0.98) {
-        for (let k = 0; k < 4; k++) {
+        for (let k = 0; k < 3; k++) {
           anim.particles.push({
-            x: lead + (Math.random() - 0.5) * 20,
-            y: y + (Math.random() - 0.5) * 120,
-            vx: 2 + Math.random() * 6,
-            vy: (Math.random() - 0.5) * 8,
-            r: 2 + Math.random() * 7,
+            x: lead + (Math.random() - 0.5) * 16,
+            y: y + (Math.random() - 0.5) * 130,
+            vx: 1 + Math.random() * 4,
+            vy: (Math.random() - 0.5) * 6,
+            r: 2 + Math.random() * 5,
             life: 1
           });
         }
@@ -141,16 +140,16 @@ export function PaintTransition({ children }) {
       }
       anim.ctx.globalAlpha = 1;
 
-      // Position the paintbrush
-      anim.brush.style.transformOrigin = `${TIPX}px ${TIPY}px`;
-      anim.brush.style.transform = `translate(${lead - TIPX}px, ${y - TIPY}px) rotate(${ang}deg)`;
+      // Position the paint roller
+      anim.roller.style.transformOrigin = `${TIPX}px ${TIPY}px`;
+      anim.roller.style.transform = `translate(${lead - TIPX}px, ${y - TIPY}px) rotate(${ang}deg)`;
 
       if (t < 1 || anim.particles.length > 0) {
         rafIdRef.current = requestAnimationFrame(frame);
       } else {
         // Finished
         anim.ctx.clearRect(0, 0, curW, curH);
-        anim.brush.style.display = 'none';
+        anim.roller.style.display = 'none';
         anim.canvas.style.display = 'none';
         animRef.current = null;
         isTransitioningRef.current = false;
@@ -274,52 +273,118 @@ export function PaintTransition({ children }) {
         }}
       />
 
-      {/* Realistic Paintbrush */}
+      {/* Luxury AR Paint Roller */}
       <div
-        id="brush"
-        ref={brushRef}
+        id="roller"
+        ref={rollerRef}
         style={{
           position: 'fixed',
           left: 0,
           top: 0,
-          width: '364px',
-          height: '182px',
+          width: '230px',
+          height: '215px',
           pointerEvents: 'none',
           zIndex: 999999,
           display: 'none',
-          color: COLOR
+          filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.22))'
         }}
       >
-        <svg width="364" height="182" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <svg width="230" height="215" viewBox="0 0 230 215" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="pt_hd" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#D9583A" />
-              <stop offset=".45" stopColor="#A93A22" />
-              <stop offset="1" stopColor="#7A2616" />
+            {/* 3D Wet Paint Sleeve Gradient */}
+            <linearGradient id="pt_roller_sleeve" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#D99B18" />
+              <stop offset="25%" stopColor="#FFC62E" />
+              <stop offset="55%" stopColor="#FFF1B8" />
+              <stop offset="78%" stopColor="#FFC62E" />
+              <stop offset="100%" stopColor="#C4890C" />
             </linearGradient>
-            <linearGradient id="pt_fe" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#F4F6F8" />
-              <stop offset=".4" stopColor="#B9BFC7" />
-              <stop offset=".7" stopColor="#E9ECF0" />
-              <stop offset="1" stopColor="#8E959E" />
+
+            {/* Stainless Steel Cage Arm */}
+            <linearGradient id="pt_metal_frame" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="30%" stopColor="#CBD5E1" />
+              <stop offset="60%" stopColor="#64748B" />
+              <stop offset="85%" stopColor="#E2E8F0" />
+              <stop offset="100%" stopColor="#475569" />
+            </linearGradient>
+
+            {/* Matte Luxury Handle */}
+            <linearGradient id="pt_handle_body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#253D34" />
+              <stop offset="35%" stopColor="#12251F" />
+              <stop offset="80%" stopColor="#0B1713" />
+              <stop offset="100%" stopColor="#050C0A" />
+            </linearGradient>
+
+            {/* Gold Brass Collar Ring */}
+            <linearGradient id="pt_gold_ferrule" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#FDE68A" />
+              <stop offset="45%" stopColor="#C5A880" />
+              <stop offset="100%" stopColor="#92400E" />
             </linearGradient>
           </defs>
-          {/* Handle */}
-          <path d="M226 70 L140 80 Q60 84 30 92 Q14 100 30 108 Q60 116 140 120 L226 130 Z" fill="url(#pt_hd)" />
-          <path d="M150 84 Q100 86 60 92" stroke="#FFFFFF" strokeOpacity=".25" strokeWidth="3" fill="none" />
-          <ellipse cx="30" cy="100" rx="6" ry="9" fill="#4A1509" />
-          {/* Ferrule */}
-          <rect x="222" y="50" width="82" height="100" rx="4" fill="url(#pt_fe)" stroke="#7d848d" strokeWidth="1.5" />
-          <line x1="240" y1="52" x2="240" y2="148" stroke="#7d848d" strokeWidth="2" />
-          <line x1="290" y1="52" x2="290" y2="148" stroke="#7d848d" strokeWidth="2" />
-          <circle cx="250" cy="72" r="3" fill="#6b727b" />
-          <circle cx="250" cy="128" r="3" fill="#6b727b" />
-          {/* Bristles */}
-          <path d="M300 50 L358 30 L378 34 L380 166 L358 170 L300 150 Z" fill="#E6CF9A" />
-          <path d="M300 50 L358 30 L378 34 L380 100 L300 96 Z" fill="#F3E4BE" opacity=".8" />
-          <path d="M322 52 L322 148 M344 40 L344 160" stroke="#C4A96C" strokeWidth="1.5" opacity=".7" />
-          {/* Wet paint tip in #FFC62E */}
-          <path d="M356 30 L378 34 L380 100 L366 101 Z" fill="currentColor" opacity=".95" />
+
+          {/* 1. Metal Frame behind the cylinder */}
+          <path
+            d="M 40 165 L 40 184 Q 40 196 54 196 L 94 196 Q 106 196 106 184 L 106 126 Q 106 112 120 112 L 140 112"
+            fill="none"
+            stroke="url(#pt_metal_frame)"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M 40 165 L 40 184 Q 40 196 54 196 L 94 196 Q 106 196 106 184 L 106 126 Q 106 112 120 112 L 140 112"
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="1.5"
+            strokeOpacity="0.65"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* 2. Roller Cylinder (Sleeve loaded with Sunshine Yellow paint) */}
+          <rect x="18" y="25" width="44" height="140" rx="12" fill="url(#pt_roller_sleeve)" stroke="#B45309" strokeWidth="1" />
+
+          {/* Wet paint gloss sheen stripe */}
+          <rect x="36" y="28" width="6" height="134" rx="3" fill="#FFFFFF" fillOpacity="0.45" />
+
+          {/* Subtle nap texture fibers */}
+          <path d="M 22 45 Q 38 48 58 46" stroke="#FFFFFF" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
+          <path d="M 22 75 Q 38 78 58 76" stroke="#FFFFFF" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
+          <path d="M 22 105 Q 38 108 58 106" stroke="#FFFFFF" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
+          <path d="M 22 135 Q 38 138 58 136" stroke="#FFFFFF" strokeWidth="1.2" strokeOpacity="0.35" strokeLinecap="round" />
+
+          {/* Top end cap & bolt */}
+          <ellipse cx="40" cy="25" rx="22" ry="7" fill="#12251F" stroke="#000000" strokeWidth="0.8" />
+          <circle cx="40" cy="25" r="4.5" fill="#CBD5E1" stroke="#475569" strokeWidth="0.8" />
+
+          {/* Bottom end cap & bolt */}
+          <ellipse cx="40" cy="165" rx="22" ry="7" fill="#C4890C" stroke="#92400E" strokeWidth="0.8" />
+          <circle cx="40" cy="165" r="4.5" fill="#CBD5E1" stroke="#475569" strokeWidth="0.8" />
+
+          {/* 3. Handle Assembly */}
+          <rect x="136" y="103" width="8" height="18" rx="2" fill="url(#pt_gold_ferrule)" stroke="#78350F" strokeWidth="0.8" />
+          <path
+            d="M 144 102 L 208 102 Q 216 102 216 112 Q 216 122 208 122 L 144 122 Z"
+            fill="url(#pt_handle_body)"
+            stroke="#0A1612"
+            strokeWidth="1"
+          />
+
+          {/* Ergonomic handle rubber ribs */}
+          <rect x="160" y="104" width="3" height="16" rx="1.5" fill="#0A1612" />
+          <rect x="172" y="104" width="3" height="16" rx="1.5" fill="#0A1612" />
+          <rect x="184" y="104" width="3" height="16" rx="1.5" fill="#0A1612" />
+
+          {/* Handle highlight & end hole */}
+          <line x1="148" y1="105" x2="204" y2="105" stroke="#FFFFFF" strokeOpacity="0.25" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="208" cy="112" r="3.5" fill="#050C0A" />
+
+          {/* Paint drips off the roller bottom */}
+          <circle cx="34" cy="174" r="2.5" fill="#FFC62E" />
+          <circle cx="48" cy="178" r="1.8" fill="#FFC62E" />
         </svg>
       </div>
     </PaintTransitionContext.Provider>
