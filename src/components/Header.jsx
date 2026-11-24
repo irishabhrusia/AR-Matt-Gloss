@@ -37,7 +37,20 @@ export function Header({ menuOpen, setMenuOpen }) {
   };
 
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 1000, background: 'rgba(255, 255, 255, 0.96)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
+    <>
+      <header
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          zIndex: 1000,
+          background: 'rgba(255, 255, 255, 0.96)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+        }}
+      >
       <div className="w">
         <Link className="logo" href="/" onClick={handleHomeClick}>
           <img
@@ -125,5 +138,7 @@ export function Header({ menuOpen, setMenuOpen }) {
         </div>
       </div>
     </header>
+    <div className="header-spacer" style={{ height: '74px', width: '100%', pointerEvents: 'none' }} aria-hidden="true" />
+  </>
   );
 }
