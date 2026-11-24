@@ -87,7 +87,7 @@ const SEED_SETTINGS = {
       { hex: '#F2A7B8', name: 'Blush', active: true },
       { hex: '#12B5B0', name: 'Teal', active: true },
       { hex: '#8B4DFF', name: 'Violet', active: true },
-      { hex: '#9AA6A0', name: 'Light Grey', active: true },
+      { hex: '#8F9C95', name: 'Light Grey', active: true },
     ],
   },
   hero: {
