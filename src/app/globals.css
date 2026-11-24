@@ -467,19 +467,30 @@ nav>a.on:after,
 }
 
 /* ==========================================================================
-   Navbar "Get free quote" Button - Grey Theme
+   All Primary Buttons Across Website - Grey Theme (#8F9C95)
    ========================================================================== */
-.hc .btn.btn-quote,
-.mobile-menu-cta .btn.btn-quote {
+.btn.p,
+button.btn.p,
+a.btn.p,
+.hc .btn,
+.mobile-menu-cta .btn.p,
+.mobile-menu-cta .btn.btn-quote,
+.mb .btn.p {
   background: #8F9C95 !important;
   border-color: #8F9C95 !important;
   color: #FFFFFF !important;
   transition: transform .2s, background .2s, border-color .2s;
 }
 
-.hc .btn.btn-quote:hover,
-.mobile-menu-cta .btn.btn-quote:hover {
+.btn.p:hover,
+button.btn.p:hover,
+a.btn.p:hover,
+.hc .btn:hover,
+.mobile-menu-cta .btn.p:hover,
+.mobile-menu-cta .btn.btn-quote:hover,
+.mb .btn.p:hover {
   background: #78857E !important;
   border-color: #78857E !important;
   color: #FFFFFF !important;
+  filter: none !important;
 }

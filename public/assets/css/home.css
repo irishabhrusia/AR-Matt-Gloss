@@ -107,9 +107,16 @@ h2 {
 }
 
 .btn.p {
-    background: var(--acc);
-    border-color: var(--acc);
-    color: var(--on)
+    background: #8F9C95;
+    border-color: #8F9C95;
+    color: #FFFFFF;
+}
+
+.btn.p:hover {
+    background: #78857E;
+    border-color: #78857E;
+    color: #FFFFFF;
+    filter: none;
 }
 
 .btn:hover {
@@ -2511,7 +2518,9 @@ footer :focus-visible,
     }
 
     .mb .btn.p {
-        background: var(--acc)
+        background: #8F9C95;
+        border-color: #8F9C95;
+        color: #FFFFFF;
     }
 
     .dock {
