@@ -18,7 +18,7 @@ const COLORS = [
 ];
 
 export function Home() {
-  usePageStyle('/assets/css/home.css');
+  usePageStyle('/assets/css/home.css?v=2');
   useReveal();
 
   // Color picker state & canvas
@@ -1112,10 +1112,22 @@ export function Home() {
             </div>
           </div>
           <div className="stats rvl">
-            <div><b data-n={homeData.why?.statsYears ? homeData.why.statsYears.replace(/\D/g, '') || '28' : '28'} data-s="+">{homeData.why?.statsYears || '28+'}</b><span>Years of experience</span></div>
-            <div><b data-n={homeData.why?.statsClients ? homeData.why.statsClients.replace(/\D/g, '') || '1247' : '1247'}>{homeData.why?.statsClients || '1,247'}</b><span>Happy clients</span></div>
-            <div><b data-n={homeData.why?.statsProjects ? homeData.why.statsProjects.replace(/\D/g, '') || '1500' : '1500'} data-s="+">{homeData.why?.statsProjects || '1500+'}</b><span>Projects completed</span></div>
-            <div><b>{homeData.why?.statsSupport || '24/7'}</b><span>Support available</span></div>
+            <div style={{ background: '#D6AF85', color: '#111111' }}>
+              <b style={{ color: '#111111' }} data-n={homeData.why?.statsYears ? homeData.why.statsYears.replace(/\D/g, '') || '28' : '28'} data-s="+">{homeData.why?.statsYears || '28+'}</b>
+              <span style={{ color: '#111111', fontWeight: 600, opacity: 1 }}>Years of experience</span>
+            </div>
+            <div style={{ background: '#E58E70', color: '#111111' }}>
+              <b style={{ color: '#111111' }} data-n={homeData.why?.statsClients ? homeData.why.statsClients.replace(/\D/g, '') || '1247' : '1247'}>{homeData.why?.statsClients || '1,247'}</b>
+              <span style={{ color: '#111111', fontWeight: 600, opacity: 1 }}>Happy clients</span>
+            </div>
+            <div style={{ background: '#F0BA30', color: '#111111' }}>
+              <b style={{ color: '#111111' }} data-n={homeData.why?.statsProjects ? homeData.why.statsProjects.replace(/\D/g, '') || '1500' : '1500'} data-s="+">{homeData.why?.statsProjects || '1500+'}</b>
+              <span style={{ color: '#111111', fontWeight: 600, opacity: 1 }}>Projects completed</span>
+            </div>
+            <div style={{ background: '#6EAED6', color: '#111111' }}>
+              <b style={{ color: '#111111' }}>{homeData.why?.statsSupport || '24/7'}</b>
+              <span style={{ color: '#111111', fontWeight: 600, opacity: 1 }}>Support available</span>
+            </div>
           </div>
           <div className="steps">
             <div className="st rvl">
