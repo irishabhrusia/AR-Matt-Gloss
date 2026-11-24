@@ -14,7 +14,7 @@ const COLORS = [
   ['#F2A7B8', 'Blush'],
   ['#12B5B0', 'Teal'],
   ['#8B4DFF', 'Violet'],
-  ['#8F9C95', 'Light Grey']
+  ['#303D37', 'Grey']
 ];
 
 export function Home() {
@@ -24,10 +24,12 @@ export function Home() {
   // Color picker state & canvas
   const [activeColor, setActiveColor] = useState(COLORS[0][0]);
   const activeColorRef = useRef(COLORS[0][0]);
-  const isLightGrey = activeColor === '#8F9C95';
   const canvasRef = useRef(null);
   const heroRef = useRef(null);
   const rollerRef = useRef(null);
+  const painterRef = useRef(null);
+  const speechRef = useRef(null);
+  const speechTextRef = useRef(null);
   const animRef = useRef(null);
   const initialTimerRef = useRef(null);
 
@@ -251,6 +253,9 @@ export function Home() {
     const cv = canvasRef.current;
     const hero = heroRef.current;
     const rl = rollerRef.current;
+    const painter = painterRef.current;
+    const speech = speechRef.current;
+    const speechText = speechTextRef.current;
     if (!cv || !hero || !rl) return;
 
     const cx = cv.getContext('2d');
@@ -337,6 +342,8 @@ export function Home() {
         clearTimeout(initialTimerRef.current);
         initialTimerRef.current = null;
       }
+      if (painter) painter.style.display = 'none';
+      if (speech) speech.style.display = 'none';
     }
 
     function sweep(color) {
@@ -350,20 +357,47 @@ export function Home() {
       lx = null;
       ly = null;
       lastTime = null;
+
+      // 3D Painter character sizing relative to hero height
+      const charSize = Math.round(Math.min(420, Math.max(260, H * 0.52)));
+      if (painter) {
+        painter.style.width = charSize + 'px';
+        painter.style.height = charSize + 'px';
+        painter.style.display = 'block';
+        painter.style.opacity = '1';
+        if (speech && speechText) {
+          speech.style.display = 'flex';
+          speechText.textContent = "Let's paint! 🎨";
+        }
+      }
+      rl.style.opacity = '0';
+
       path = [];
-      let d = 1;
       const margin = CH + 40;
-      for (let x = RW / 2; x < W + RW / 2; x += RW * 0.85) {
-        path.push([x, d ? -margin : H + margin], [x, d ? H + margin : -margin]);
+      const startX = RW / 2;
+
+      // 1. Entrance: Painter starts off-screen left and walks into hero canvas
+      path.push({ pt: [-charSize * 0.7 - 40, H * 0.45], painting: false });
+      path.push({ pt: [startX, -margin], painting: false });
+
+      // 2. Wall painting columns:
+      let d = 1;
+      for (let x = startX; x < W + RW / 2; x += RW * 0.85) {
+        path.push({ pt: [x, d ? H + margin : -margin], painting: true });
         d = !d;
       }
+
+      // 3. Exit: Painter finishes wall, turns and exits off-screen right
+      path.push({ pt: [W + RW / 2, H * 0.45], painting: false });
+      path.push({ pt: [W + charSize * 0.7 + 60, H * 0.45], painting: false });
+
       if (path.length === 0) return;
       pi = 0;
-      px = path[0][0];
-      py = path[0][1];
+      px = path[0].pt[0];
+      py = path[0].pt[1];
 
-      // Roller sweep speed in pixels/second (higher = faster)
-      const SPEED = Math.max(1600, Math.min(2200, H * 2.4));
+      // Roller sweep speed in pixels/second
+      const SPEED = Math.max(1800, Math.min(2600, H * 2.6));
 
       function f(now) {
         if (!auto) return;
@@ -372,27 +406,46 @@ export function Home() {
         lastTime = now;
 
         const sp = SPEED * dt;
-        const t = path[pi];
-        const dx = t[0] - px;
-        const dy = t[1] - py;
+        const target = path[pi];
+        const tx = target.pt[0];
+        const ty = target.pt[1];
+        const dx = tx - px;
+        const dy = ty - py;
         const dist = Math.hypot(dx, dy);
 
         if (dist <= sp) {
-          px = t[0];
-          py = t[1];
+          px = tx;
+          py = ty;
           pi++;
         } else {
           px += (dx / dist) * sp;
           py += (dy / dist) * sp;
         }
 
-        stamp(px, py, color);
-        place(px, py);
+        // Only stamp when active on painting segment
+        if (target.painting && px >= -10 && px <= W + 20) {
+          stamp(px, py, color);
+        }
+
+        // Position & animate 3D Painter mascot character
+        if (painter) {
+          const charX = px - charSize * 0.70;
+          const charY = py - charSize * 0.30;
+          const walkBob = Math.sin(now / 90) * 6;
+          const walkTilt = Math.cos(now / 180) * 2.5;
+          painter.style.transform = `translate(${charX}px, ${charY + walkBob}px) rotate(${walkTilt}deg)`;
+
+          if (speechText && pi >= path.length - 2) {
+            speechText.textContent = "All painted! ✨";
+          }
+        }
 
         if (pi >= path.length) {
           auto = false;
           lx = null;
           ly = null;
+          if (painter) painter.style.display = 'none';
+          if (speech) speech.style.display = 'none';
           rl.style.opacity = '0';
           return;
         }
@@ -569,19 +622,43 @@ export function Home() {
       {/* Hero */}
       <div className="hero" id="home" ref={heroRef}>
         <canvas id="cv" ref={canvasRef}></canvas>
-        <h1
-          style={
-            isLightGrey
-              ? {
-                  color: '#FFFFFF',
-                  mixBlendMode: 'normal',
-                  textShadow: '0 3px 20px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.75)'
-                }
-              : undefined
-          }
+
+        {/* 3D Painter Mascot Character */}
+        <div
+          id="painter-character"
+          ref={painterRef}
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '320px',
+            height: '320px',
+            pointerEvents: 'none',
+            zIndex: 5,
+            display: 'none',
+            willChange: 'transform',
+            filter: 'drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))'
+          }}
         >
-          {heroData.headline || 'Make your walls unforgettable.'}
-        </h1>
+          {/* Speech Bubble */}
+          <div className="painter-speech" ref={speechRef} style={{ display: 'none' }}>
+            <span ref={speechTextRef}>Let&apos;s paint! 🎨</span>
+          </div>
+
+          {/* 3D Character Image */}
+          <img
+            src="/assets/images/painter-3d.png"
+            alt="3D Painter"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              display: 'block',
+              userSelect: 'none'
+            }}
+          />
+        </div>
+        <h1>{heroData.headline || 'Make your walls unforgettable.'}</h1>
         <div className="hint">{heroData.subheading || 'Grab the roller. Paint this wall.'}</div>
         <button className="rs" id="rs" onClick={handleRepaint} suppressHydrationWarning>↻ Repaint</button>
         <div className="roller" id="rl" ref={rollerRef}>

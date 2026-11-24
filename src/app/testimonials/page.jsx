@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePageStyle } from '@/hooks/usePageStyle';
@@ -68,7 +68,7 @@ export function Testimonials() {
                     cy="50"
                     r="44"
                     fill="none"
-                    stroke="rgb(128, 128, 128)"
+                    stroke="#12251F"
                     strokeWidth="9"
                     strokeLinecap="round"
                     strokeDasharray="276.5"
@@ -121,7 +121,7 @@ export function Testimonials() {
                     cy="50"
                     r="44"
                     fill="none"
-                    stroke="rgb(128, 128, 128)"
+                    stroke="#12251F"
                     strokeWidth="9"
                     strokeLinecap="round"
                     strokeDasharray="276.5"
