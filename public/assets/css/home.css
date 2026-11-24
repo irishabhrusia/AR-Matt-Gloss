@@ -278,7 +278,16 @@ nav>a.on:after,
 
 .hc .btn {
     padding: 11px 22px;
-    font-size: .88rem
+    font-size: .88rem;
+    background: #8F9C95;
+    border-color: #8F9C95;
+    color: #FFFFFF;
+}
+
+.hc .btn:hover {
+    background: #78857E;
+    border-color: #78857E;
+    color: #FFFFFF;
 }
 
 .burger {

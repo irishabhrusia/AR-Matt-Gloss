@@ -154,7 +154,12 @@ export function MobileMenu({ isOpen, onClose }) {
           </svg>
           07309 092376
         </a>
-        <Link className="btn p" href="/contact" onClick={onClose}>
+        <Link
+          className="btn p btn-quote"
+          href="/contact"
+          onClick={onClose}
+          style={{ background: '#8F9C95', borderColor: '#8F9C95', color: '#FFFFFF' }}
+        >
           Get free quote
         </Link>
       </div>

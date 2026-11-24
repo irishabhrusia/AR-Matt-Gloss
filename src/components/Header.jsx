@@ -108,7 +108,13 @@ export function Header({ menuOpen, setMenuOpen }) {
             </svg>
             {phone}
           </a>
-          <Link className="btn p" href="/contact">Get free quote</Link>
+          <Link
+            className="btn p btn-quote"
+            href="/contact"
+            style={{ background: '#8F9C95', borderColor: '#8F9C95', color: '#FFFFFF' }}
+          >
+            Get free quote
+          </Link>
           <button
             className={`burger ${menuOpen ? 'o' : ''}`}
             id="bg"

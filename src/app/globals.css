@@ -465,3 +465,21 @@ nav>a.on:after,
   position: absolute !important;
   z-index: 10 !important;
 }
+
+/* ==========================================================================
+   Navbar "Get free quote" Button - Grey Theme
+   ========================================================================== */
+.hc .btn.btn-quote,
+.mobile-menu-cta .btn.btn-quote {
+  background: #8F9C95 !important;
+  border-color: #8F9C95 !important;
+  color: #FFFFFF !important;
+  transition: transform .2s, background .2s, border-color .2s;
+}
+
+.hc .btn.btn-quote:hover,
+.mobile-menu-cta .btn.btn-quote:hover {
+  background: #78857E !important;
+  border-color: #78857E !important;
+  color: #FFFFFF !important;
+}
