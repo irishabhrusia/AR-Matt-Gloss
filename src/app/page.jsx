@@ -1154,36 +1154,33 @@ export function Home() {
                 q: 'Outstanding work from start to finish. The team was professional, punctual, and the quality of their painting exceeded my expectations.',
                 n: 'Marcus Thompson',
                 l: 'Kensington, London',
-                c: '#F3F2EC',
+                c: '#F6CA4B',
               },
               {
                 q: 'I hired Jimmy and the team from AR Matt & Gloss for my entire home exterior. They were meticulous with preparation and the finish is flawless.',
                 n: 'Priya Sharma',
                 l: 'Fulham, London',
-                c: '#A8D2EB',
+                c: '#94C8E8',
               },
               {
                 q: 'The attention to detail was impressive. They took the time to protect all my furniture and cleaned up thoroughly each day.',
                 n: 'Elena Rodriguez',
                 l: 'Paddington, London',
-                c: '#F5BFA7',
+                c: '#F2AE97',
               },
-            ]).map((rev, i) => (
-              <figure
-                key={i}
-                className="tc rvl"
-                style={{
-                  background: (rev.c && rev.c !== '#E4EDCF') ? rev.c : (i % 3 === 0 ? 'var(--butter)' : i % 3 === 1 ? 'var(--mist)' : 'var(--peach)')
-                }}
-              >
-                <div className="ts">★★★★★</div>
-                <blockquote>“{rev.q}”</blockquote>
-                <figcaption>
-                  <span className="av">{(rev.n || 'C').split(' ').map((x) => x[0]).join('')}</span>
-                  <span><b>{rev.n}</b><small>{rev.l}</small></span>
-                </figcaption>
-              </figure>
-            ))}
+            ]).map((rev, i) => {
+              const bg = (rev.c && rev.c !== '#E4EDCF') ? rev.c : (i % 3 === 0 ? 'var(--butter)' : i % 3 === 1 ? 'var(--mist)' : 'var(--peach)');
+              return (
+                <figure key={i} className="tc rvl" style={{ background: bg }}>
+                  <div className="ts">★★★★★</div>
+                  <blockquote>“{rev.q}”</blockquote>
+                  <figcaption>
+                    <span className="av">{(rev.n || 'C').split(' ').map((x) => x[0]).join('')}</span>
+                    <span><b>{rev.n}</b><small>{rev.l}</small></span>
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
           <div style={{ textAlign: 'center', marginTop: '34px' }}>
             <Link className="btn p" href="/testimonials">

@@ -11,56 +11,56 @@ export const TESTIMONIALS = [
     n: 'Marcus Thompson',
     l: 'Kensington, London',
     t: ['Interior'],
-    c: '#F3F2EC'
+    c: '#F6CA4B'
   },
   {
     q: 'I hired Jimmy and the team from AR Matt & Gloss for my entire home exterior. They were meticulous with preparation and the finish is flawless. Highly recommend their services.',
     n: 'Priya Sharma',
     l: 'Fulham, London',
     t: ['Exterior'],
-    c: '#E4EDCF'
+    c: '#94C8E8'
   },
   {
     q: 'The attention to detail was impressive. They took the time to protect all my furniture and cleaned up thoroughly each day. The color consultation was incredibly helpful.',
     n: 'Elena Rodriguez',
     l: 'Paddington, London',
     t: ['Interior', 'Colour advice'],
-    c: '#FCEBDD'
+    c: '#F2AE97'
   },
   {
     q: 'Professional team that delivered exactly what they promised. The cabinet refinishing transformed my kitchen completely. Great value for the quality of work.',
     n: 'James Chen',
     l: 'Putney, London',
     t: ['Cabinets'],
-    c: '#FBEEC2'
+    c: '#F6CA4B'
   },
   {
     q: 'From the initial quote to the final walkthrough, everything was handled professionally. The painters were courteous and the results speak for themselves.',
     n: 'Sarah Mitchell',
     l: 'Chelsea, London',
     t: ['Interior'],
-    c: '#DCEAF2'
+    c: '#94C8E8'
   },
   {
     q: 'I have used Jimmy and the team from AR Matt & Gloss for multiple projects now. Their consistency in quality and reliability is why I keep coming back. Truly a trustworthy company.',
     n: 'David Okonkwo',
     l: 'Camden Town, London',
     t: ['Interior', 'Exterior'],
-    c: '#F7DEE6'
+    c: '#F2A7B8'
   },
   {
     q: 'Quick, efficient, and high quality. They completed my office painting over the weekend with minimal disruption to our business. Very impressed.',
     n: 'Raj Patel',
     l: 'Richmond, Surrey',
     t: ['Commercial'],
-    c: '#E4EDCF'
+    c: '#E5D3BF'
   },
   {
     q: 'The team went above and beyond to ensure we were happy with the color choices. The final result is even better than I imagined. Excellent service.',
     n: 'Amanda Foster',
     l: 'Hammersmith, London',
     t: ['Colour advice'],
-    c: '#F3F2EC'
+    c: '#F2AE97'
   }
 ];
 
