@@ -496,24 +496,24 @@ a.btn.p:hover,
 }
 
 /* ==========================================================================
-   Footer - Grey Theme (#aaaaaa)
+   Footer - Slate Grey Theme (#6c757d)
    ========================================================================== */
 footer {
-  background: #aaaaaa !important;
-  color: #222222 !important;
+  background: #6c757d !important;
+  color: #F1F5F9 !important;
 }
 
 footer h4 {
-  color: #111111 !important;
+  color: #FFFFFF !important;
   font-weight: 700 !important;
 }
 
 footer a,
 footer p {
-  color: #222222 !important;
+  color: #F1F5F9 !important;
 }
 
 footer a:hover {
-  color: #000000 !important;
+  color: #FFFFFF !important;
   text-decoration: underline;
 }

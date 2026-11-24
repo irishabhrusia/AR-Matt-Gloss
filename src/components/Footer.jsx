@@ -46,7 +46,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer style={{ background: '#aaaaaa', color: '#222222' }}>
+    <footer style={{ background: '#6c757d', color: '#F1F5F9' }}>
       <div className="w">
         {/* Column 1: Logo & About */}
         <div>

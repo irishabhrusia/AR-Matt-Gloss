@@ -1205,8 +1205,8 @@ details p {
 }
 
 footer {
-    background: #aaaaaa;
-    color: #222222;
+    background: #6c757d;
+    color: #F1F5F9;
     padding: 64px 0 100px;
     font-size: .9rem
 }
@@ -1218,7 +1218,7 @@ footer .w {
 }
 
 footer h4 {
-    color: #111111;
+    color: #FFFFFF;
     font-weight: 700;
     margin: 0 0 14px
 }
@@ -1227,11 +1227,11 @@ footer a,
 footer p {
     display: block;
     margin: 0 0 8px;
-    color: #222222
+    color: #F1F5F9
 }
 
 footer a:hover {
-    color: #000000;
+    color: #FFFFFF;
     text-decoration: underline
 }
 
