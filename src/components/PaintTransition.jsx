@@ -9,8 +9,9 @@ export const PaintTransitionContext = createContext({
 export const usePaintTransition = () => useContext(PaintTransitionContext);
 
 const COLOR = '#FFC62E';
-const IN_DUR = 380; // Fast 380ms home page style sweep across screen
-const OUT_DUR = 220; // 220ms smooth reveal of newly loaded page
+// Sweep duration: ~950ms (faster than home page's ~5s, but clearly visible and guaranteed to cover the full page)
+const SWEEP_DUR = 950;
+const REVEAL_DUR = 220;
 
 export function PaintTransition({ children }) {
   const router = useRouter();
@@ -30,7 +31,7 @@ export function PaintTransition({ children }) {
   const runTransition = (targetDestination) => {
     if (isTransitioningRef.current || !canvasRef.current || !rollerRef.current) return;
 
-    // Check for prefers-reduced-motion
+    // Accessibility: instant jump for prefers-reduced-motion
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       router.push(targetDestination);
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -55,7 +56,7 @@ export function PaintTransition({ children }) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    // Dynamic roller size matching home page ratio (110x34)
+    // Dynamic roller dimensions matching home page 110x34 ratio
     const RW = W < 600 ? 95 : (W < 1200 ? 115 : 130);
     const CH = RW * (34 / 110);
     const CY = RW * (17 / 110);
@@ -63,29 +64,45 @@ export function PaintTransition({ children }) {
     roller.style.display = 'block';
     roller.style.opacity = '1';
 
-    // Build the exact vertical column sweep path from home page
-    const margin = CH + 40;
-    const step = RW * 0.82; // Overlapping columns guarantee zero gaps
+    // Generous vertical margins so the roller covers past screen edges
+    const margin = CH + 50;
+    // Step with ~18% overlap ensures 100% gapless coverage
+    const step = RW * 0.82;
     const path = [];
     let d = 1; // 1 = down, 0 = up
-    for (let x = RW / 2; x < W + RW; x += step) {
-      path.push([x, d ? -margin : H + margin], [x, d ? H + margin : -margin]);
-      d = !d;
+
+    // Start slightly before 0 to guarantee left edge is fully painted
+    const startX = Math.floor(RW * 0.45);
+    for (let x = startX; x <= W + RW * 0.6; x += step) {
+      const topY = -margin;
+      const bottomY = H + margin;
+      if (d === 1) {
+        // Sweep downwards
+        path.push([x, topY]);
+        path.push([x, bottomY]);
+      } else {
+        // Sweep upwards
+        path.push([x, bottomY]);
+        path.push([x, topY]);
+      }
+      d = 1 - d;
     }
 
-    // Precalculate cumulative distances along the sweep path
-    const segLengths = [];
+    if (path.length < 2) return;
+
+    // Calculate total path distance for accurate timing
     let totalDist = 0;
     for (let i = 0; i < path.length - 1; i++) {
-      const segD = Math.hypot(path[i + 1][0] - path[i][0], path[i + 1][1] - path[i][1]);
-      segLengths.push(segD);
-      totalDist += segD;
+      totalDist += Math.hypot(path[i + 1][0] - path[i][0], path[i + 1][1] - path[i][1]);
     }
+
+    // Speed in pixels per second calibrated to complete full sweep in SWEEP_DUR
+    const SPEED = totalDist / (SWEEP_DUR / 1000);
 
     let lx = null;
     let ly = null;
 
-    // Smooth paint stamping matching home page stamp()
+    // Continuous solid paint stamp identical to home page stamp()
     const stamp = (x, y) => {
       ctx.fillStyle = COLOR;
       if (lx === null || ly === null) {
@@ -110,60 +127,78 @@ export function PaintTransition({ children }) {
       roller.style.transform = `translate(${x - RW / 2}px, ${y - CY}px)`;
     };
 
-    const t0 = performance.now();
+    let pi = 0;
+    let px = path[0][0];
+    let py = path[0][1];
+    let lastTime = null;
     let swapped = false;
+    let revealStart = null;
+
+    stamp(px, py);
+    placeRoller(px, py);
 
     const frame = (now) => {
-      const elapsed = now - t0;
+      if (!lastTime) lastTime = now;
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
 
-      if (elapsed < IN_DUR) {
-        // Phase 1: Fast home page roller sweep painting the whole screen
-        const p = Math.min(elapsed / IN_DUR, 1);
-        const currentTargetDist = p * totalDist;
+      if (pi < path.length) {
+        // Phase 1: Column-by-column paint roller sweep across the entire page
+        let remainingDist = SPEED * dt;
 
-        // Find position on path
-        let acc = 0;
-        let curX = path[0][0];
-        let curY = path[0][1];
+        while (remainingDist > 0 && pi < path.length) {
+          const targetPt = path[pi];
+          const dx = targetPt[0] - px;
+          const dy = targetPt[1] - py;
+          const dist = Math.hypot(dx, dy);
 
-        for (let i = 0; i < segLengths.length; i++) {
-          if (acc + segLengths[i] >= currentTargetDist) {
-            const segRatio = (currentTargetDist - acc) / (segLengths[i] || 1);
-            curX = path[i][0] + (path[i + 1][0] - path[i][0]) * segRatio;
-            curY = path[i][1] + (path[i + 1][1] - path[i][1]) * segRatio;
-            break;
-          }
-          acc += segLengths[i];
-          if (i === segLengths.length - 1) {
-            curX = path[path.length - 1][0];
-            curY = path[path.length - 1][1];
+          if (dist <= remainingDist) {
+            px = targetPt[0];
+            py = targetPt[1];
+            stamp(px, py);
+            remainingDist -= dist;
+            pi++;
+          } else {
+            px += (dx / dist) * remainingDist;
+            py += (dy / dist) * remainingDist;
+            stamp(px, py);
+            remainingDist = 0;
           }
         }
 
-        stamp(curX, curY);
-        placeRoller(curX, curY);
-        rafIdRef.current = requestAnimationFrame(frame);
-      } else if (!swapped) {
-        // Screen fully covered in solid yellow paint!
+        placeRoller(px, py);
+
+        if (pi < path.length) {
+          rafIdRef.current = requestAnimationFrame(frame);
+          return;
+        }
+      }
+
+      // Sweep finished: screen is 100% solidly covered with Sunshine Yellow!
+      if (!swapped) {
         ctx.fillStyle = COLOR;
         ctx.fillRect(0, 0, W, H);
         swapped = true;
+        revealStart = now;
 
-        // Perform instant route transition under paint cover
+        // Perform instant route switch under paint cover
         router.push(targetDestination);
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
         rafIdRef.current = requestAnimationFrame(frame);
-      } else if (elapsed < IN_DUR + OUT_DUR) {
-        // Phase 2: Snappy reveal of new page
-        const revealP = Math.min((elapsed - IN_DUR) / OUT_DUR, 1);
+        return;
+      }
+
+      // Phase 2: Smooth snappy reveal of newly loaded page
+      const revealElapsed = now - revealStart;
+      if (revealElapsed < REVEAL_DUR) {
+        const revealP = Math.min(revealElapsed / REVEAL_DUR, 1);
         const alpha = 1 - revealP;
         canvas.style.opacity = String(alpha);
         roller.style.opacity = String(alpha);
-
         rafIdRef.current = requestAnimationFrame(frame);
       } else {
-        // Finished: cleanup & hide
+        // Complete: clean up
         ctx.clearRect(0, 0, W, H);
         canvas.style.display = 'none';
         canvas.style.opacity = '1';
@@ -177,7 +212,7 @@ export function PaintTransition({ children }) {
     rafIdRef.current = requestAnimationFrame(frame);
   };
 
-  // Intercept all internal page navigation links
+  // Intercept all internal navigation link clicks
   useEffect(() => {
     const onGlobalClick = (e) => {
       if (isTransitioningRef.current) {
@@ -229,7 +264,7 @@ export function PaintTransition({ children }) {
 
       // If clicking same route
       if (curNorm === targetNorm) {
-        if (url.hash) return; // Allow normal hash jump
+        if (url.hash) return;
         e.preventDefault();
         return;
       }
