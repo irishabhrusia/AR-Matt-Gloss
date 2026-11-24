@@ -1218,6 +1218,7 @@ export function Home() {
             <form
               id="f"
               className="rvl"
+              style={{ background: '#B0BBC0', color: '#111111', boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)' }}
               suppressHydrationWarning
               onSubmit={(e) => {
                 e.preventDefault();

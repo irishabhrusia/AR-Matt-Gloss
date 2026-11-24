@@ -162,8 +162,8 @@ svg.i {
 header {
     position: sticky;
     top: 0;
-    z-index: 60;
-    background: rgba(255, 255, 255, .92);
+    z-index: 1000;
+    background: rgba(255, 255, 255, .96);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line)
 }
@@ -1123,12 +1123,13 @@ section {
 }
 
 form {
-    background: #fff;
+    background: #B0BBC0;
     color: var(--ink);
     border-radius: 28px;
     padding: 32px;
     display: grid;
-    gap: 16px
+    gap: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08)
 }
 
 form label {

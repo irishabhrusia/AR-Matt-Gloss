@@ -517,3 +517,57 @@ footer a:hover {
   color: #FFFFFF !important;
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   Header / Navbar - High Z-Index & Sticky Positioning Fix
+   ========================================================================== */
+header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.menu {
+  z-index: 1050 !important;
+}
+
+/* Ensure removed hero elements never flash or show */
+.hbar,
+.hint,
+.rs {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Contact Form Card - Background #B0BBC0
+   ========================================================================== */
+#contact form,
+form#f {
+  background: #B0BBC0 !important;
+  color: #111111 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+#contact form label,
+form#f label {
+  color: #222222 !important;
+  font-weight: 600 !important;
+}
+
+#contact form input,
+#contact form select,
+form#f input,
+form#f select {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+  border-color: rgba(0, 0, 0, 0.16) !important;
+}
+
+#contact form small,
+form#f small {
+  color: #333333 !important;
+}

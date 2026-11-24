@@ -37,7 +37,7 @@ export function Header({ menuOpen, setMenuOpen }) {
   };
 
   return (
-    <header>
+    <header style={{ position: 'sticky', top: 0, zIndex: 1000, background: 'rgba(255, 255, 255, 0.96)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
       <div className="w">
         <Link className="logo" href="/" onClick={handleHomeClick}>
           <img
