@@ -494,3 +494,26 @@ a.btn.p:hover,
   color: #FFFFFF !important;
   filter: none !important;
 }
+
+/* ==========================================================================
+   Footer - Grey Theme (#aaaaaa)
+   ========================================================================== */
+footer {
+  background: #aaaaaa !important;
+  color: #222222 !important;
+}
+
+footer h4 {
+  color: #111111 !important;
+  font-weight: 700 !important;
+}
+
+footer a,
+footer p {
+  color: #222222 !important;
+}
+
+footer a:hover {
+  color: #000000 !important;
+  text-decoration: underline;
+}

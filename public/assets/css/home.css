@@ -980,7 +980,7 @@ section {
     margin-top: 70px;
 }
 
-.st {}
+
 
 .st h3 {
     font-size: 1.1rem;
@@ -1205,8 +1205,8 @@ details p {
 }
 
 footer {
-    background: #0C1713 var(--nzd);
-    color: #A9B8B0;
+    background: #aaaaaa;
+    color: #222222;
     padding: 64px 0 100px;
     font-size: .9rem
 }
@@ -1218,18 +1218,21 @@ footer .w {
 }
 
 footer h4 {
-    color: #fff;
+    color: #111111;
+    font-weight: 700;
     margin: 0 0 14px
 }
 
 footer a,
 footer p {
     display: block;
-    margin: 0 0 8px
+    margin: 0 0 8px;
+    color: #222222
 }
 
 footer a:hover {
-    color: var(--acc)
+    color: #000000;
+    text-decoration: underline
 }
 
 .dock {
