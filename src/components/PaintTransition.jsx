@@ -9,9 +9,9 @@ export const PaintTransitionContext = createContext({
 export const usePaintTransition = () => useContext(PaintTransitionContext);
 
 const COLOR = '#FFC62E';
-// Sweep duration: ~950ms (faster than home page's ~5s, but clearly visible and guaranteed to cover the full page)
-const SWEEP_DUR = 950;
-const REVEAL_DUR = 220;
+// Sweep duration: ~1400ms (calm, satisfying speed that thoroughly paints the full screen)
+const SWEEP_DUR = 1400;
+const REVEAL_DUR = 260;
 
 export function PaintTransition({ children }) {
   const router = useRouter();
