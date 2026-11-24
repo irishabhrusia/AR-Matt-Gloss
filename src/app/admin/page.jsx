@@ -6,6 +6,7 @@ import ImageUploadField from '@/components/ImageUploadField';
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [aboutSubTab, setAboutSubTab] = useState('banner');
+  const [homeSubTab, setHomeSubTab] = useState('all');
   const [loading, setLoading] = useState(true);
 
   // Data states
@@ -86,6 +87,45 @@ export default function AdminDashboard() {
       [section]: {
         ...(prev?.[section] || {}),
         [key]: value,
+      },
+    }));
+  };
+
+  // Home Nested Field Updater (Services, Portfolio, Limewash, Process, Testimonials, Contact)
+  const updateHomeNestedField = (subSection, key, value) => {
+    setSettings((prev) => ({
+      ...prev,
+      home: {
+        ...(prev?.home || {}),
+        [subSection]: {
+          ...(prev?.home?.[subSection] || {}),
+          [key]: value,
+        },
+      },
+    }));
+  };
+
+  // Home Marquee Array Updater
+  const updateHomeMarquee = (items) => {
+    setSettings((prev) => ({
+      ...prev,
+      home: {
+        ...(prev?.home || {}),
+        marquee: items,
+      },
+    }));
+  };
+
+  // Home Why List Updater
+  const updateHomeWhyList = (boxKey, items) => {
+    setSettings((prev) => ({
+      ...prev,
+      home: {
+        ...(prev?.home || {}),
+        why: {
+          ...(prev?.home?.why || {}),
+          [boxKey]: items,
+        },
       },
     }));
   };
@@ -392,7 +432,7 @@ export default function AdminDashboard() {
   ];
 
   const pageNavItems = [
-    { id: 'hero', label: 'Hero Section', live: true },
+    { id: 'home', label: 'Home Section', live: true },
     { id: 'about', label: 'About Us Editor', live: true },
     { id: 'footer', label: 'Footer Manager' },
     { id: 'settings', label: 'Site Settings & Media' },
@@ -400,7 +440,7 @@ export default function AdminDashboard() {
 
   return (
     <div style={{ display: 'flex', height: '100vh', maxHeight: '100vh', overflow: 'hidden', background: '#f8fafc', color: '#1e293b', fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-      
+
       {/* 1. Left Sidebar Navigation (Matching Reference Video Style - Fixed & Pinned) */}
       <aside style={{ width: '280px', minWidth: '280px', maxWidth: '280px', height: '100vh', maxHeight: '100vh', position: 'sticky', top: 0, left: 0, flexShrink: 0, background: '#ffffff', borderRight: '1px solid #eef2f6', display: 'flex', flexDirection: 'column', boxShadow: '2px 0 14px rgba(0,0,0,0.03)', zIndex: 10 }}>
         {/* Brand Header */}
@@ -418,7 +458,7 @@ export default function AdminDashboard() {
 
         {/* Sidebar Menu Items - Clean Text-Only 1-Line Vertical Alignment */}
         <nav style={{ padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, overflowY: 'auto', width: '100%', boxSizing: 'border-box' }}>
-          
+
           {primaryNavItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
@@ -544,7 +584,7 @@ export default function AdminDashboard() {
 
       {/* 2. Main Workspace */}
       <main style={{ flex: 1, height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', minWidth: 0, overflowY: 'auto' }}>
-        
+
         {/* Top Header Bar */}
         <header style={{ background: '#ffffff', borderBottom: '1px solid #e2e8f0', padding: '16px 36px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 9 }}>
           <div>
@@ -557,7 +597,7 @@ export default function AdminDashboard() {
               {activeTab === 'services' && 'Services Catalog Manager'}
               {activeTab === 'portfolio' && 'Portfolio & Projects Manager'}
               {activeTab === 'reviews' && 'Customer Reviews & Testimonials'}
-              {activeTab === 'hero' && 'Hero Section Manager'}
+              {(activeTab === 'home' || activeTab === 'hero') && 'Home Page Manager'}
               {activeTab === 'about' && 'About Us Content Editor'}
               {activeTab === 'footer' && 'Dynamic Footer Manager'}
               {activeTab === 'settings' && 'Global Site Settings & Contact'}
@@ -592,7 +632,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'dashboard' && (
           <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '26px' }}>
-            
+
             {/* 1. Executive Welcome Banner (Luxury Styling) */}
             <div
               style={{
@@ -664,10 +704,10 @@ export default function AdminDashboard() {
                 ⭐ + Add Review
               </button>
               <button
-                onClick={() => setActiveTab('hero')}
+                onClick={() => setActiveTab('home')}
                 style={{ padding: '7px 14px', borderRadius: '8px', background: '#fff1f2', color: '#be123c', border: '1px solid #fecdd3', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
               >
-                🌄 Edit Hero Section
+                🏠 Edit Home Section
               </button>
               <button
                 onClick={() => setActiveTab('about')}
@@ -679,7 +719,7 @@ export default function AdminDashboard() {
 
             {/* 3. Six Colorful Stat Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
-              
+
               {/* Card 1: New Leads */}
               <div style={{ background: 'linear-gradient(180deg, #fffbeb 0%, #ffffff 40%)', borderRadius: '14px', padding: '18px 20px', border: '1px solid #fde68a', borderTop: '3px solid #f59e0b', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -892,7 +932,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'inquiries' && (
           <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div>
@@ -1041,7 +1081,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'services' && (
           <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div>
                 <h2 style={{ margin: '0 0 4px', fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>Services Catalog</h2>
@@ -1143,7 +1183,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'portfolio' && (
           <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div>
                 <h2 style={{ margin: '0 0 4px', fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>Portfolio Projects Manager</h2>
@@ -1252,7 +1292,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'reviews' && (
           <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div>
                 <h2 style={{ margin: '0 0 4px', fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>Customer Reviews &amp; Testimonials</h2>
@@ -1333,12 +1373,12 @@ export default function AdminDashboard() {
         )}
 
         {/* ========================================================= */}
-        {/* TAB 6: HERO SECTION MANAGER (SPLIT SCREEN LIVE PREVIEW)   */}
+        {/* TAB 6: HOME PAGE MANAGER (ALL 8 SECTIONS DYNAMIC HUB)     */}
         {/* ========================================================= */}
-        {activeTab === 'hero' && (
+        {(activeTab === 'home' || activeTab === 'hero') && (
           <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
-            {/* Top Action Ribbon (Exact Reference Video Style) */}
+
+            {/* Top Action Ribbon */}
             <div style={{ background: '#ffffff', padding: '16px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <button
@@ -1348,9 +1388,12 @@ export default function AdminDashboard() {
                   ← Back to Dashboard
                 </button>
                 <div style={{ height: '18px', width: '1px', background: '#e2e8f0' }}></div>
-                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>Hero Section Manager</h3>
+                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>Home Page Manager</h3>
                 <span style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.72rem', fontWeight: 800, padding: '3px 8px', borderRadius: '12px' }}>
                   ● Live on Site
+                </span>
+                <span style={{ fontSize: '0.76rem', color: '#64748b', fontWeight: 600 }}>
+                  (Dynamic Manager for All 8 Home Sections)
                 </span>
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
@@ -1362,7 +1405,7 @@ export default function AdminDashboard() {
                   Live Site ↗
                 </a>
                 <button
-                  onClick={() => handleSaveSettings('Hero Section')}
+                  onClick={() => handleSaveSettings('Home Page')}
                   style={{ padding: '9px 20px', borderRadius: '8px', background: '#f59e0b', color: '#ffffff', border: 'none', fontSize: '0.85rem', fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)' }}
                 >
                   🌐 Update Live Site
@@ -1370,148 +1413,809 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Split Screen Layout: Left Form, Right Mockup Frame */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1.05fr', gap: '24px', alignItems: 'start' }}>
-              
-              {/* LEFT SIDE: Input Controls */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                
-                {/* Headlines & Copy Card */}
-                <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
-                    <span style={{ fontSize: '1.1rem' }}>✍️</span>
-                    <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>HEADLINES &amp; COPY</h4>
-                  </div>
+            {/* Sub-Tabs: Filter / Jump between sections */}
+            <div style={{ display: 'flex', gap: '8px', background: '#ffffff', padding: '10px 14px', borderRadius: '14px', border: '1px solid #e2e8f0', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginRight: '6px' }}>Filter Section:</span>
+              {[
+                { id: 'all', label: '🌟 All Sections' },
+                { id: 'hero', label: '1️⃣ Hero Section' },
+                { id: 'marquee', label: '2️⃣ Marquee Ticker' },
+                { id: 'services_portfolio', label: '3️⃣ Services & Portfolio' },
+                { id: 'limewash', label: '4️⃣ Limewash Spotlight' },
+                { id: 'why_process', label: '5️⃣ Why Us & Process' },
+                { id: 'testimonials_contact', label: '6️⃣ Testimonials & Contact' },
+              ].map((st) => (
+                <button
+                  key={st.id}
+                  onClick={() => setHomeSubTab(st.id)}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: homeSubTab === st.id ? '#fef3c7' : 'transparent',
+                    color: homeSubTab === st.id ? '#92400e' : '#475569',
+                    fontSize: '0.83rem',
+                    fontWeight: homeSubTab === st.id ? 800 : 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {st.label}
+                </button>
+              ))}
+            </div>
 
-                  <div>
-                    <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Main Headline *</label>
-                    <input
-                      type="text"
-                      value={settings?.hero?.headline || ''}
-                      onChange={(e) => updateSettingField('hero', 'headline', e.target.value)}
-                      style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.88rem', fontWeight: 700 }}
+            {/* Split Screen Layout: Left Form Controls, Right Live Browser Preview */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '24px', alignItems: 'start' }}>
+
+              {/* LEFT SIDE: Section Form Editors */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                {/* 1. HERO SECTION */}
+                {(homeSubTab === 'all' || homeSubTab === 'hero') && (
+                  <>
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🎨</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>1. HERO SECTION HEADLINES &amp; COPY</h4>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Main Headline *</label>
+                        <input
+                          type="text"
+                          value={settings?.hero?.headline || ''}
+                          onChange={(e) => updateSettingField('hero', 'headline', e.target.value)}
+                          placeholder="Make your walls unforgettable."
+                          style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.88rem', fontWeight: 700 }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Subheading / Roller Hint</label>
+                        <input
+                          type="text"
+                          value={settings?.hero?.subheading || ''}
+                          onChange={(e) => updateSettingField('hero', 'subheading', e.target.value)}
+                          placeholder="Grab the roller. Paint this wall."
+                          style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.88rem' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Description / Trust Paragraph</label>
+                        <textarea
+                          rows={3}
+                          value={settings?.hero?.description || ''}
+                          onChange={(e) => updateSettingField('hero', 'description', e.target.value)}
+                          placeholder="28+ years. 1,247 happy clients. 4.9/5..."
+                          style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.86rem', resize: 'vertical', lineHeight: '1.5' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🔘</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>HERO BUTTONS &amp; PHONE BADGE</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Primary Button Text</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.primaryCtaText || ''}
+                            onChange={(e) => updateSettingField('hero', 'primaryCtaText', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Primary Button Link</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.primaryCtaLink || ''}
+                            onChange={(e) => updateSettingField('hero', 'primaryCtaLink', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Secondary Button Text</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.secondaryCtaText || ''}
+                            onChange={(e) => updateSettingField('hero', 'secondaryCtaText', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Phone Badge</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.phoneBadge || ''}
+                            onChange={(e) => updateSettingField('hero', 'phoneBadge', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginTop: '6px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Hero Years</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.statsYears || ''}
+                            onChange={(e) => updateSettingField('hero', 'statsYears', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Hero Clients</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.statsClients || ''}
+                            onChange={(e) => updateSettingField('hero', 'statsClients', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Hero Rating</label>
+                          <input
+                            type="text"
+                            value={settings?.hero?.statsRating || ''}
+                            onChange={(e) => updateSettingField('hero', 'statsRating', e.target.value)}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 2. MARQUEE TICKER */}
+                {(homeSubTab === 'all' || homeSubTab === 'marquee') && (
+                  <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                      <span style={{ fontSize: '1.1rem' }}>⚡</span>
+                      <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>2. MARQUEE TICKER (MOVING WORDS)</h4>
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Ticker Keywords (comma-separated)</label>
+                      <textarea
+                        rows={2}
+                        value={(settings?.home?.marquee || ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).join(', ')}
+                        onChange={(e) => updateHomeMarquee(e.target.value.split(',').map((x) => x.trim()).filter(Boolean))}
+                        style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.86rem' }}
+                        placeholder="Interior, Exterior, Limewash, Wallpaper, Feature walls, Spray painting"
+                      />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b', marginBottom: '6px' }}>Current Keywords Active in Ticker:</div>
+                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                        {(settings?.home?.marquee || ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).map((kw, idx) => (
+                          <span key={idx} style={{ background: '#fef3c7', color: '#92400e', padding: '4px 10px', borderRadius: '14px', fontSize: '0.76rem', fontWeight: 700, border: '1px solid #fde68a' }}>
+                            • {kw}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. SERVICES & PORTFOLIO */}
+                {(homeSubTab === 'all' || homeSubTab === 'services_portfolio') && (
+                  <>
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🎨</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>3. SERVICES SHOWCASE INTRO</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Eyebrow Kicker</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.servicesIntro?.eyebrow || ''}
+                            onChange={(e) => updateHomeNestedField('servicesIntro', 'eyebrow', e.target.value)}
+                            placeholder="Services · What we do best"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Title</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.servicesIntro?.headline || ''}
+                            onChange={(e) => updateHomeNestedField('servicesIntro', 'headline', e.target.value)}
+                            placeholder="Every surface. One crew."
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Subtitle / Narrative Description</label>
+                        <textarea
+                          rows={2}
+                          value={settings?.home?.servicesIntro?.subtitle || ''}
+                          onChange={(e) => updateHomeNestedField('servicesIntro', 'subtitle', e.target.value)}
+                          placeholder="Every home has a story. Choose what you’d like to transform..."
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🖼️</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>4. PORTFOLIO SHOWCASE INTRO</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Eyebrow Kicker</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.portfolioIntro?.eyebrow || ''}
+                            onChange={(e) => updateHomeNestedField('portfolioIntro', 'eyebrow', e.target.value)}
+                            placeholder="Recent projects"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Title</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.portfolioIntro?.headline || ''}
+                            onChange={(e) => updateHomeNestedField('portfolioIntro', 'headline', e.target.value)}
+                            placeholder="The finish is everything."
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Lead Paragraph</label>
+                        <textarea
+                          rows={2}
+                          value={settings?.home?.portfolioIntro?.lead || ''}
+                          onChange={(e) => updateHomeNestedField('portfolioIntro', 'lead', e.target.value)}
+                          placeholder="A curated look at completed projects..."
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>CTA Button Text</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.portfolioIntro?.ctaText || ''}
+                            onChange={(e) => updateHomeNestedField('portfolioIntro', 'ctaText', e.target.value)}
+                            placeholder="View the full portfolio"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>CTA Button Link</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.portfolioIntro?.ctaLink || ''}
+                            onChange={(e) => updateHomeNestedField('portfolioIntro', 'ctaLink', e.target.value)}
+                            placeholder="/portfolio"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 4. LIMEWASH SPOTLIGHT */}
+                {(homeSubTab === 'all' || homeSubTab === 'limewash') && (
+                  <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                      <span style={{ fontSize: '1.1rem' }}>🏛️</span>
+                      <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>5. LIMEWASH SPOTLIGHT FEATURE</h4>
+                    </div>
+
+                    <ImageUploadField
+                      label="Limewash Feature Artwork Image"
+                      value={settings?.home?.limewash?.image || ''}
+                      onChange={(url) => updateHomeNestedField('limewash', 'image', url)}
                     />
-                  </div>
 
-                  <div>
-                    <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Subheading / Roller Hint</label>
-                    <input
-                      type="text"
-                      value={settings?.hero?.subheading || ''}
-                      onChange={(e) => updateSettingField('hero', 'subheading', e.target.value)}
-                      style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.88rem' }}
-                    />
-                  </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Badge Tag 1 (Left)</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.matTag1 || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'matTag1', e.target.value)}
+                          placeholder="THE NATURAL FINISH"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Badge Tag 2 (Right)</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.matTag2 || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'matTag2', e.target.value)}
+                          placeholder="SOFT DEPTH / QUIET CHARACTER"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                    </div>
 
-                  <div>
-                    <label style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>Description / Trust Paragraph</label>
-                    <textarea
-                      rows={3}
-                      value={settings?.hero?.description || ''}
-                      onChange={(e) => updateSettingField('hero', 'description', e.target.value)}
-                      style={{ width: '100%', marginTop: '6px', padding: '10px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.86rem', resize: 'vertical', lineHeight: '1.5' }}
-                    />
-                  </div>
-                </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Eyebrow Kicker</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.eyebrow || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'eyebrow', e.target.value)}
+                          placeholder="The beauty of limewash"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Headline</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.headline || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'headline', e.target.value)}
+                          placeholder="Walls with a little soul."
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                        />
+                      </div>
+                    </div>
 
-                {/* Call to Action Buttons Card */}
-                <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
-                    <span style={{ fontSize: '1.1rem' }}>🔘</span>
-                    <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>CTA BUTTONS &amp; PHONE</h4>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Primary Button Text</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.primaryCtaText || ''}
-                        onChange={(e) => updateSettingField('hero', 'primaryCtaText', e.target.value)}
+                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Lead Description Paragraph</label>
+                      <textarea
+                        rows={2}
+                        value={settings?.home?.limewash?.lead || ''}
+                        onChange={(e) => updateHomeNestedField('limewash', 'lead', e.target.value)}
+                        placeholder="Not every wall needs to shout..."
                         style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
                       />
                     </div>
-                    <div>
-                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Primary Button URL</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.primaryCtaLink || ''}
-                        onChange={(e) => updateSettingField('hero', 'primaryCtaLink', e.target.value)}
-                        style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
-                      />
-                    </div>
-                  </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <div>
-                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Secondary Button Text</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.secondaryCtaText || ''}
-                        onChange={(e) => updateSettingField('hero', 'secondaryCtaText', e.target.value)}
-                        style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
-                      />
+                    {/* 3 Feature Bullets */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                      <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                        <label style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>FEATURE 1</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature1Title || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature1Title', e.target.value)}
+                          placeholder="Soft movement"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.78rem', fontWeight: 700 }}
+                        />
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature1Desc || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature1Desc', e.target.value)}
+                          placeholder="Subtle, naturally varied tones"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.74rem' }}
+                        />
+                      </div>
+                      <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                        <label style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>FEATURE 2</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature2Title || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature2Title', e.target.value)}
+                          placeholder="Rich in character"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.78rem', fontWeight: 700 }}
+                        />
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature2Desc || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature2Desc', e.target.value)}
+                          placeholder="A finish that changes with the light"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.74rem' }}
+                        />
+                      </div>
+                      <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                        <label style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>FEATURE 3</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature3Title || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature3Title', e.target.value)}
+                          placeholder="Made for your space"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.78rem', fontWeight: 700 }}
+                        />
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.feature3Desc || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'feature3Desc', e.target.value)}
+                          placeholder="Personalised colours and application"
+                          style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.74rem' }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Phone Badge</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.phoneBadge || ''}
-                        onChange={(e) => updateSettingField('hero', 'phoneBadge', e.target.value)}
-                        style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
-                      />
-                    </div>
-                  </div>
-                </div>
 
-                {/* Hero Stats Card */}
-                <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
-                    <span style={{ fontSize: '1.1rem' }}>🏆</span>
-                    <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>EXPERIENCE METRICS</h4>
-                  </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>CTA Button Text</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.ctaText || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'ctaText', e.target.value)}
+                          placeholder="Discover limewash finishes"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>CTA Button Link</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.limewash?.ctaLink || ''}
+                          onChange={(e) => updateHomeNestedField('limewash', 'ctaLink', e.target.value)}
+                          placeholder="/services/limewash-specialist"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                    </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                     <div>
-                      <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Years</label>
+                      <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Footer Microcopy</label>
                       <input
                         type="text"
-                        value={settings?.hero?.statsYears || ''}
-                        onChange={(e) => updateSettingField('hero', 'statsYears', e.target.value)}
-                        style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
-                      />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Clients</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.statsClients || ''}
-                        onChange={(e) => updateSettingField('hero', 'statsClients', e.target.value)}
-                        style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
-                      />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748b' }}>Rating</label>
-                      <input
-                        type="text"
-                        value={settings?.hero?.statsRating || ''}
-                        onChange={(e) => updateSettingField('hero', 'statsRating', e.target.value)}
+                        value={settings?.home?.limewash?.microCopy || ''}
+                        onChange={(e) => updateHomeNestedField('limewash', 'microCopy', e.target.value)}
+                        placeholder="Curious about the finish? Explore colours, textures and real transformations."
                         style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
                       />
                     </div>
                   </div>
-                </div>
+                )}
+
+                {/* 5. WHY AR MATT & GLOSS & PROCESS */}
+                {(homeSubTab === 'all' || homeSubTab === 'why_process') && (
+                  <>
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🏆</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>6. WHY AR MATT &amp; GLOSS (STANDARDS &amp; METRICS)</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Section Eyebrow</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.eyebrow || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'eyebrow', e.target.value)}
+                            placeholder="Why AR Matt & Gloss"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Headline</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.headline || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'headline', e.target.value)}
+                            placeholder="Quality you can see."
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#475569' }}>Box 1 Title</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.box1Title || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'box1Title', e.target.value)}
+                            placeholder="Work we do"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b', marginTop: '6px', display: 'block' }}>Items (one per line):</label>
+                          <textarea
+                            rows={4}
+                            value={(settings?.home?.why?.box1Items || [
+                              'Interior painting (walls, ceilings, woodwork)',
+                              'Exterior painting (houses, sheds, fences, roof tiles)',
+                              'Limewash, wallpaper, feature walls',
+                              'Surface preparation & repair',
+                            ]).join('\n')}
+                            onChange={(e) => updateHomeWhyList('box1Items', e.target.value.split('\n').map((x) => x.trim()).filter(Boolean))}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.8rem', lineHeight: '1.4' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#475569' }}>Box 2 Title</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.box2Title || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'box2Title', e.target.value)}
+                            placeholder="Attitude to work"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b', marginTop: '6px', display: 'block' }}>Items (one per line):</label>
+                          <textarea
+                            rows={4}
+                            value={(settings?.home?.why?.box2Items || [
+                              'Professional and certified painters',
+                              'High-quality materials and finishes',
+                              'Fully insured and licensed',
+                              'Clean and tidy. Satisfaction guaranteed',
+                            ]).join('\n')}
+                            onChange={(e) => updateHomeWhyList('box2Items', e.target.value.split('\n').map((x) => x.trim()).filter(Boolean))}
+                            style={{ width: '100%', marginTop: '4px', padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.8rem', lineHeight: '1.4' }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* 4 Stats */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginTop: '6px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b' }}>Years Exp</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.statsYears || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'statsYears', e.target.value)}
+                            placeholder="28+"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b' }}>Clients</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.statsClients || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'statsClients', e.target.value)}
+                            placeholder="1247"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b' }}>Projects</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.statsProjects || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'statsProjects', e.target.value)}
+                            placeholder="1500+"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b' }}>Support</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.why?.statsSupport || ''}
+                            onChange={(e) => updateHomeNestedField('why', 'statsSupport', e.target.value)}
+                            placeholder="24/7"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>🔄</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>7. HOW WE WORK (4-STEP PROCESS)</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>STEP 1</span>
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step1Title || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step1Title', e.target.value)}
+                            placeholder="Request a quote"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.8rem', fontWeight: 700 }}
+                          />
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step1Desc || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step1Desc', e.target.value)}
+                            placeholder="Under a minute. No obligation."
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.76rem' }}
+                          />
+                        </div>
+                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>STEP 2</span>
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step2Title || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step2Title', e.target.value)}
+                            placeholder="Free consultation"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.8rem', fontWeight: 700 }}
+                          />
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step2Desc || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step2Desc', e.target.value)}
+                            placeholder="Colour advice and a clear price."
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.76rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>STEP 3</span>
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step3Title || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step3Title', e.target.value)}
+                            placeholder="Expert execution"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.8rem', fontWeight: 700 }}
+                          />
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step3Desc || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step3Desc', e.target.value)}
+                            placeholder="Careful prep, precise finish, spotless site."
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.76rem' }}
+                          />
+                        </div>
+                        <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d97706' }}>STEP 4</span>
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step4Title || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step4Title', e.target.value)}
+                            placeholder="Final walk-through"
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.8rem', fontWeight: 700 }}
+                          />
+                          <input
+                            type="text"
+                            value={settings?.home?.process?.step4Desc || ''}
+                            onChange={(e) => updateHomeNestedField('process', 'step4Desc', e.target.value)}
+                            placeholder="We finish when you’re happy."
+                            style={{ width: '100%', marginTop: '4px', padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '0.76rem' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 6. TESTIMONIALS & CONTACT */}
+                {(homeSubTab === 'all' || homeSubTab === 'testimonials_contact') && (
+                  <>
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>⭐</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>8. TESTIMONIALS SECTION INTRO</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Section Eyebrow</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.testimonialsIntro?.eyebrow || ''}
+                            onChange={(e) => updateHomeNestedField('testimonialsIntro', 'eyebrow', e.target.value)}
+                            placeholder="What people say"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Headline</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.testimonialsIntro?.headline || ''}
+                            onChange={(e) => updateHomeNestedField('testimonialsIntro', 'headline', e.target.value)}
+                            placeholder="Loved by the people we work with."
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Lead Paragraph</label>
+                        <textarea
+                          rows={2}
+                          value={settings?.home?.testimonialsIntro?.lead || ''}
+                          onChange={(e) => updateHomeNestedField('testimonialsIntro', 'lead', e.target.value)}
+                          placeholder="Feedback published on AR Matt & Gloss Decorators’ existing Testimonials page."
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                        <span style={{ fontSize: '1.1rem' }}>📬</span>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>9. QUICK QUOTE &amp; CONTACT DETAILS</h4>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Eyebrow Kicker</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.contactIntro?.eyebrow || ''}
+                            onChange={(e) => updateHomeNestedField('contactIntro', 'eyebrow', e.target.value)}
+                            placeholder="Quick quote"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Main Headline</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.contactIntro?.headline || ''}
+                            onChange={(e) => updateHomeNestedField('contactIntro', 'headline', e.target.value)}
+                            placeholder="Tell us about your walls."
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem', fontWeight: 700 }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Lead Paragraph</label>
+                        <textarea
+                          rows={2}
+                          value={settings?.home?.contactIntro?.lead || ''}
+                          onChange={(e) => updateHomeNestedField('contactIntro', 'lead', e.target.value)}
+                          placeholder="Send a few details and we’ll reply with clear guidance..."
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Phone Number(s)</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.contactIntro?.phone || ''}
+                            onChange={(e) => updateHomeNestedField('contactIntro', 'phone', e.target.value)}
+                            placeholder="07309 092376 / 02034 880652"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Email Address</label>
+                          <input
+                            type="text"
+                            value={settings?.home?.contactIntro?.email || ''}
+                            onChange={(e) => updateHomeNestedField('contactIntro', 'email', e.target.value)}
+                            placeholder="contact@ar-mattandgloss-decorators.com"
+                            style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b' }}>Physical Studio Address</label>
+                        <input
+                          type="text"
+                          value={settings?.home?.contactIntro?.address || ''}
+                          onChange={(e) => updateHomeNestedField('contactIntro', 'address', e.target.value)}
+                          placeholder="23 Church Road, Richmond, Surrey TW9 2QA"
+                          style={{ width: '100%', marginTop: '4px', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', fontSize: '0.84rem' }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
               </div>
 
-              {/* RIGHT SIDE: Mockup Desktop Browser Frame (Exact Video Match) */}
+              {/* RIGHT SIDE: Mockup Desktop Browser Frame with Live Sync */}
               <div style={{ position: 'sticky', top: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                
+
                 {/* Mockup Toolbar Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a' }}>Live Hero Section Preview</span>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a' }}>Live Home Page Preview</span>
                     <span style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.68rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px' }}>
                       LIVE SYNC
                     </span>
@@ -1521,7 +2225,7 @@ export default function AdminDashboard() {
                     target="_blank"
                     style={{ fontSize: '0.74rem', background: '#0f172a', color: '#ffffff', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700 }}
                   >
-                    ↗ Full screen preview
+                    ↗ Open Full Page
                   </a>
                 </div>
 
@@ -1536,49 +2240,94 @@ export default function AdminDashboard() {
                     </div>
                     <div style={{ flex: 1, background: '#0f172a', borderRadius: '6px', padding: '4px 10px', fontSize: '0.72rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span>🔒</span>
-                      <span>https://ar-mattandgloss-decorators.com/#hero</span>
+                      <span>https://ar-mattandgloss-decorators.com/</span>
                     </div>
-                    <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 700 }}>SCALE 50%</span>
+                    <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 700 }}>HOME HUB</span>
                   </div>
 
                   {/* Browser Viewport Content */}
-                  <div style={{ background: '#12251F', padding: '36px 28px', color: '#ffffff', position: 'relative', minHeight: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <div style={{ maxWidth: '90%' }}>
-                      <div style={{ color: '#c5a880', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>
+                  <div style={{ background: '#12251F', padding: '24px 20px', color: '#ffffff', position: 'relative', minHeight: '440px', maxHeight: '580px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                    {/* Live Hero Header */}
+                    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px' }}>
+                      <div style={{ color: '#c5a880', fontSize: '0.74rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
                         {settings?.hero?.subheading || 'Grab the roller. Paint this wall.'}
                       </div>
-                      <h2 style={{ margin: '0 0 14px', fontSize: '1.8rem', fontWeight: 900, lineHeight: '1.2', color: '#ffffff' }}>
+                      <h2 style={{ margin: '0 0 10px', fontSize: '1.45rem', fontWeight: 900, lineHeight: '1.2', color: '#ffffff' }}>
                         {settings?.hero?.headline || 'Make your walls unforgettable.'}
                       </h2>
-                      <p style={{ margin: '0 0 20px', color: '#cbd5e1', fontSize: '0.84rem', lineHeight: '1.6' }}>
+                      <p style={{ margin: '0 0 14px', color: '#cbd5e1', fontSize: '0.78rem', lineHeight: '1.5' }}>
                         {settings?.hero?.description || 'Professional interior & exterior painting across London and Surrey.'}
                       </p>
-
-                      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                        <span style={{ padding: '8px 18px', borderRadius: '6px', background: '#c5a880', color: '#12251F', fontWeight: 800, fontSize: '0.82rem' }}>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        <span style={{ padding: '6px 14px', borderRadius: '6px', background: '#c5a880', color: '#12251F', fontWeight: 800, fontSize: '0.76rem' }}>
                           {settings?.hero?.primaryCtaText || 'Get a free quote'} →
                         </span>
-                        <span style={{ padding: '8px 18px', borderRadius: '6px', background: 'rgba(255,255,255,0.1)', color: '#ffffff', fontWeight: 700, fontSize: '0.82rem', border: '1px solid rgba(255,255,255,0.2)' }}>
+                        <span style={{ padding: '6px 14px', borderRadius: '6px', background: 'rgba(255,255,255,0.1)', color: '#ffffff', fontWeight: 700, fontSize: '0.76rem', border: '1px solid rgba(255,255,255,0.2)' }}>
                           📞 {settings?.hero?.phoneBadge || '07309 092376'}
                         </span>
                       </div>
                     </div>
 
-                    {/* Mini Experience Pill */}
-                    <div style={{ marginTop: '28px', paddingTop: '14px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '20px', fontSize: '0.75rem', color: '#94a3b8' }}>
-                      <span><b>{settings?.hero?.statsYears || '28+'}</b> Years</span>
-                      <span><b>{settings?.hero?.statsClients || '1,247'}</b> Clients</span>
-                      <span style={{ color: '#f59e0b' }}>★ <b>{settings?.hero?.statsRating || '4.9/5'}</b> Rating</span>
+                    {/* Live Marquee Strip */}
+                    <div style={{ background: '#f59e0b', color: '#0f172a', padding: '8px 12px', borderRadius: '8px', fontSize: '0.72rem', fontWeight: 800, display: 'flex', gap: '12px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {(settings?.home?.marquee || ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).map((kw, i) => (
+                        <span key={i}>• {kw}</span>
+                      ))}
                     </div>
+
+                    {/* Live Limewash Spotlight Preview */}
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      <span style={{ fontSize: '0.68rem', color: '#c5a880', fontWeight: 800, textTransform: 'uppercase' }}>
+                        {settings?.home?.limewash?.eyebrow || 'The beauty of limewash'}
+                      </span>
+                      <h4 style={{ margin: '4px 0 8px', fontSize: '1rem', color: '#ffffff' }}>
+                        {settings?.home?.limewash?.headline || 'Walls with a little soul.'}
+                      </h4>
+                      <p style={{ margin: 0, fontSize: '0.74rem', color: '#cbd5e1', lineHeight: '1.4' }}>
+                        {settings?.home?.limewash?.lead || 'Not every wall needs to shout. Hand-applied limewash brings soft movement...'}
+                      </p>
+                      <div style={{ marginTop: '8px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
+                          ✓ {settings?.home?.limewash?.feature1Title || 'Soft movement'}
+                        </span>
+                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
+                          ✓ {settings?.home?.limewash?.feature2Title || 'Rich in character'}
+                        </span>
+                        <span style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.68rem', color: '#fef3c7' }}>
+                          ✓ {settings?.home?.limewash?.feature3Title || 'Made for your space'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Live Why & Process Preview */}
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '0.72rem' }}>
+                      <div style={{ fontWeight: 800, color: '#c5a880', marginBottom: '4px' }}>
+                        {settings?.home?.why?.headline || 'Quality you can see.'}
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', color: '#94a3b8' }}>
+                        <div><b>Years:</b> {settings?.home?.why?.statsYears || '28+'}</div>
+                        <div><b>Clients:</b> {settings?.home?.why?.statsClients || '1,247'}</div>
+                        <div><b>Projects:</b> {settings?.home?.why?.statsProjects || '1500+'}</div>
+                        <div><b>Support:</b> {settings?.home?.why?.statsSupport || '24/7'}</div>
+                      </div>
+                    </div>
+
+                    {/* Live Contact Strip */}
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px', fontSize: '0.7rem', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <span>📞 {settings?.home?.contactIntro?.phone || '07309 092376'}</span>
+                      <span>✉️ {settings?.home?.contactIntro?.email || 'contact@ar-mattandgloss-decorators.com'}</span>
+                    </div>
+
                   </div>
 
                 </div>
 
                 <button
-                  onClick={() => handleSaveSettings('Hero Section')}
+                  onClick={() => handleSaveSettings('Home Page')}
                   style={{ width: '100%', padding: '12px', borderRadius: '10px', background: '#f59e0b', color: '#ffffff', fontWeight: 800, border: 'none', cursor: 'pointer', fontSize: '0.9rem', boxShadow: '0 4px 12px rgba(245, 158, 11, 0.25)' }}
                 >
-                  💾 Save &amp; Publish Hero Section
+                  💾 Save &amp; Publish Home Page
                 </button>
 
               </div>
@@ -1593,7 +2342,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'about' && (
           <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             {/* Top Action Ribbon */}
             <div style={{ background: '#ffffff', padding: '16px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -1646,10 +2395,10 @@ export default function AdminDashboard() {
 
             {/* Split Screen Layout */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1.05fr', gap: '24px', alignItems: 'start' }}>
-              
+
               {/* Left Form Controls */}
               <div style={{ background: '#ffffff', padding: '24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                
+
                 {aboutSubTab === 'banner' && (
                   <>
                     <h4 style={{ margin: '0 0 4px', fontSize: '1rem', fontWeight: 800, color: '#0f172a' }}>HERO HEADER BANNER</h4>
@@ -1858,7 +2607,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'footer' && (
           <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             <div style={{ background: '#ffffff', padding: '16px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <button
@@ -1879,10 +2628,10 @@ export default function AdminDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.95fr', gap: '24px', alignItems: 'start' }}>
-              
+
               {/* Left Side: 3 Clean Rows */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                
+
                 {/* Row 1: Brand & Logo */}
                 <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>🏛️ Row 1: Brand Logo &amp; About Text</h4>
@@ -2033,7 +2782,7 @@ export default function AdminDashboard() {
         {/* ========================================================= */}
         {activeTab === 'settings' && (
           <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            
+
             <div style={{ background: '#ffffff', padding: '16px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
               <div>
                 <h3 style={{ margin: '0 0 2px', fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>Global Site Settings &amp; Contact</h3>
@@ -2051,9 +2800,9 @@ export default function AdminDashboard() {
 
             {/* Settings Sections */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.95fr', gap: '24px', alignItems: 'start' }}>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                
+
                 {/* Top Announcement Banner */}
                 <div style={{ background: '#ffffff', padding: '22px 24px', borderRadius: '14px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -2280,7 +3029,7 @@ export default function AdminDashboard() {
       {selectedLead && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', justifyContent: 'flex-end', backdropFilter: 'blur(2px)' }}>
           <div style={{ width: '480px', maxWidth: '100%', background: '#ffffff', height: '100%', padding: '32px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '-8px 0 24px rgba(0,0,0,0.1)' }}>
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
               <div>
                 <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#f59e0b' }}>{selectedLead.id || selectedLead._id}</span>

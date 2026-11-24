@@ -57,6 +57,84 @@ export function Home() {
     statsClients: '1,247',
     statsRating: '4.9/5',
   });
+  const [homeData, setHomeData] = useState({
+    marquee: ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting'],
+    servicesIntro: {
+      eyebrow: 'Services · What we do best',
+      headline: 'Decorating, done properly.',
+      subtitle: 'Every home has a story. Choose what you’d like to transform and explore the finishes we do best.',
+    },
+    portfolioIntro: {
+      eyebrow: 'Recent projects',
+      headline: 'The finish is everything.',
+      lead: 'A curated look at completed projects. Browse the finished results here, or visit our portfolio for the full before-and-after stories.',
+      ctaText: 'View the full portfolio',
+      ctaLink: '/portfolio',
+    },
+    limewash: {
+      image: 'https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350',
+      caption: 'Limewash inspiration · texture and tone',
+      matTag1: 'THE NATURAL FINISH',
+      matTag2: 'SOFT DEPTH / QUIET CHARACTER',
+      eyebrow: 'The beauty of limewash',
+      headline: 'Walls with a little soul.',
+      lead: 'Not every wall needs to shout. Hand-applied limewash brings soft movement, gentle colour variation and a finish that feels beautifully individual.',
+      feature1Title: 'Soft movement',
+      feature1Desc: 'Subtle, naturally varied tones',
+      feature2Title: 'Rich in character',
+      feature2Desc: 'A finish that changes with the light',
+      feature3Title: 'Made for your space',
+      feature3Desc: 'Personalised colours and application',
+      ctaText: 'Discover limewash finishes',
+      ctaLink: '/services/limewash-specialist',
+      microCopy: 'Curious about the finish? Explore colours, textures and real transformations.',
+    },
+    why: {
+      eyebrow: 'Why AR Matt & Gloss',
+      headline: 'Quality you can see.',
+      box1Title: 'Work we do',
+      box1Items: [
+        'Interior painting (walls, ceilings, woodwork)',
+        'Exterior painting (houses, sheds, fences, roof tiles)',
+        'Limewash, wallpaper, feature walls',
+        'Surface preparation & repair',
+      ],
+      box2Title: 'Attitude to work',
+      box2Items: [
+        'Professional and certified painters',
+        'High-quality materials and finishes',
+        'Fully insured and licensed',
+        'Clean and tidy. Satisfaction guaranteed',
+      ],
+      statsYears: '28+',
+      statsClients: '1247',
+      statsProjects: '1500+',
+      statsSupport: '24/7',
+    },
+    process: {
+      step1Title: 'Request a quote',
+      step1Desc: 'Under a minute. No obligation.',
+      step2Title: 'Free consultation',
+      step2Desc: 'Colour advice and a clear price.',
+      step3Title: 'Expert execution',
+      step3Desc: 'Careful prep, precise finish, spotless site.',
+      step4Title: 'Final walk-through',
+      step4Desc: 'We finish when you’re happy.',
+    },
+    testimonialsIntro: {
+      eyebrow: 'What people say',
+      headline: 'Loved by the people we work with.',
+      lead: 'Feedback published on AR Matt & Gloss Decorators’ existing Testimonials page.',
+    },
+    contactIntro: {
+      eyebrow: 'Quick quote',
+      headline: 'Tell us about your walls.',
+      lead: 'Send a few details and we’ll reply with clear guidance and next steps. Prefer to talk? Call Marcus on 07309 092376.',
+      phone: '07309 092376 / 02034 880652',
+      email: 'contact@ar-mattandgloss-decorators.com',
+      address: '23 Church Road, Richmond, Surrey TW9 2QA',
+    },
+  });
   const [aboutData, setAboutData] = useState(null);
   const [servicesList, setServicesList] = useState(SERVICES);
   const [portfolioList, setPortfolioList] = useState(PORTFOLIO_PROJECTS);
@@ -69,6 +147,19 @@ export function Home() {
       .then((j) => {
         if (j.success && j.settings) {
           if (j.settings.hero) setHeroData((prev) => ({ ...prev, ...j.settings.hero }));
+          if (j.settings.home) {
+            setHomeData((prev) => ({
+              ...prev,
+              ...j.settings.home,
+              servicesIntro: { ...prev.servicesIntro, ...(j.settings.home.servicesIntro || {}) },
+              portfolioIntro: { ...prev.portfolioIntro, ...(j.settings.home.portfolioIntro || {}) },
+              limewash: { ...prev.limewash, ...(j.settings.home.limewash || {}) },
+              why: { ...prev.why, ...(j.settings.home.why || {}) },
+              process: { ...prev.process, ...(j.settings.home.process || {}) },
+              testimonialsIntro: { ...prev.testimonialsIntro, ...(j.settings.home.testimonialsIntro || {}) },
+              contactIntro: { ...prev.contactIntro, ...(j.settings.home.contactIntro || {}) },
+            }));
+          }
           if (j.settings.about) setAboutData(j.settings.about);
         }
       })
@@ -473,7 +564,7 @@ export function Home() {
       {/* Marquee */}
       <div className="mq">
         <div className="tr" id="tr">
-          {Array(4).fill(['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).flat().map((w, i) => (
+          {Array(4).fill(homeData.marquee && homeData.marquee.length ? homeData.marquee : ['Interior', 'Exterior', 'Limewash', 'Wallpaper', 'Feature walls', 'Spray painting']).flat().map((w, i) => (
             <span key={i}>{w}</span>
           ))}
         </div>
@@ -484,12 +575,12 @@ export function Home() {
         <div className="w">
           <div className="hd rvl discover-intro">
             <div>
-              <div className="eb">Explore our services</div>
-              <h2>Every surface.<br /><em>One crew.</em></h2>
+              <div className="eb">{homeData.servicesIntro?.eyebrow || 'Explore our services'}</div>
+              <h2>{homeData.servicesIntro?.headline || 'Every surface. One crew.'}</h2>
             </div>
             <div className="discover-intro-side">
               <span className="discover-intro-mark">✳</span>
-              <p>Every home has a story. Choose what you’d like to transform and explore the finishes we do best.</p>
+              <p>{homeData.servicesIntro?.subtitle || 'Every home has a story. Choose what you’d like to transform and explore the finishes we do best.'}</p>
             </div>
           </div>
           <div className="discover-grid rvl">
@@ -690,12 +781,11 @@ export function Home() {
         <div className="w">
           <div className="hd rvl">
             <div>
-              <div className="eb">Recent projects</div>
-              <h2>The finish is<br /><em>everything.</em></h2>
+              <div className="eb">{homeData.portfolioIntro?.eyebrow || 'Recent projects'}</div>
+              <h2>{homeData.portfolioIntro?.headline || 'The finish is everything.'}</h2>
             </div>
             <p className="lead">
-              A curated look at completed projects. Browse the finished results here, or visit our portfolio
-              for the full before-and-after stories.
+              {homeData.portfolioIntro?.lead || 'A curated look at completed projects. Browse the finished results here, or visit our portfolio for the full before-and-after stories.'}
             </p>
           </div>
           <div className="rft rvl" id="rft">
@@ -759,8 +849,8 @@ export function Home() {
             </div>
             <div className="rfx">
               <span id="rfc">Completed work</span>
-              <Link className="btn p" href="/portfolio">
-                View the full portfolio{' '}
+              <Link className="btn p" href={homeData.portfolioIntro?.ctaLink || '/portfolio'}>
+                {homeData.portfolioIntro?.ctaText || 'View the full portfolio'}{' '}
                 <svg className="i">
                   <use href="#ar" />
                 </svg>
@@ -783,38 +873,38 @@ export function Home() {
                 <div className="lw-home-fallback-pot"></div>
               </div>
               <img
-                src="https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350"
+                src={getImageUrl(homeData.limewash?.image || 'https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350')}
                 alt="Soft neutral walls with natural surface texture in an inspirational interior"
                 onError={(e) => { e.target.style.display = 'none'; }}
                 loading="lazy"
                 decoding="async"
               />
-              <span className="lw-home-inspire">Limewash inspiration · texture and tone</span>
+              <span className="lw-home-inspire">{homeData.limewash?.caption || 'Limewash inspiration · texture and tone'}</span>
             </div>
             <div className="lw-home-mat" style={{ zIndex: 10 }}>
-              <span>THE NATURAL FINISH</span>
+              <span>{homeData.limewash?.matTag1 || 'THE NATURAL FINISH'}</span>
               <span className="lw-home-sample" aria-hidden="true"></span>
-              <span>SOFT DEPTH / QUIET CHARACTER</span>
+              <span>{homeData.limewash?.matTag2 || 'SOFT DEPTH / QUIET CHARACTER'}</span>
             </div>
           </div>
           <div className="lw-home-content rvl">
-            <div className="eb">The beauty of limewash</div>
-            <h2>Walls with <em>a little soul.</em></h2>
+            <div className="eb">{homeData.limewash?.eyebrow || 'The beauty of limewash'}</div>
+            <h2>{homeData.limewash?.headline || 'Walls with a little soul.'}</h2>
             <p className="lw-home-lead">
-              Not every wall needs to shout. Hand-applied limewash brings soft movement, gentle colour variation and a finish that feels beautifully individual.
+              {homeData.limewash?.lead || 'Not every wall needs to shout. Hand-applied limewash brings soft movement, gentle colour variation and a finish that feels beautifully individual.'}
             </p>
             <div className="lw-home-features">
-              <div><b>Soft movement</b><span>Subtle, naturally varied tones</span></div>
-              <div><b>Rich in character</b><span>A finish that changes with the light</span></div>
-              <div><b>Made for your space</b><span>Personalised colours and application</span></div>
+              <div><b>{homeData.limewash?.feature1Title || 'Soft movement'}</b><span>{homeData.limewash?.feature1Desc || 'Subtle, naturally varied tones'}</span></div>
+              <div><b>{homeData.limewash?.feature2Title || 'Rich in character'}</b><span>{homeData.limewash?.feature2Desc || 'A finish that changes with the light'}</span></div>
+              <div><b>{homeData.limewash?.feature3Title || 'Made for your space'}</b><span>{homeData.limewash?.feature3Desc || 'Personalised colours and application'}</span></div>
             </div>
-            <Link className="btn p" href="/services/limewash-specialist">
-              Discover limewash finishes{' '}
+            <Link className="btn p" href={homeData.limewash?.ctaLink || '/services/limewash-specialist'}>
+              {homeData.limewash?.ctaText || 'Discover limewash finishes'}{' '}
               <svg className="i" aria-hidden="true">
                 <use href="#ar" />
               </svg>
             </Link>
-            <p className="lw-home-micro">Curious about the finish? Explore colours, textures and real transformations.</p>
+            <p className="lw-home-micro">{homeData.limewash?.microCopy || 'Curious about the finish? Explore colours, textures and real transformations.'}</p>
           </div>
         </div>
       </section>
@@ -824,52 +914,60 @@ export function Home() {
         <div className="w">
           <div className="hd rvl">
             <div>
-              <div className="eb">Why AR Matt &amp; Gloss</div>
-              <h2>Quality you can see.</h2>
+              <div className="eb">{homeData.why?.eyebrow || 'Why AR Matt & Gloss'}</div>
+              <h2>{homeData.why?.headline || 'Quality you can see.'}</h2>
             </div>
           </div>
           <div className="why rvl">
             <div className="bx">
-              <h3>Work we do</h3>
+              <h3>{homeData.why?.box1Title || 'Work we do'}</h3>
               <ul>
-                <li><svg className="i"><use href="#ck" /></svg>Interior painting (walls, ceilings, woodwork)</li>
-                <li><svg className="i"><use href="#ck" /></svg>Exterior painting (houses, sheds, fences, roof tiles)</li>
-                <li><svg className="i"><use href="#ck" /></svg>Limewash, wallpaper, feature walls</li>
-                <li><svg className="i"><use href="#ck" /></svg>Surface preparation &amp; repair</li>
+                {(homeData.why?.box1Items || [
+                  'Interior painting (walls, ceilings, woodwork)',
+                  'Exterior painting (houses, sheds, fences, roof tiles)',
+                  'Limewash, wallpaper, feature walls',
+                  'Surface preparation & repair'
+                ]).map((item, idx) => (
+                  <li key={idx}><svg className="i"><use href="#ck" /></svg>{item}</li>
+                ))}
               </ul>
             </div>
             <div className="bx">
-              <h3>Attitude to work</h3>
+              <h3>{homeData.why?.box2Title || 'Attitude to work'}</h3>
               <ul>
-                <li><svg className="i"><use href="#ck" /></svg>Professional and certified painters</li>
-                <li><svg className="i"><use href="#ck" /></svg>High-quality materials and finishes</li>
-                <li><svg className="i"><use href="#ck" /></svg>Fully insured and licensed</li>
-                <li><svg className="i"><use href="#ck" /></svg>Clean and tidy. Satisfaction guaranteed</li>
+                {(homeData.why?.box2Items || [
+                  'Professional and certified painters',
+                  'High-quality materials and finishes',
+                  'Fully insured and licensed',
+                  'Clean and tidy. Satisfaction guaranteed'
+                ]).map((item, idx) => (
+                  <li key={idx}><svg className="i"><use href="#ck" /></svg>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
           <div className="stats rvl">
-            <div><b data-n="28" data-s="+">0</b><span>Years of experience</span></div>
-            <div><b data-n="1247">0</b><span>Happy clients</span></div>
-            <div><b data-n="1500" data-s="+">0</b><span>Projects completed</span></div>
-            <div><b>24/7</b><span>Support available</span></div>
+            <div><b data-n={homeData.why?.statsYears ? homeData.why.statsYears.replace(/\D/g, '') || '28' : '28'} data-s="+">{homeData.why?.statsYears || '28+'}</b><span>Years of experience</span></div>
+            <div><b data-n={homeData.why?.statsClients ? homeData.why.statsClients.replace(/\D/g, '') || '1247' : '1247'}>{homeData.why?.statsClients || '1,247'}</b><span>Happy clients</span></div>
+            <div><b data-n={homeData.why?.statsProjects ? homeData.why.statsProjects.replace(/\D/g, '') || '1500' : '1500'} data-s="+">{homeData.why?.statsProjects || '1500+'}</b><span>Projects completed</span></div>
+            <div><b>{homeData.why?.statsSupport || '24/7'}</b><span>Support available</span></div>
           </div>
           <div className="steps">
             <div className="st rvl">
-              <h3>Request a quote</h3>
-              <p>Under a minute. No obligation.</p>
+              <h3>{homeData.process?.step1Title || 'Request a quote'}</h3>
+              <p>{homeData.process?.step1Desc || 'Under a minute. No obligation.'}</p>
             </div>
             <div className="st rvl">
-              <h3>Free consultation</h3>
-              <p>Colour advice and a clear price.</p>
+              <h3>{homeData.process?.step2Title || 'Free consultation'}</h3>
+              <p>{homeData.process?.step2Desc || 'Colour advice and a clear price.'}</p>
             </div>
             <div className="st rvl">
-              <h3>Expert execution</h3>
-              <p>Careful prep, precise finish, spotless site.</p>
+              <h3>{homeData.process?.step3Title || 'Expert execution'}</h3>
+              <p>{homeData.process?.step3Desc || 'Careful prep, precise finish, spotless site.'}</p>
             </div>
             <div className="st rvl">
-              <h3>Final walk-through</h3>
-              <p>We finish when you’re happy.</p>
+              <h3>{homeData.process?.step4Title || 'Final walk-through'}</h3>
+              <p>{homeData.process?.step4Desc || 'We finish when you’re happy.'}</p>
             </div>
           </div>
         </div>
@@ -880,10 +978,10 @@ export function Home() {
         <div className="w">
           <div className="th2 rvl">
             <div>
-              <div className="ey2"><i></i>Kind words, real people</div>
-              <h2>Loved by the people we work with.</h2>
+              <div className="ey2"><i></i>{homeData.testimonialsIntro?.eyebrow || 'Kind words, real people'}</div>
+              <h2>{homeData.testimonialsIntro?.headline || 'Loved by the people we work with.'}</h2>
             </div>
-            <p>Feedback published on AR Matt &amp; Gloss Decorators’ existing Testimonials page.</p>
+            <p>{homeData.testimonialsIntro?.lead || 'Feedback published on AR Matt & Gloss Decorators’ existing Testimonials page.'}</p>
           </div>
           <div className="tg3">
             {(reviewsList.length ? reviewsList.slice(0, 3) : [
@@ -938,20 +1036,20 @@ export function Home() {
         <div className="w">
           <div className="qt">
             <div className="rvl">
-              <div className="eb">Contact</div>
-              <h2>Let’s make it <span className="hl">unforgettable.</span></h2>
+              <div className="eb">{homeData.contactIntro?.eyebrow || 'Contact'}</div>
+              <h2>{homeData.contactIntro?.headline || 'Let’s make it unforgettable.'}</h2>
               <p className="lead">
-                No job is too small or too big. Tell us your idea and we’ll reply with expert advice and a fair quote within 24 hours.
+                {homeData.contactIntro?.lead || 'No job is too small or too big. Tell us your idea and we’ll reply with expert advice and a fair quote within 24 hours.'}
               </p>
               <div className="ct">
                 <div>
-                  <svg className="i"><use href="#ph" /></svg>07309 092376 / 02034 880652
+                  <svg className="i"><use href="#ph" /></svg>{homeData.contactIntro?.phone || '07309 092376 / 02034 880652'}
                 </div>
                 <div>
-                  <svg className="i"><use href="#ml" /></svg>contact@ar-mattandgloss-decorators.com
+                  <svg className="i"><use href="#ml" /></svg>{homeData.contactIntro?.email || 'contact@ar-mattandgloss-decorators.com'}
                 </div>
                 <div>
-                  <svg className="i"><use href="#mp" /></svg>23 Church Road, Richmond, Surrey TW9 2QA
+                  <svg className="i"><use href="#mp" /></svg>{homeData.contactIntro?.address || '23 Church Road, Richmond, Surrey TW9 2QA'}
                 </div>
               </div>
             </div>

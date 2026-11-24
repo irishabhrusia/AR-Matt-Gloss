@@ -454,11 +454,13 @@ export function saveSettings(settings) {
     ...settings,
     theme: { ...cur.theme, ...(settings.theme || {}) },
     hero: { ...cur.hero, ...(settings.hero || {}) },
+    home: { ...(cur.home || {}), ...(settings.home || {}) },
     about: { ...cur.about, ...(settings.about || {}) },
     announcement: { ...cur.announcement, ...(settings.announcement || {}) },
     whatsapp: { ...cur.whatsapp, ...(settings.whatsapp || {}) },
     company: { ...cur.company, ...(settings.company || {}) },
     footer: { ...cur.footer, ...(settings.footer || {}) },
+    cloudinary: { ...(cur.cloudinary || {}), ...(settings.cloudinary || {}) },
   };
   writeJson(SETTINGS_FILE, merged);
   return merged;

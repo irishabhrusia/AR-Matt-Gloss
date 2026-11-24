@@ -38,11 +38,13 @@ export async function PUT(request) {
       } else {
         if (body.theme) setting.theme = { ...setting.theme, ...body.theme };
         if (body.hero) setting.hero = { ...setting.hero, ...body.hero };
+        if (body.home) setting.home = { ...(setting.home || {}), ...body.home };
         if (body.about) setting.about = { ...setting.about, ...body.about };
         if (body.announcement) setting.announcement = { ...setting.announcement, ...body.announcement };
         if (body.whatsapp) setting.whatsapp = { ...setting.whatsapp, ...body.whatsapp };
         if (body.company) setting.company = { ...setting.company, ...body.company };
         if (body.footer) setting.footer = { ...setting.footer, ...body.footer };
+        if (body.cloudinary) setting.cloudinary = { ...(setting.cloudinary || {}), ...body.cloudinary };
         await setting.save();
       }
       return NextResponse.json({ success: true, source: 'mongodb', settings: setting });

@@ -53,6 +53,88 @@
     "statsClients": "1,247",
     "statsRating": "4.9/5"
   },
+  "home": {
+    "marquee": [
+      "Interior",
+      "Exterior",
+      "Limewash",
+      "Wallpaper",
+      "Feature walls",
+      "Spray painting"
+    ],
+    "servicesIntro": {
+      "eyebrow": "Services · What we do best",
+      "headline": "Decorating, done properly.",
+      "subtitle": "Every home has a story. Choose what you’d like to transform and explore the finishes we do best."
+    },
+    "portfolioIntro": {
+      "eyebrow": "Recent projects",
+      "headline": "The finish is everything.",
+      "lead": "A curated look at completed projects. Browse the finished results here, or visit our portfolio for the full before-and-after stories.",
+      "ctaText": "View the full portfolio",
+      "ctaLink": "/portfolio"
+    },
+    "limewash": {
+      "image": "https://images.pexels.com/photos/27522843/pexels-photo-27522843/free-photo-of-studio-with-limewash-textured-walls-and-wood-armchair.jpeg?auto=compress&cs=tinysrgb&w=1350",
+      "caption": "Limewash inspiration · texture and tone",
+      "matTag1": "THE NATURAL FINISH",
+      "matTag2": "SOFT DEPTH / QUIET CHARACTER",
+      "eyebrow": "The beauty of limewash",
+      "headline": "Walls with a little soul.",
+      "lead": "Not every wall needs to shout. Hand-applied limewash brings soft movement, gentle colour variation and a finish that feels beautifully individual.",
+      "feature1Title": "Soft movement",
+      "feature1Desc": "Subtle, naturally varied tones",
+      "feature2Title": "Rich in character",
+      "feature2Desc": "A finish that changes with the light",
+      "feature3Title": "Made for your space",
+      "feature3Desc": "Personalised colours and application",
+      "ctaText": "Discover limewash finishes",
+      "ctaLink": "/services/limewash-specialist",
+      "microCopy": "Curious about the finish? Explore colours, textures and real transformations."
+    },
+    "why": {
+      "eyebrow": "Why AR Matt & Gloss",
+      "headline": "Quality you can see.",
+      "box1Title": "Work we do",
+      "box1Items": [
+        "Interior painting (walls, ceilings, woodwork)",
+        "Exterior painting (houses, sheds, fences, roof tiles)",
+        "Limewash, wallpaper, feature walls",
+        "Surface preparation & repair"
+      ],
+      "box2Title": "Attitude to work",
+      "box2Items": [
+        "Professional and certified painters",
+        "High-quality materials and finishes",
+        "Fully insured and licensed",
+        "Clean and tidy. Satisfaction guaranteed"
+      ],
+      "statsYears": "28+",
+      "statsClients": "1247",
+      "statsProjects": "1500+",
+      "statsSupport": "24/7"
+    },
+    "process": {
+      "step1Title": "Request a quote",
+      "step1Desc": "Under a minute. No obligation.",
+      "step2Title": "Free consultation",
+      "step2Desc": "Colour advice and a clear price.",
+      "step3Title": "Expert execution",
+      "step3Desc": "Careful prep, precise finish, spotless site.",
+      "step4Title": "Final walk-through",
+      "step4Desc": "We finish when you’re happy."
+    },
+    "testimonialsIntro": {
+      "eyebrow": "What people say",
+      "headline": "Real results. Real homes.",
+      "lead": "Nothing tells the story better than homeowners who’ve lived with our work."
+    },
+    "contactIntro": {
+      "eyebrow": "Quick quote",
+      "headline": "Tell us about your walls.",
+      "lead": "Send a few details and we’ll reply with clear guidance and next steps. Prefer to talk? Call Marcus on 07309 092376."
+    }
+  },
   "about": {
     "tagline": "WHO WE ARE",
     "headline": "Quality you can see.",

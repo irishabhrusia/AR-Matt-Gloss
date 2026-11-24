@@ -121,9 +121,14 @@ const SettingSchema = new mongoose.Schema(
       hoursSunday: { type: String, default: 'Sunday: on request' },
       copyright: { type: String, default: '© 2026 AR Matt & Gloss Decorators' },
     },
+    home: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    },
   },
   {
     timestamps: true,
+    strict: false,
   }
 );
 
