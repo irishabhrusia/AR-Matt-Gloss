@@ -37,6 +37,11 @@
         "hex": "#8B4DFF",
         "name": "Violet",
         "active": true
+      },
+      {
+        "hex": "#8F9C95",
+        "name": "Light Grey",
+        "active": true
       }
     ]
   },
