@@ -1169,7 +1169,13 @@ export function Home() {
                 c: '#FCF0E8',
               },
             ]).map((rev, i) => (
-              <figure key={i} className="tc rvl" style={{ background: rev.c || (i === 0 ? '#F3F2EC' : i === 1 ? '#E4EDCF' : '#FCF0E8') }}>
+              <figure
+                key={i}
+                className="tc rvl"
+                style={{
+                  background: rev.c || (i % 3 === 0 ? 'var(--butter)' : i % 3 === 1 ? 'var(--sage)' : 'var(--peach)')
+                }}
+              >
                 <div className="ts">★★★★★</div>
                 <blockquote>“{rev.q}”</blockquote>
                 <figcaption>

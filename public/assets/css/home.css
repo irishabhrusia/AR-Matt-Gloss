@@ -3,16 +3,16 @@
     --on: #1A1411;
     --acct: #8F6A00;
     --pc: #FFC62E;
-    --ink: rgb(128, 128, 128);
+    --ink: #12251F;
     --ink2: #1B3229;
     --paper: #FFFFFF;
     --paper2: #F2F6F4;
-    --mut: #58665E;
+    --mut: #43524A;
     --line: #E1E7E3;
-    --sage: #E4EDCF;
-    --peach: #FCEBDD;
-    --butter: #FBEEC2;
-    --mist: #DCEAF2;
+    --sage: #C6DC9E;
+    --peach: #F7C4AF;
+    --butter: #FAD872;
+    --mist: #B7D8EC;
     --nz: none;
     --nzd: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
 }
@@ -1583,7 +1583,10 @@ footer a:hover {
     align-items: flex-end;
     gap: 40px;
     margin-bottom: 56px;
-    flex-wrap: wrap
+}
+
+.th2 > div {
+    max-width: 680px;
 }
 
 .ey2 {
@@ -1606,19 +1609,31 @@ footer a:hover {
 }
 
 .th2 h2 {
-    font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+    font-size: clamp(2.4rem, 5.2vw, 4.4rem);
     letter-spacing: -.045em;
-    line-height: 1;
+    line-height: 1.05;
     color: var(--ink);
-    max-width: 820px
+    margin: 0;
 }
 
 .th2>p {
     margin: 0;
-    max-width: 360px;
+    max-width: 380px;
     color: var(--mut);
     font-size: 1.05rem;
-    line-height: 1.8
+    line-height: 1.7;
+    text-align: right;
+}
+
+@media(max-width: 860px) {
+    .th2 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .th2>p {
+        text-align: left;
+    }
 }
 
 .tg3 {
@@ -2948,7 +2963,7 @@ footer :focus-visible,
 
 .discover-photo-button.is-active {
     border-color: #FFC62E;
-    box-shadow: 0 0 0 2px rgb(128, 128, 128), 0 6px 15px #0005;
+    box-shadow: 0 0 0 2px #12251F, 0 6px 15px #0005;
     transform: translateY(-3px)
 }
 
@@ -3070,7 +3085,7 @@ footer :focus-visible,
     align-items: center;
     white-space: nowrap;
     align-self: end;
-    background: rgb(128, 128, 128);
+    background: #12251F;
     color: #fff;
     border-radius: 99px;
     font-size: .78rem;
@@ -3108,7 +3123,7 @@ footer :focus-visible,
     display: inline-flex;
     align-items: center;
     gap: 25px;
-    border-bottom: 2px solid rgb(128, 128, 128);
+    border-bottom: 2px solid #12251F;
     font-size: .92rem;
     font-weight: 700;
     padding-bottom: 7px;
