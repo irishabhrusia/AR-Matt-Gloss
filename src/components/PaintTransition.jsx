@@ -323,9 +323,9 @@ export function PaintTransition({ children }) {
         }}
       >
         <svg viewBox="0 0 110 100" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-          <rect x="0" y="0" width="110" height="34" rx="17" fill={COLOR} stroke="#12251F" strokeWidth="3" />
-          <path d="M110 17h10v26H55v20" fill="none" stroke="#12251F" strokeWidth="4" strokeLinejoin="round" />
-          <rect x="46" y="60" width="18" height="40" rx="6" fill="#12251F" />
+          <rect x="0" y="0" width="110" height="34" rx="17" fill={COLOR} stroke="rgb(128, 128, 128)" strokeWidth="3" />
+          <path d="M110 17h10v26H55v20" fill="none" stroke="rgb(128, 128, 128)" strokeWidth="4" strokeLinejoin="round" />
+          <rect x="46" y="60" width="18" height="40" rx="6" fill="rgb(128, 128, 128)" />
         </svg>
       </div>
     </PaintTransitionContext.Provider>

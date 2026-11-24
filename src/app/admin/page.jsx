@@ -2846,7 +2846,7 @@ export default function AdminDashboard() {
 
               {/* Right Side: Dark Luxury Live Preview */}
               <div style={{ position: 'sticky', top: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ background: '#12251F', borderRadius: '16px', padding: '26px 22px', color: '#ffffff', boxShadow: '0 12px 36px rgba(0,0,0,0.2)' }}>
+                <div style={{ background: 'rgb(128, 128, 128)', borderRadius: '16px', padding: '26px 22px', color: '#ffffff', boxShadow: '0 12px 36px rgba(0,0,0,0.2)' }}>
                   <img
                     src={settings?.footer?.logoUrl || 'https://horizons-cdn.hostinger.com/f595585e-4a4f-4dfc-a114-05631f9697b2/1275896739a421cf642ea5e88346c08b.png'}
                     alt="Logo"
