@@ -881,6 +881,24 @@ export function Home() {
             <circle cx="55" cy="95.5" r="1.8" fill="#EEF1EF" fillOpacity="0.8" />
           </svg>
         </div>
+
+        {/* Paint Color Picker Dock - Anchored inside Hero Banner */}
+        <div className="dock">
+          <small>Pick a paint colour</small>
+          <span id="sw2" style={{ display: 'contents' }}>
+            {COLORS.map(([hex, label]) => (
+              <button
+                key={hex}
+                className={`sw ${activeColor === hex ? 'on' : ''}`}
+                style={{ background: hex }}
+                title={label}
+                aria-label={label}
+                onClick={() => handleColorChange(hex)}
+                suppressHydrationWarning
+              ></button>
+            ))}
+          </span>
+        </div>
       </div>
 
       {/* Marquee */}
@@ -1446,24 +1464,6 @@ export function Home() {
           }}
           suppressHydrationWarning
         >›</button>
-      </div>
-
-      {/* Floating Paint Color Picker Dock */}
-      <div className="dock">
-        <small>Pick a paint colour</small>
-        <span id="sw2" style={{ display: 'contents' }}>
-          {COLORS.map(([hex, label]) => (
-            <button
-              key={hex}
-              className={`sw ${activeColor === hex ? 'on' : ''}`}
-              style={{ background: hex }}
-              title={label}
-              aria-label={label}
-              onClick={() => handleColorChange(hex)}
-              suppressHydrationWarning
-            ></button>
-          ))}
-        </span>
       </div>
     </main>
   );

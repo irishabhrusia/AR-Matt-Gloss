@@ -1246,10 +1246,11 @@ footer a:hover {
 }
 
 .dock {
-    position: fixed;
-    left: 18px;
-    bottom: 18px;
-    z-index: 70;
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    z-index: 10;
+    cursor: default;
     background: rgba(18, 37, 31, .92);
     backdrop-filter: blur(10px);
     border-radius: 99px;
@@ -1265,13 +1266,15 @@ footer a:hover {
     font-weight: 500;
     font-size: .75rem;
     margin: 0 6px 0 4px;
-    white-space: nowrap
+    white-space: nowrap;
+    cursor: default
 }
 
 .dock .sw {
     width: 26px;
     height: 26px;
-    border-width: 2px
+    border-width: 2px;
+    cursor: pointer
 }
 
 .chips {
@@ -2574,7 +2577,7 @@ footer :focus-visible,
     }
 
     .dock {
-        bottom: 76px;
+        bottom: 16px;
         left: 12px;
         padding: 8px 10px
     }

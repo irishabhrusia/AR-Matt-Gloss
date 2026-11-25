@@ -822,3 +822,23 @@ form#f small {
   }
 }
 
+/* Paint Color Picker Dock - Anchored within Hero Banner */
+.hero .dock {
+  position: absolute !important;
+  left: 24px !important;
+  bottom: 24px !important;
+  z-index: 10 !important;
+  cursor: default !important;
+}
+
+.hero .dock .sw {
+  cursor: pointer !important;
+}
+
+@media (max-width: 640px) {
+  .hero .dock {
+    bottom: 16px !important;
+    left: 12px !important;
+  }
+}
+
