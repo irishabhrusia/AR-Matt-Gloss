@@ -3962,20 +3962,27 @@ footer :focus-visible,
 }
 
 /* ==========================================================================
-   Homepage Services Cards Section (White Section Background + Pastel Cards)
+   Homepage Services & Project Cards (White Section Background + Pastel Cards)
    ========================================================================== */
-.home-services-section {
+.home-services-section,
+.home-projects-section {
     background: #FFFFFF;
     padding: 100px 0 90px;
     color: #111111;
     position: relative;
 }
 
-.home-services-header {
+.home-projects-section {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.home-services-header,
+.home-projects-header {
     margin-bottom: 52px;
 }
 
-.home-services-header .eb {
+.home-services-header .eb,
+.home-projects-header .eb {
     color: #8F6A00 !important;
     font-size: 1.05rem !important;
     font-weight: 700;
@@ -3985,7 +3992,8 @@ footer :focus-visible,
     display: block;
 }
 
-.home-services-header h2 {
+.home-services-header h2,
+.home-projects-header h2 {
     color: #111111 !important;
     font-size: clamp(2.4rem, 5.2vw, 4.4rem);
     font-weight: 800;
@@ -3994,7 +4002,8 @@ footer :focus-visible,
     margin: 0 0 16px;
 }
 
-.home-services-subtitle {
+.home-services-subtitle,
+.home-projects-subtitle {
     color: #4A5568;
     font-size: 1.05rem;
     line-height: 1.6;
@@ -4002,7 +4011,8 @@ footer :focus-visible,
     margin: 0;
 }
 
-.home-services-grid {
+.home-services-grid,
+.home-projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
@@ -4010,7 +4020,8 @@ footer :focus-visible,
     align-items: stretch;
 }
 
-.home-service-card {
+.home-service-card,
+.home-project-card {
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -4024,13 +4035,15 @@ footer :focus-visible,
     min-height: 490px;
 }
 
-.home-service-card:hover {
+.home-service-card:hover,
+.home-project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
     border-color: rgba(0, 0, 0, 0.22);
 }
 
-.home-service-card.is-popular {
+.home-service-card.is-popular,
+.home-project-card.is-popular {
     border: 2px solid #111111;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
@@ -4118,7 +4131,8 @@ footer :focus-visible,
     margin-top: 2px;
 }
 
-.home-services-footer {
+.home-services-footer,
+.home-projects-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -4129,13 +4143,15 @@ footer :focus-visible,
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.home-services-footer > span {
+.home-services-footer > span,
+.home-projects-footer > span {
     font-size: 0.88rem;
     color: #64748B;
     font-style: italic;
 }
 
-.home-services-all-link {
+.home-services-all-link,
+.home-projects-all-link {
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -4148,27 +4164,32 @@ footer :focus-visible,
     transition: gap 0.2s ease, color 0.2s ease;
 }
 
-.home-services-all-link:hover {
+.home-services-all-link:hover,
+.home-projects-all-link:hover {
     gap: 18px;
     color: #8F9C95;
 }
 
-.home-services-all-link span {
+.home-services-all-link span,
+.home-projects-all-link span {
     color: #8F6A00;
     font-size: 1.15rem;
 }
 
 @media (max-width: 990px) {
-    .home-services-grid {
+    .home-services-grid,
+    .home-projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 640px) {
-    .home-services-grid {
+    .home-services-grid,
+    .home-projects-grid {
         grid-template-columns: 1fr;
     }
-    .home-services-section {
+    .home-services-section,
+    .home-projects-section {
         padding: 70px 0 60px;
     }
     .service-card-desc {

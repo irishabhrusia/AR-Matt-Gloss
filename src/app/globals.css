@@ -587,20 +587,27 @@ form#f small {
 }
 
 /* ==========================================================================
-   Homepage Services Cards Section (White Section Background + Pastel Cards)
+   Homepage Services & Project Cards (White Section Background + Pastel Cards)
    ========================================================================== */
-.home-services-section {
+.home-services-section,
+.home-projects-section {
   background: #FFFFFF !important;
   padding: 100px 0 90px !important;
   color: #111111 !important;
   position: relative;
 }
 
-.home-services-header {
+.home-projects-section {
+  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.home-services-header,
+.home-projects-header {
   margin-bottom: 52px;
 }
 
-.home-services-header .eb {
+.home-services-header .eb,
+.home-projects-header .eb {
   color: #8F6A00 !important;
   font-size: 1.05rem !important;
   font-weight: 700 !important;
@@ -610,7 +617,8 @@ form#f small {
   display: block !important;
 }
 
-.home-services-header h2 {
+.home-services-header h2,
+.home-projects-header h2 {
   color: #111111 !important;
   font-size: clamp(2.4rem, 5.2vw, 4.4rem) !important;
   font-weight: 800 !important;
@@ -619,7 +627,8 @@ form#f small {
   margin: 0 0 16px !important;
 }
 
-.home-services-subtitle {
+.home-services-subtitle,
+.home-projects-subtitle {
   color: #4A5568 !important;
   font-size: 1.05rem !important;
   line-height: 1.6 !important;
@@ -627,7 +636,8 @@ form#f small {
   margin: 0 !important;
 }
 
-.home-services-grid {
+.home-services-grid,
+.home-projects-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   grid-auto-rows: 1fr !important;
@@ -635,7 +645,8 @@ form#f small {
   align-items: stretch !important;
 }
 
-.home-service-card {
+.home-service-card,
+.home-project-card {
   display: flex !important;
   flex-direction: column !important;
   border: 1px solid rgba(0, 0, 0, 0.08) !important;
@@ -649,13 +660,15 @@ form#f small {
   min-height: 490px !important;
 }
 
-.home-service-card:hover {
+.home-service-card:hover,
+.home-project-card:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
   border-color: rgba(0, 0, 0, 0.22) !important;
 }
 
-.home-service-card.is-popular {
+.home-service-card.is-popular,
+.home-project-card.is-popular {
   border: 2px solid #111111 !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
 }
@@ -743,7 +756,8 @@ form#f small {
   margin-top: 2px !important;
 }
 
-.home-services-footer {
+.home-services-footer,
+.home-projects-footer {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -754,13 +768,15 @@ form#f small {
   border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
-.home-services-footer > span {
+.home-services-footer > span,
+.home-projects-footer > span {
   font-size: 0.88rem !important;
   color: #64748B !important;
   font-style: italic !important;
 }
 
-.home-services-all-link {
+.home-services-all-link,
+.home-projects-all-link {
   display: inline-flex !important;
   align-items: center !important;
   gap: 12px !important;
@@ -773,27 +789,32 @@ form#f small {
   transition: gap 0.2s ease, color 0.2s ease !important;
 }
 
-.home-services-all-link:hover {
+.home-services-all-link:hover,
+.home-projects-all-link:hover {
   gap: 18px !important;
   color: #8F9C95 !important;
 }
 
-.home-services-all-link span {
+.home-services-all-link span,
+.home-projects-all-link span {
   color: #8F6A00 !important;
   font-size: 1.15rem !important;
 }
 
 @media (max-width: 990px) {
-  .home-services-grid {
+  .home-services-grid,
+  .home-projects-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
 @media (max-width: 640px) {
-  .home-services-grid {
+  .home-services-grid,
+  .home-projects-grid {
     grid-template-columns: 1fr !important;
   }
-  .home-services-section {
+  .home-services-section,
+  .home-projects-section {
     padding: 70px 0 60px !important;
   }
   .service-card-desc {
