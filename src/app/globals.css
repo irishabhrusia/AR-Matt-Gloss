@@ -630,7 +630,9 @@ form#f small {
 .home-services-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
+  grid-auto-rows: 1fr !important;
   gap: 24px !important;
+  align-items: stretch !important;
 }
 
 .home-service-card {
@@ -643,6 +645,8 @@ form#f small {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
   position: relative !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  height: 100% !important;
+  min-height: 490px !important;
 }
 
 .home-service-card:hover {
@@ -660,6 +664,8 @@ form#f small {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
+  height: 48px !important;
+  min-height: 48px !important;
   margin-bottom: 22px !important;
 }
 
@@ -692,14 +698,23 @@ form#f small {
   font-weight: 700 !important;
   letter-spacing: -0.02em !important;
   margin: 0 0 12px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .service-card-desc {
   color: #333333 !important;
   font-size: 0.9rem !important;
-  line-height: 1.6 !important;
+  line-height: 1.55 !important;
   margin: 0 0 24px !important;
-  min-height: 72px !important;
+  height: 68px !important;
+  min-height: 68px !important;
+  max-height: 68px !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
 }
 
 .service-card-bullets {

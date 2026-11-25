@@ -56,7 +56,7 @@ const HOME_SERVICE_CARDS = [
     popular: false,
     bg: '#E4EDCF',
     iconColor: '#4D7C0F',
-    desc: 'Give a unique natural decorative finish with Limewash painting that creates a beautiful, soft textured appearance with subtle colour variations, depth and timeless elegance. Transforms ordinary walls into unique, sophisticated surface with an organic character.',
+    desc: 'Give a unique natural decorative finish with soft textures, subtle colour variations, depth and timeless elegance.',
     icon: 'palette',
     bullets: [
       'Unique natural appearance',

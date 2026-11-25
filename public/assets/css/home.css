@@ -4005,7 +4005,9 @@ footer :focus-visible,
 .home-services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
     gap: 24px;
+    align-items: stretch;
 }
 
 .home-service-card {
@@ -4018,6 +4020,8 @@ footer :focus-visible,
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     position: relative;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    height: 100%;
+    min-height: 490px;
 }
 
 .home-service-card:hover {
@@ -4035,6 +4039,8 @@ footer :focus-visible,
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 48px;
+    min-height: 48px;
     margin-bottom: 22px;
 }
 
@@ -4067,14 +4073,23 @@ footer :focus-visible,
     font-weight: 700;
     letter-spacing: -0.02em;
     margin: 0 0 12px;
+    height: 34px;
+    display: flex;
+    align-items: center;
 }
 
 .service-card-desc {
     color: #333333;
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.55;
     margin: 0 0 24px;
-    min-height: 72px;
+    height: 68px;
+    min-height: 68px;
+    max-height: 68px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .service-card-bullets {
