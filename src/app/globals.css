@@ -587,6 +587,62 @@ form#f small {
 }
 
 /* ==========================================================================
+   Service Pages - Process & Quote Sections Grey Theme (#B0BBC0)
+   ========================================================================== */
+.service-process-grey,
+.service-quote-grey,
+#contact.dk {
+  background: #B0BBC0 !important;
+  color: #111111 !important;
+}
+
+.service-process-grey h2,
+.service-quote-grey h2,
+#contact.dk h2 {
+  color: #111111 !important;
+}
+
+.service-process-grey .lead,
+.service-quote-grey .lead,
+#contact.dk .lead {
+  color: #222222 !important;
+}
+
+.service-process-grey .eb,
+.service-quote-grey .eb,
+#contact.dk .eb {
+  color: #8F6A00 !important;
+}
+
+.service-process-grey .steps .st h3 {
+  color: #111111 !important;
+}
+
+.service-process-grey .steps .st p {
+  color: #333333 !important;
+}
+
+.service-process-grey .steps:before {
+  background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.22) 0 10px, transparent 10px 20px) !important;
+}
+
+#contact.dk .ct,
+.service-quote-grey .ct {
+  color: #111111 !important;
+}
+
+#contact.dk .ct svg,
+.service-quote-grey .ct svg {
+  color: #111111 !important;
+}
+
+#contact.dk h2 em,
+.service-quote-grey h2 em {
+  color: #8F6A00 !important;
+  font-style: normal !important;
+}
+
+/* ==========================================================================
    Homepage Services & Project Cards (White Section Background + Pastel Cards)
    ========================================================================== */
 .home-services-section,

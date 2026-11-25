@@ -154,31 +154,31 @@ export function Services() {
         </div>
       </section>
 
-      <section className="dk">
+      <section className="dk service-process-grey" style={{ background: '#B0BBC0', color: '#111111' }}>
         <div className="w">
           <div className="hd rvl">
             <div>
-              <div className="eb">Our process</div>
-              <h2>Our proven process.</h2>
+              <div className="eb" style={{ color: '#8F6A00' }}>Our process</div>
+              <h2 style={{ color: '#111111' }}>Our proven process.</h2>
             </div>
-            <p className="lead">A systematic approach that ensures quality results on every project.</p>
+            <p className="lead" style={{ color: '#222222' }}>A systematic approach that ensures quality results on every project.</p>
           </div>
           <div className="steps rvl">
             <div className="st">
-              <h3>Consultation</h3>
-              <p>Free on-site assessment and detailed quote.</p>
+              <h3 style={{ color: '#111111' }}>Consultation</h3>
+              <p style={{ color: '#333333' }}>Free on-site assessment and detailed quote.</p>
             </div>
             <div className="st">
-              <h3>Preparation</h3>
-              <p>Surface prep, protection, and material selection.</p>
+              <h3 style={{ color: '#111111' }}>Preparation</h3>
+              <p style={{ color: '#333333' }}>Surface prep, protection, and material selection.</p>
             </div>
             <div className="st">
-              <h3>Execution</h3>
-              <p>Professional painting with attention to detail.</p>
+              <h3 style={{ color: '#111111' }}>Execution</h3>
+              <p style={{ color: '#333333' }}>Professional painting with attention to detail.</p>
             </div>
             <div className="st">
-              <h3>Inspection</h3>
-              <p>Final walkthrough and quality assurance.</p>
+              <h3 style={{ color: '#111111' }}>Inspection</h3>
+              <p style={{ color: '#333333' }}>Final walkthrough and quality assurance.</p>
             </div>
           </div>
         </div>
