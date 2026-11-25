@@ -585,3 +585,203 @@ form#f select {
 form#f small {
   color: #333333 !important;
 }
+
+/* ==========================================================================
+   Homepage Services Cards Section (Clean Modern Dark Cards Grid)
+   ========================================================================== */
+.home-services-section {
+  background: #11161B !important;
+  padding: 100px 0 90px !important;
+  color: #FFFFFF !important;
+  position: relative;
+}
+
+.home-services-header {
+  margin-bottom: 52px;
+}
+
+.home-services-header .eb {
+  color: #FF5722 !important;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.home-services-header h2 {
+  color: #FFFFFF !important;
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.04em !important;
+  margin: 0 0 16px !important;
+}
+
+.home-services-subtitle {
+  color: #94A3B8 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  max-width: 680px !important;
+  margin: 0 !important;
+}
+
+.home-services-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+}
+
+.home-service-card {
+  display: flex !important;
+  flex-direction: column !important;
+  background: #182028 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  padding: 34px 28px !important;
+  text-decoration: none !important;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  position: relative !important;
+}
+
+.home-service-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: #FF5722 !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+
+.home-service-card.is-popular {
+  border: 1px solid #FF5722 !important;
+  box-shadow: 0 8px 26px rgba(255, 87, 34, 0.14) !important;
+}
+
+.service-card-top {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 22px !important;
+}
+
+.service-card-icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  background: rgba(255, 87, 34, 0.12) !important;
+  border: 1px solid rgba(255, 87, 34, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FF5722 !important;
+}
+
+.service-card-badge {
+  background: #FF5722 !important;
+  color: #FFFFFF !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 5px 14px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.04em !important;
+  text-transform: capitalize !important;
+}
+
+.service-card-title {
+  color: #FFFFFF !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 0 12px !important;
+}
+
+.service-card-desc {
+  color: #94A3B8 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.6 !important;
+  margin: 0 0 24px !important;
+  min-height: 72px !important;
+}
+
+.service-card-bullets {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin-top: auto !important;
+}
+
+.service-card-bullets li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  color: #CBD5E1 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.45 !important;
+}
+
+.service-card-bullets .bullet-check {
+  color: #FF5722 !important;
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+}
+
+.home-services-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  flex-wrap: wrap !important;
+  padding-top: 40px !important;
+  margin-top: 24px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.home-services-footer > span {
+  font-size: 0.88rem !important;
+  color: #64748B !important;
+  font-style: italic !important;
+}
+
+.home-services-all-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  color: #FFFFFF !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  border-bottom: 2px solid #FF5722 !important;
+  padding-bottom: 4px !important;
+  transition: gap 0.2s ease, color 0.2s ease !important;
+}
+
+.home-services-all-link:hover {
+  gap: 18px !important;
+  color: #FF5722 !important;
+}
+
+.home-services-all-link span {
+  color: #FF5722 !important;
+  font-size: 1.15rem !important;
+}
+
+@media (max-width: 990px) {
+  .home-services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .home-services-section {
+    padding: 70px 0 60px !important;
+  }
+  .service-card-desc {
+    min-height: auto !important;
+  }
+}
+

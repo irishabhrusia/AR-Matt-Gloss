@@ -17,6 +17,93 @@ const COLORS = [
   ['#8F9C95', 'Light Grey']
 ];
 
+const HOME_SERVICE_CARDS = [
+  {
+    slug: 'interior-painting',
+    title: 'Interior Painting',
+    popular: true,
+    desc: 'Transform your indoor spaces with our expert interior painting services. We handle everything from single rooms to entire homes with precision and care.',
+    icon: 'home',
+    bullets: [
+      'Premium quality paints and finishes',
+      'Color consultation included',
+      'Furniture protection and room preparation',
+      'Clean and efficient work process',
+      'Smooth, flawless finish guaranteed',
+    ],
+  },
+  {
+    slug: 'exterior-painting',
+    title: 'Exterior Painting',
+    popular: false,
+    desc: 'Protect and beautify your property with professional exterior painting. Weather-resistant finishes that stand the test of time.',
+    icon: 'roller',
+    bullets: [
+      'Weather-resistant coatings',
+      'Surface preparation and repair',
+      'Power washing included',
+      'Multi-year durability guarantee',
+      'Curb appeal enhancement',
+    ],
+  },
+  {
+    slug: 'limewash-specialist',
+    title: 'Limewash Specialist',
+    popular: false,
+    desc: 'Give a unique natural decorative finish with Limewash painting that creates a beautiful, soft textured appearance with subtle colour variations, depth and timeless elegance. Transforms ordinary walls into unique, sophisticated surface with an organic character.',
+    icon: 'palette',
+    bullets: [
+      'Unique natural appearance',
+      'Timeless elegance',
+      'Beautiful texture and depth',
+      'A distinctive decorative finish',
+      'Wide choice of colours',
+    ],
+  },
+  {
+    slug: 'decorative-finishes',
+    title: 'Decorative Finishes',
+    popular: false,
+    desc: 'Add character and style with specialty finishes including faux painting, textured walls, and custom decorative techniques.',
+    icon: 'brush',
+    bullets: [
+      'Unique custom finishes',
+      'Faux painting techniques',
+      'Textured wall treatments',
+      'Accent wall designs',
+      'Personalized color schemes',
+    ],
+  },
+  {
+    slug: 'cabinet-refinishing',
+    title: 'Cabinet Refinishing',
+    popular: false,
+    desc: 'Give your kitchen or bathroom a fresh new look with professional cabinet painting and refinishing services.',
+    icon: 'sparkle',
+    bullets: [
+      'Kitchen and bathroom cabinets',
+      'Professional spray finish',
+      'Hardware removal and reinstallation',
+      'Durable, long-lasting results',
+      'Cost-effective renovation option',
+    ],
+  },
+  {
+    slug: 'commercial-painting',
+    title: 'Commercial Painting',
+    popular: false,
+    desc: 'Professional painting services for offices, retail spaces, and commercial properties with minimal disruption to your business.',
+    icon: 'shield',
+    bullets: [
+      'Flexible scheduling options',
+      'Large-scale project expertise',
+      'Minimal business disruption',
+      'Commercial-grade materials',
+      'Professional project management',
+    ],
+  },
+];
+
 export function Home() {
   usePageStyle('/assets/css/home.css?v=2');
   useReveal();
@@ -29,12 +116,6 @@ export function Home() {
   const rollerRef = useRef(null);
   const animRef = useRef(null);
   const initialTimerRef = useRef(null);
-
-  // Discover section state
-  const [activeService, setActiveService] = useState(0);
-  const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [isPhotoChanging, setIsPhotoChanging] = useState(false);
-  const touchStartRef = useRef(null);
 
   // Recent projects showcase state
   const [recentIdx, setRecentIdx] = useState(0);
@@ -514,29 +595,7 @@ export function Home() {
     }
   };
 
-  // 2. Discover section photo switch
-  const selectService = (idx) => {
-    setActiveService(idx);
-    setActiveImageIdx(0);
-  };
-
-  const setDiscoverImage = (idx) => {
-    setIsPhotoChanging(true);
-    setActiveImageIdx(idx);
-    setTimeout(() => {
-      setIsPhotoChanging(false);
-    }, 95);
-  };
-
-  const handleDiscoverNext = () => {
-    const nextIdx = (activeService + 1) % servicesList.length;
-    selectService(nextIdx);
-  };
-
-  const curSvc = servicesList[activeService] || servicesList[0] || SERVICES[0];
-  const curDiscoverImg = curSvc.discoverImages?.[activeImageIdx] || curSvc.discoverImages?.[0] || curSvc.heroImage;
-
-  // 3. Recent projects
+  // Recent projects
   const curRecent = portfolioList[recentIdx] || portfolioList[0] || PORTFOLIO_PROJECTS[0];
   const notes = {
     Interior: 'Spaces made to feel like home',
@@ -716,208 +775,97 @@ export function Home() {
         </div>
       </div>
 
-      {/* Discover Services */}
-      <section id="services" className="discover-section">
+      {/* Services Section - Clean Modern Service Cards */}
+      <section id="services" className="home-services-section">
         <div className="w">
-          <div className="hd rvl discover-intro">
-            <div>
-              <div className="eb">{homeData.servicesIntro?.eyebrow || 'Explore our services'}</div>
-              <h2>{homeData.servicesIntro?.headline || 'Every surface. One crew.'}</h2>
+          <div className="home-services-header rvl">
+            <div className="eb" style={{ color: '#FF5722' }}>
+              {homeData.servicesIntro?.eyebrow || 'Services · What We Do Best'}
             </div>
-            <div className="discover-intro-side">
-              <span className="discover-intro-mark">✳</span>
-              <p>{homeData.servicesIntro?.subtitle || 'Every home has a story. Choose what you’d like to transform and explore the finishes we do best.'}</p>
-            </div>
+            <h2>{homeData.servicesIntro?.headline || 'Decorating, done properly.'}</h2>
+            <p className="home-services-subtitle">
+              {homeData.servicesIntro?.subtitle || 'Every home has a story. Choose what you’d like to transform and explore the finishes we do best.'}
+            </p>
           </div>
-          <div className="discover-grid rvl">
-            <div className="discover-nav">
-              <div className="discover-nav-top">
-                <span className="discover-live-dot"></span>
-                <span>CHOOSE WHAT TO TRANSFORM</span>
-                <span className="discover-guide-arrow" aria-hidden="true">↘</span>
-              </div>
-              <div className="discover-choices" role="group" aria-label="Preview our decorating services">
-                {servicesList.map((s, idx) => (
-                  <button
-                    key={s.slug || idx}
-                    type="button"
-                    className={`discover-choice ${activeService === idx ? 'is-active' : ''}`}
-                    aria-pressed={activeService === idx ? 'true' : 'false'}
-                    aria-controls="discover-stage"
-                    onClick={() => selectService(idx)}
-                    suppressHydrationWarning
-                    onKeyDown={(e) => {
-                      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        selectService((idx + 1) % servicesList.length);
-                      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        selectService((idx - 1 + servicesList.length) % servicesList.length);
-                      }
-                    }}
-                  >
-                    <span className="discover-choice-ico">
-                      {idx === 0 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <rect height="14" rx="5" width="40" x="8" y="10"></rect>
-                          <path d="M48 17h8v14H30v10"></path>
-                          <rect height="16" rx="3" width="8" x="26" y="41"></rect>
-                        </svg>
-                      )}
-                      {idx === 1 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <path d="M6 30 32 9l26 21"></path>
-                          <path d="M13 27v27h38V27"></path>
-                          <rect height="16" width="10" x="27" y="38"></rect>
-                          <path d="M44 12v8"></path>
-                        </svg>
-                      )}
-                      {idx === 2 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <path d="M12 52c6-2 8-8 6-12l22-22c3-3 8-3 10 0s2 7-1 10L27 50c-4 2-9 4-15 2z"></path>
-                          <path d="M40 20l6 6"></path>
-                          <path d="M8 58h18"></path>
-                        </svg>
-                      )}
-                      {idx === 3 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <rect height="21" width="21" x="9" y="9"></rect>
-                          <path d="M34 9h21v21z"></path>
-                          <circle cx="20" cy="44" r="11"></circle>
-                          <path d="M34 55l11-21 11 21z"></path>
-                        </svg>
-                      )}
-                      {idx === 4 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <rect height="48" rx="3" width="48" x="8" y="8"></rect>
-                          <path d="M32 8v48M8 32h48"></path>
-                          <circle cx="27" cy="20" r="1.6"></circle>
-                          <circle cx="37" cy="20" r="1.6"></circle>
-                          <circle cx="27" cy="44" r="1.6"></circle>
-                          <circle cx="37" cy="44" r="1.6"></circle>
-                        </svg>
-                      )}
-                      {idx === 5 && (
-                        <svg aria-hidden="true" className="swi" viewBox="0 0 64 64">
-                          <rect height="48" width="28" x="12" y="8"></rect>
-                          <path d="M40 26h12v30H40M19 17h5M28 17h5M19 27h5M28 27h5M19 37h5M28 37h5M19 47h5M28 47h5"></path>
-                          <path d="M6 56h52"></path>
-                        </svg>
-                      )}
-                    </span>
-                    <span className="discover-choice-copy">
-                      <strong>{s.title}</strong>
-                      <small>{s.sub}</small>
-                    </span>
-                    <span className="discover-choice-arrow" aria-hidden="true">↗</span>
-                  </button>
-                ))}
-              </div>
-              <div className="discover-nav-bottom">
-                <span>Not sure where to start?</span>
-                <Link href="/contact">Let's talk about your space <span aria-hidden="true">↗</span></Link>
-              </div>
-            </div>
 
-            <div
-              className="discover-stage"
-              id="discover-stage"
-              style={{ '--disc-accent': curSvc.accent }}
-            >
-              <div
-                className={`discover-photo-area ${isPhotoChanging ? 'is-changing' : ''}`}
-                id="discover-photo-area"
-                style={{ '--disc-photo': `url('${curDiscoverImg}')` }}
-                onTouchStart={(e) => {
-                  if (e.target.closest('button')) return;
-                  touchStartRef.current = e.touches[0].clientX;
-                }}
-                onTouchEnd={(e) => {
-                  if (touchStartRef.current === null || e.target.closest('button')) return;
-                  const dx = e.changedTouches[0].clientX - touchStartRef.current;
-                  if (Math.abs(dx) > 55) {
-                    const step = dx < 0 ? 1 : -1;
-                    selectService((activeService + step + SERVICES.length) % SERVICES.length);
-                  }
-                  touchStartRef.current = null;
-                }}
+          <div className="home-services-grid rvl">
+            {HOME_SERVICE_CARDS.map((svc) => (
+              <Link
+                key={svc.slug}
+                href={svc.slug === 'limewash-specialist' ? '/services/limewash-specialist' : `/services/${svc.slug}`}
+                className={`home-service-card ${svc.popular ? 'is-popular' : ''}`}
               >
-                <img
-                  id="discover-main-image"
-                  src={curDiscoverImg}
-                  alt={`${curSvc.title} finish`}
-                  decoding="async"
-                />
-                <div className="discover-image-top">
-                  <span className="discover-portfolio-tag">
-                    <span className="discover-star">✳</span>{' '}
-                    {activeService === 2 ? 'FINISH INSPIRATION' : 'SERVICE SHOWCASE'}
-                  </span>
-                  <span className="discover-stage-label">REAL PROJECTS. REAL FINISHES.</span>
-                </div>
-                <div className="discover-image-bottom">
-                  <span className="discover-photo-descriptor">A closer look at the craft</span>
-                  <div className="discover-photos" id="discover-photos" role="group" aria-label="Browse project photos">
-                    {curSvc.discoverImages.map((img, j) => (
-                      <button
-                        key={j}
-                        type="button"
-                        className={`discover-photo-button ${j === activeImageIdx ? 'is-active' : ''}`}
-                        aria-pressed={j === activeImageIdx ? 'true' : 'false'}
-                        aria-label={`Show ${curSvc.title} project photo ${j + 1}`}
-                        onClick={() => setDiscoverImage(j)}
-                        suppressHydrationWarning
-                      >
-                        <img src={img} alt="" loading="lazy" />
-                      </button>
-                    ))}
+                <div className="service-card-top">
+                  <div className="service-card-icon">
+                    {svc.icon === 'home' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                      </svg>
+                    )}
+                    {svc.icon === 'roller' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="3" width="16" height="6" rx="2" />
+                        <path d="M18 6h3a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-8v3" />
+                        <rect x="11" y="15" width="2" height="6" rx="1" />
+                      </svg>
+                    )}
+                    {svc.icon === 'palette' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                        <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                        <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                        <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                      </svg>
+                    )}
+                    {svc.icon === 'brush' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z" />
+                        <path d="M9 8c-2 3-4 3.5-7 4l8 8c.5-3 1-5 4-7" />
+                        <path d="M14.5 17.5 4.5 7.5" />
+                      </svg>
+                    )}
+                    {svc.icon === 'sparkle' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                        <path d="M5 3v4" />
+                        <path d="M19 17v4" />
+                      </svg>
+                    )}
+                    {svc.icon === 'shield' && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                    )}
                   </div>
+                  {svc.popular && (
+                    <span className="service-card-badge">Popular</span>
+                  )}
                 </div>
-              </div>
 
-              <div className="discover-detail" aria-live="polite" aria-atomic="true">
-                <div className="discover-headrow">
-                  <div>
-                    <span className="discover-eyebrow" id="discover-kicker">{curSvc.kicker}</span>
-                    <h3 id="discover-title">{curSvc.title}</h3>
-                    <p id="discover-description">{curSvc.desc}</p>
-                  </div>
-                  <div className="discover-next-wrap">
-                    <button
-                      type="button"
-                      className="discover-next"
-                      id="discover-next"
-                      aria-label="Preview next service"
-                      onClick={handleDiscoverNext}
-                      suppressHydrationWarning
-                    >→</button>
-                    <small>Next finish</small>
-                  </div>
-                </div>
-                <div className="discover-meta">
-                  <div className="discover-bullets" id="discover-bullets">
-                    {curSvc.features.map((feat, i) => (
-                      <span key={i}>{feat}</span>
-                    ))}
-                  </div>
-                  <Link
-                    id="discover-link"
-                    className="discover-link"
-                    href={curSvc.slug === 'limewash-specialist' ? '/services/limewash-specialist' : `/services/${curSvc.slug}`}
-                    aria-label={`Explore ${curSvc.title} details`}
-                  >
-                    Explore this service{' '}
-                    <svg className="i" aria-hidden="true">
-                      <use href="#ar" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
+                <h3 className="service-card-title">{svc.title}</h3>
+                <p className="service-card-desc">{svc.desc}</p>
+
+                <ul className="service-card-bullets">
+                  {svc.bullets.map((bullet, bi) => (
+                    <li key={bi}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5722" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="bullet-check">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+            ))}
           </div>
-          <div className="discover-all">
+
+          <div className="home-services-footer rvl">
             <span>Good walls. Good feelings. Great spaces.</span>
-            <Link href="/services">See all our services <span aria-hidden="true">↗</span></Link>
+            <Link href="/services" className="home-services-all-link">
+              See all our services <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
       </section>
