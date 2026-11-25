@@ -3977,11 +3977,11 @@ footer :focus-visible,
 
 .home-services-header .eb {
     color: #8F6A00 !important;
-    font-size: 0.82rem;
+    font-size: 1.05rem !important;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     display: block;
 }
 

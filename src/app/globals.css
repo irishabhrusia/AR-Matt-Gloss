@@ -602,12 +602,12 @@ form#f small {
 
 .home-services-header .eb {
   color: #8F6A00 !important;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display: block;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 14px !important;
+  display: block !important;
 }
 
 .home-services-header h2 {

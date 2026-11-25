@@ -791,7 +791,7 @@ export function Home() {
       <section id="services" className="home-services-section">
         <div className="w">
           <div className="home-services-header rvl">
-            <div className="eb" style={{ color: '#8F6A00' }}>
+            <div className="eb" style={{ color: '#8F6A00', fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.12em' }}>
               {homeData.servicesIntro?.eyebrow || 'Services · What We Do Best'}
             </div>
             <h2>{homeData.servicesIntro?.headline || 'Decorating, done properly.'}</h2>
