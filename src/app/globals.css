@@ -910,3 +910,15 @@ form#f small {
   }
 }
 
+/* Mobile Touch Scroll Optimization for Hero Banner */
+@media (max-width: 768px), (pointer: coarse) {
+  .hero {
+    cursor: auto !important;
+    touch-action: pan-y !important;
+  }
+  #cv {
+    touch-action: pan-y !important;
+    pointer-events: none !important;
+  }
+}
+

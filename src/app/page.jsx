@@ -511,6 +511,10 @@ export function Home() {
         ly = null;
         return;
       }
+      // On mobile / touch devices, let touch gestures scroll the page naturally without painting
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        return;
+      }
       cancelAutoSweep();
       isInteracting = true;
       const coords = getCanvasCoords(e);
@@ -527,12 +531,11 @@ export function Home() {
         rl.style.opacity = '0';
         return;
       }
-      cancelAutoSweep();
-
-      const isTouch = e.pointerType === 'touch' || e.pointerType === 'pen';
-      if (isTouch && !isInteracting && e.buttons === 0) {
+      // On mobile / touch devices, do not hijack touch moves or scroll gestures
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
         return;
       }
+      cancelAutoSweep();
 
       const coords = getCanvasCoords(e);
       stamp(coords.x, coords.y, activeColorRef.current);

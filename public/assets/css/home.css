@@ -382,7 +382,18 @@ nav>a.on:after,
     inset: 0;
     width: 100%;
     height: 100%;
-    touch-action: none
+    touch-action: pan-y
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+    .hero {
+        cursor: auto !important;
+        touch-action: pan-y !important;
+    }
+    #cv {
+        touch-action: pan-y !important;
+        pointer-events: none !important;
+    }
 }
 
 .hero h1 {
