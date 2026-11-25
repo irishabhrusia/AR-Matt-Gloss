@@ -10,6 +10,7 @@ export default function ServiceCard({ svc, isDuplicate = false }) {
       style={{ background: svc.bg }}
       aria-hidden={isDuplicate ? 'true' : undefined}
       tabIndex={isDuplicate ? -1 : undefined}
+      draggable={false}
     >
       <div className="service-card-top">
         <div className="service-card-icon" style={{ color: svc.iconColor, background: 'rgba(255, 255, 255, 0.75)' }}>
