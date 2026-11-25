@@ -822,6 +822,87 @@ form#f small {
   }
 }
 
+/* ==========================================================================
+   Homepage Services News-Ticker Marquee
+   ========================================================================== */
+.services-marquee-wrap {
+  --marquee-duration: 42s;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 24px 0 32px;
+  mask-image: linear-gradient(90deg, transparent 0%, #000000 5%, #000000 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000000 5%, #000000 95%, transparent 100%);
+}
+
+.services-marquee-track {
+  display: flex !important;
+  width: max-content !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+  will-change: transform;
+  animation: marqueeScroll var(--marquee-duration, 42s) linear infinite;
+}
+
+.services-marquee-wrap:hover .services-marquee-track,
+.services-marquee-wrap:active .services-marquee-track,
+.services-marquee-track:hover,
+.services-marquee-track:active {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 14px));
+  }
+}
+
+.services-marquee-card {
+  width: 380px !important;
+  min-width: 380px !important;
+  max-width: 380px !important;
+  flex: 0 0 380px !important;
+  height: auto !important;
+  min-height: 490px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.services-marquee-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(0, 0, 0, 0.22) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-marquee-track {
+    animation: none !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-marquee-wrap {
+    --marquee-duration: 35s;
+    padding: 16px 0 24px;
+    mask-image: linear-gradient(90deg, transparent 0%, #000000 3%, #000000 97%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000000 3%, #000000 97%, transparent 100%);
+  }
+
+  .services-marquee-card {
+    width: 300px !important;
+    min-width: 300px !important;
+    max-width: 300px !important;
+    flex: 0 0 300px !important;
+  }
+}
+
 /* Paint Color Picker Dock - Anchored within Hero Banner */
 .hero .dock {
   position: absolute !important;
