@@ -587,12 +587,12 @@ form#f small {
 }
 
 /* ==========================================================================
-   Homepage Services Cards Section (Clean Modern Dark Cards Grid)
+   Homepage Services Cards Section (White Section Background + Pastel Cards)
    ========================================================================== */
 .home-services-section {
-  background: #11161B !important;
+  background: #FFFFFF !important;
   padding: 100px 0 90px !important;
-  color: #FFFFFF !important;
+  color: #111111 !important;
   position: relative;
 }
 
@@ -601,7 +601,7 @@ form#f small {
 }
 
 .home-services-header .eb {
-  color: #FF5722 !important;
+  color: #8F6A00 !important;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -611,7 +611,7 @@ form#f small {
 }
 
 .home-services-header h2 {
-  color: #FFFFFF !important;
+  color: #111111 !important;
   font-size: clamp(2.4rem, 5.2vw, 4.4rem) !important;
   font-weight: 800 !important;
   line-height: 1.05 !important;
@@ -620,7 +620,7 @@ form#f small {
 }
 
 .home-services-subtitle {
-  color: #94A3B8 !important;
+  color: #4A5568 !important;
   font-size: 1.05rem !important;
   line-height: 1.6 !important;
   max-width: 680px !important;
@@ -636,24 +636,24 @@ form#f small {
 .home-service-card {
   display: flex !important;
   flex-direction: column !important;
-  background: #182028 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
   border-radius: 20px !important;
   padding: 34px 28px !important;
   text-decoration: none !important;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
   position: relative !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
 }
 
 .home-service-card:hover {
   transform: translateY(-5px) !important;
-  border-color: #FF5722 !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(0, 0, 0, 0.22) !important;
 }
 
 .home-service-card.is-popular {
-  border: 1px solid #FF5722 !important;
-  box-shadow: 0 8px 26px rgba(255, 87, 34, 0.14) !important;
+  border: 2px solid #111111 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
 .service-card-top {
@@ -667,16 +667,16 @@ form#f small {
   width: 48px !important;
   height: 48px !important;
   border-radius: 12px !important;
-  background: rgba(255, 87, 34, 0.12) !important;
-  border: 1px solid rgba(255, 87, 34, 0.25) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: #FF5722 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 .service-card-badge {
-  background: #FF5722 !important;
+  background: #111111 !important;
   color: #FFFFFF !important;
   font-size: 0.72rem !important;
   font-weight: 700 !important;
@@ -687,7 +687,7 @@ form#f small {
 }
 
 .service-card-title {
-  color: #FFFFFF !important;
+  color: #111111 !important;
   font-size: 1.35rem !important;
   font-weight: 700 !important;
   letter-spacing: -0.02em !important;
@@ -695,8 +695,8 @@ form#f small {
 }
 
 .service-card-desc {
-  color: #94A3B8 !important;
-  font-size: 0.88rem !important;
+  color: #333333 !important;
+  font-size: 0.9rem !important;
   line-height: 1.6 !important;
   margin: 0 0 24px !important;
   min-height: 72px !important;
@@ -716,13 +716,14 @@ form#f small {
   display: flex !important;
   align-items: flex-start !important;
   gap: 10px !important;
-  color: #CBD5E1 !important;
-  font-size: 0.85rem !important;
+  color: #1F2937 !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
   line-height: 1.45 !important;
 }
 
 .service-card-bullets .bullet-check {
-  color: #FF5722 !important;
+  color: #111111 !important;
   flex-shrink: 0 !important;
   margin-top: 2px !important;
 }
@@ -735,7 +736,7 @@ form#f small {
   flex-wrap: wrap !important;
   padding-top: 40px !important;
   margin-top: 24px !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 .home-services-footer > span {
@@ -748,22 +749,22 @@ form#f small {
   display: inline-flex !important;
   align-items: center !important;
   gap: 12px !important;
-  color: #FFFFFF !important;
+  color: #111111 !important;
   font-size: 0.95rem !important;
   font-weight: 700 !important;
   text-decoration: none !important;
-  border-bottom: 2px solid #FF5722 !important;
+  border-bottom: 2px solid #111111 !important;
   padding-bottom: 4px !important;
   transition: gap 0.2s ease, color 0.2s ease !important;
 }
 
 .home-services-all-link:hover {
   gap: 18px !important;
-  color: #FF5722 !important;
+  color: #8F9C95 !important;
 }
 
 .home-services-all-link span {
-  color: #FF5722 !important;
+  color: #8F6A00 !important;
   font-size: 1.15rem !important;
 }
 

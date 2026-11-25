@@ -3962,12 +3962,12 @@ footer :focus-visible,
 }
 
 /* ==========================================================================
-   Homepage Services Cards Section (Clean Modern Dark Cards Grid)
+   Homepage Services Cards Section (White Section Background + Pastel Cards)
    ========================================================================== */
 .home-services-section {
-    background: #11161B;
+    background: #FFFFFF;
     padding: 100px 0 90px;
-    color: #FFFFFF;
+    color: #111111;
     position: relative;
 }
 
@@ -3976,7 +3976,7 @@ footer :focus-visible,
 }
 
 .home-services-header .eb {
-    color: #FF5722 !important;
+    color: #8F6A00 !important;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -3986,7 +3986,7 @@ footer :focus-visible,
 }
 
 .home-services-header h2 {
-    color: #FFFFFF !important;
+    color: #111111 !important;
     font-size: clamp(2.4rem, 5.2vw, 4.4rem);
     font-weight: 800;
     line-height: 1.05;
@@ -3995,7 +3995,7 @@ footer :focus-visible,
 }
 
 .home-services-subtitle {
-    color: #94A3B8;
+    color: #4A5568;
     font-size: 1.05rem;
     line-height: 1.6;
     max-width: 680px;
@@ -4011,24 +4011,24 @@ footer :focus-visible,
 .home-service-card {
     display: flex;
     flex-direction: column;
-    background: #182028;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 20px;
     padding: 34px 28px;
     text-decoration: none;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     position: relative;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .home-service-card:hover {
     transform: translateY(-5px);
-    border-color: #FF5722;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 0, 0, 0.22);
 }
 
 .home-service-card.is-popular {
-    border: 1px solid #FF5722;
-    box-shadow: 0 8px 26px rgba(255, 87, 34, 0.14);
+    border: 2px solid #111111;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .service-card-top {
@@ -4042,16 +4042,16 @@ footer :focus-visible,
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: rgba(255, 87, 34, 0.12);
-    border: 1px solid rgba(255, 87, 34, 0.25);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FF5722;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .service-card-badge {
-    background: #FF5722;
+    background: #111111;
     color: #FFFFFF;
     font-size: 0.72rem;
     font-weight: 700;
@@ -4062,7 +4062,7 @@ footer :focus-visible,
 }
 
 .service-card-title {
-    color: #FFFFFF;
+    color: #111111;
     font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -4070,8 +4070,8 @@ footer :focus-visible,
 }
 
 .service-card-desc {
-    color: #94A3B8;
-    font-size: 0.88rem;
+    color: #333333;
+    font-size: 0.9rem;
     line-height: 1.6;
     margin: 0 0 24px;
     min-height: 72px;
@@ -4091,13 +4091,14 @@ footer :focus-visible,
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    color: #CBD5E1;
-    font-size: 0.85rem;
+    color: #1F2937;
+    font-size: 0.88rem;
+    font-weight: 500;
     line-height: 1.45;
 }
 
 .service-card-bullets .bullet-check {
-    color: #FF5722;
+    color: #111111;
     flex-shrink: 0;
     margin-top: 2px;
 }
@@ -4110,7 +4111,7 @@ footer :focus-visible,
     flex-wrap: wrap;
     padding-top: 40px;
     margin-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .home-services-footer > span {
@@ -4123,22 +4124,22 @@ footer :focus-visible,
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    color: #FFFFFF;
+    color: #111111;
     font-size: 0.95rem;
     font-weight: 700;
     text-decoration: none;
-    border-bottom: 2px solid #FF5722;
+    border-bottom: 2px solid #111111;
     padding-bottom: 4px;
     transition: gap 0.2s ease, color 0.2s ease;
 }
 
 .home-services-all-link:hover {
     gap: 18px;
-    color: #FF5722;
+    color: #8F9C95;
 }
 
 .home-services-all-link span {
-    color: #FF5722;
+    color: #8F6A00;
     font-size: 1.15rem;
 }
 

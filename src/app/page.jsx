@@ -22,6 +22,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'interior-painting',
     title: 'Interior Painting',
     popular: true,
+    bg: '#FFF3CF',
+    iconColor: '#B45309',
     desc: 'Transform your indoor spaces with our expert interior painting services. We handle everything from single rooms to entire homes with precision and care.',
     icon: 'home',
     bullets: [
@@ -36,6 +38,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'exterior-painting',
     title: 'Exterior Painting',
     popular: false,
+    bg: '#DCEAF2',
+    iconColor: '#0369A1',
     desc: 'Protect and beautify your property with professional exterior painting. Weather-resistant finishes that stand the test of time.',
     icon: 'roller',
     bullets: [
@@ -50,6 +54,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'limewash-specialist',
     title: 'Limewash Specialist',
     popular: false,
+    bg: '#E4EDCF',
+    iconColor: '#4D7C0F',
     desc: 'Give a unique natural decorative finish with Limewash painting that creates a beautiful, soft textured appearance with subtle colour variations, depth and timeless elegance. Transforms ordinary walls into unique, sophisticated surface with an organic character.',
     icon: 'palette',
     bullets: [
@@ -64,6 +70,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'decorative-finishes',
     title: 'Decorative Finishes',
     popular: false,
+    bg: '#F7DEE6',
+    iconColor: '#BE185D',
     desc: 'Add character and style with specialty finishes including faux painting, textured walls, and custom decorative techniques.',
     icon: 'brush',
     bullets: [
@@ -78,6 +86,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'cabinet-refinishing',
     title: 'Cabinet Refinishing',
     popular: false,
+    bg: '#FBEEC2',
+    iconColor: '#C2410C',
     desc: 'Give your kitchen or bathroom a fresh new look with professional cabinet painting and refinishing services.',
     icon: 'sparkle',
     bullets: [
@@ -92,6 +102,8 @@ const HOME_SERVICE_CARDS = [
     slug: 'commercial-painting',
     title: 'Commercial Painting',
     popular: false,
+    bg: '#E3EBE7',
+    iconColor: '#0F766E',
     desc: 'Professional painting services for offices, retail spaces, and commercial properties with minimal disruption to your business.',
     icon: 'shield',
     bullets: [
@@ -779,7 +791,7 @@ export function Home() {
       <section id="services" className="home-services-section">
         <div className="w">
           <div className="home-services-header rvl">
-            <div className="eb" style={{ color: '#FF5722' }}>
+            <div className="eb" style={{ color: '#8F6A00' }}>
               {homeData.servicesIntro?.eyebrow || 'Services · What We Do Best'}
             </div>
             <h2>{homeData.servicesIntro?.headline || 'Decorating, done properly.'}</h2>
@@ -794,9 +806,10 @@ export function Home() {
                 key={svc.slug}
                 href={svc.slug === 'limewash-specialist' ? '/services/limewash-specialist' : `/services/${svc.slug}`}
                 className={`home-service-card ${svc.popular ? 'is-popular' : ''}`}
+                style={{ background: svc.bg }}
               >
                 <div className="service-card-top">
-                  <div className="service-card-icon">
+                  <div className="service-card-icon" style={{ color: svc.iconColor, background: 'rgba(255, 255, 255, 0.75)' }}>
                     {svc.icon === 'home' && (
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -850,7 +863,7 @@ export function Home() {
                 <ul className="service-card-bullets">
                   {svc.bullets.map((bullet, bi) => (
                     <li key={bi}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5722" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="bullet-check">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="bullet-check">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                       <span>{bullet}</span>
