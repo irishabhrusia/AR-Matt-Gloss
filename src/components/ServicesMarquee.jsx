@@ -11,11 +11,13 @@ export default function ServicesMarquee({ cards = [] }) {
 
   const xRef = useRef(0);
   const singleSetWidthRef = useRef(0);
+  const isPointerDownRef = useRef(false);
   const isDraggingRef = useRef(false);
   const isHoveredRef = useRef(false);
   const hasDraggedRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
+  const pointerIdRef = useRef(null);
   const reducedMotionRef = useRef(false);
 
   const [isGrabbing, setIsGrabbing] = useState(false);
@@ -86,29 +88,37 @@ export default function ServicesMarquee({ cards = [] }) {
     }
   }, [cards, updateMetrics]);
 
-  // Pointer Drag Handlers (supports both mouse and touch)
+  // Pointer Drag Handlers (supports both mouse and touch without blocking click navigation)
   const handlePointerDown = (e) => {
     if (e.button !== undefined && e.button !== 0) return; // Primary button only
 
-    isDraggingRef.current = true;
+    isPointerDownRef.current = true;
+    isDraggingRef.current = false;
     hasDraggedRef.current = false;
     dragStartXRef.current = e.clientX;
     dragStartOffsetRef.current = xRef.current;
-    setIsGrabbing(true);
-
-    if (e.currentTarget.setPointerCapture) {
-      try {
-        e.currentTarget.setPointerCapture(e.pointerId);
-      } catch {}
-    }
+    pointerIdRef.current = e.pointerId;
   };
 
   const handlePointerMove = (e) => {
-    if (!isDraggingRef.current) return;
+    if (!isPointerDownRef.current) return;
 
     const dx = e.clientX - dragStartXRef.current;
-    if (Math.abs(dx) > 6) {
-      hasDraggedRef.current = true;
+
+    // Only engage dragging state if pointer moves beyond threshold (> 6px)
+    if (!isDraggingRef.current) {
+      if (Math.abs(dx) > 6) {
+        isDraggingRef.current = true;
+        hasDraggedRef.current = true;
+        setIsGrabbing(true);
+        if (e.currentTarget && e.currentTarget.setPointerCapture && pointerIdRef.current !== null) {
+          try {
+            e.currentTarget.setPointerCapture(pointerIdRef.current);
+          } catch {}
+        }
+      } else {
+        return;
+      }
     }
 
     let nextX = dragStartOffsetRef.current + dx;
@@ -133,22 +143,26 @@ export default function ServicesMarquee({ cards = [] }) {
   };
 
   const handlePointerUp = (e) => {
-    if (!isDraggingRef.current) return;
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
 
-    isDraggingRef.current = false;
-    setIsGrabbing(false);
-
-    if (e.currentTarget.releasePointerCapture) {
+    if (e.currentTarget && e.currentTarget.releasePointerCapture && pointerIdRef.current !== null) {
       try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
+        e.currentTarget.releasePointerCapture(pointerIdRef.current);
       } catch {}
     }
+    pointerIdRef.current = null;
 
-    // Keep hasDraggedRef true for a tiny window to block accidental link triggers
-    if (hasDraggedRef.current) {
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      setIsGrabbing(false);
+      // Suppress any accidental click navigation immediately following a drag
       setTimeout(() => {
         hasDraggedRef.current = false;
-      }, 60);
+      }, 120);
+    } else {
+      hasDraggedRef.current = false;
+      setIsGrabbing(false);
     }
   };
 
@@ -156,7 +170,7 @@ export default function ServicesMarquee({ cards = [] }) {
     handlePointerUp(e);
   };
 
-  // Intercept click if the user was dragging
+  // Intercept click ONLY if the user was actively dragging
   const handleClickCapture = (e) => {
     if (hasDraggedRef.current) {
       e.preventDefault();

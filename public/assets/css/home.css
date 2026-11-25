@@ -4231,10 +4231,6 @@ footer :focus-visible,
     cursor: grabbing !important;
 }
 
-.services-marquee-wrap.is-dragging a {
-    pointer-events: none !important;
-}
-
 .services-marquee-track {
     display: flex !important;
     width: max-content !important;

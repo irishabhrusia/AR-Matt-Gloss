@@ -7,7 +7,7 @@ export default function ServiceCard({ svc, isDuplicate = false }) {
     <Link
       href={svc.slug === 'limewash-specialist' ? '/services/limewash-specialist' : `/services/${svc.slug}`}
       className={`home-service-card services-marquee-card ${svc.popular ? 'is-popular' : ''}`}
-      style={{ background: svc.bg }}
+      style={{ background: svc.bg, cursor: 'pointer' }}
       aria-hidden={isDuplicate ? 'true' : undefined}
       tabIndex={isDuplicate ? -1 : undefined}
       draggable={false}
