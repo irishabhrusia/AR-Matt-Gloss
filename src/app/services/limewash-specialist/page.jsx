@@ -109,17 +109,17 @@ export function LimewashSpecialist() {
 
     function blob(x, y) {
       const toneRGB = hexToRgb(TONES[activeToneIdxRef.current][0]);
-      const n = 4;
-      const R = W < 700 ? 70 : 110;
+      const n = 5;
+      const R = W < 700 ? 55 : 75;
       for (let i = 0; i < n; i++) {
-        const r = R * (0.45 + Math.random() * 0.9);
-        const ox = (Math.random() - 0.5) * R * 0.7;
-        const oy = (Math.random() - 0.5) * R * 0.7;
-        const v = (Math.random() - 0.5) * 30;
+        const r = R * (0.65 + Math.random() * 0.3);
+        const ox = (Math.random() - 0.5) * 12;
+        const oy = (Math.random() - 0.5) * 12;
+        const v = (Math.random() - 0.5) * 26;
         const g = cx.createRadialGradient(x + ox, y + oy, 0, x + ox, y + oy, r);
         const c = `rgba(${clampByte(toneRGB[0] + v)},${clampByte(toneRGB[1] + v * 0.9)},${clampByte(toneRGB[2] + v * 0.8)},`;
-        g.addColorStop(0, c + (0.16 + Math.random() * 0.2) + ')');
-        g.addColorStop(0.6, c + (0.08 + Math.random() * 0.08) + ')');
+        g.addColorStop(0, c + (0.18 + Math.random() * 0.18) + ')');
+        g.addColorStop(0.55, c + (0.10 + Math.random() * 0.08) + ')');
         g.addColorStop(1, c + '0)');
         cx.fillStyle = g;
         cx.fillRect(x + ox - r, y + oy - r, r * 2, r * 2);
@@ -132,7 +132,7 @@ export function LimewashSpecialist() {
         ly = y;
       }
       const d = Math.hypot(x - lx, y - ly);
-      const n = Math.max(1, Math.ceil(d / 22));
+      const n = Math.max(1, Math.ceil(d / 16));
       for (let i = 1; i <= n; i++) {
         blob(lx + (x - lx) * i / n, ly + (y - ly) * i / n);
       }
@@ -153,7 +153,7 @@ export function LimewashSpecialist() {
       auto = true;
       lx = null;
       pts = [];
-      const rows = Math.ceil(H / (W < 700 ? 80 : 105)) + 1;
+      const rows = Math.ceil(H / (W < 700 ? 75 : 95)) + 1;
       let d = 1;
       for (let r = 0; r < rows; r++) {
         const y = -20 + r * (H + 40) / (rows - 1);
@@ -166,7 +166,7 @@ export function LimewashSpecialist() {
 
       function f() {
         if (!auto) return;
-        const sp = Math.max(30, W / 34);
+        const sp = Math.max(18, Math.min(28, W / 50));
         const t = pts[pi];
         const dx = t[0] - px;
         const dy = t[1] - py;
@@ -179,9 +179,9 @@ export function LimewashSpecialist() {
           px += (dx / dist) * sp;
           py += (dy / dist) * sp;
         }
-        stroke(px, py);
         ring.style.opacity = '1';
-        ring.style.transform = `translate(${px}px,${py}px)`;
+        ring.style.transform = `translate3d(${px}px,${py}px,0)`;
+        stroke(px, py);
         if (pi >= pts.length) {
           auto = false;
           lx = null;
@@ -198,14 +198,15 @@ export function LimewashSpecialist() {
 
     function onPointerMove(e) {
       if (e.target.closest('.hbar, .rs')) return;
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') return;
       auto = false;
       cancelAnimationFrame(animRef.current);
       const r = hero.getBoundingClientRect();
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
-      stroke(x, y);
       ring.style.opacity = '1';
-      ring.style.transform = `translate(${x}px,${y}px)`;
+      ring.style.transform = `translate3d(${x}px,${y}px,0)`;
+      stroke(x, y);
     }
 
     function onPointerLeave() {
