@@ -548,11 +548,40 @@ header {
   z-index: 1050 !important;
 }
 
-/* Ensure removed hero elements never flash or show */
-.hbar,
-.hint,
-.rs {
-  display: none !important;
+/* ==========================================================================
+   Limewash Specialist - Interactive Hero Controls & Multiple Colour Options
+   ========================================================================== */
+.hero .hbar {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+
+.hero .tones {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.hero .hint {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+
+.hero .rs {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+
+@media (max-width: 980px) {
+  .hero .hbar {
+    bottom: 74px !important;
+  }
 }
 
 /* ==========================================================================

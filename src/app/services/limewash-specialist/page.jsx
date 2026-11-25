@@ -291,17 +291,18 @@ export function LimewashSpecialist() {
         <div className="hint">Grab the brush. Limewash this wall.</div>
         <button className="rs" id="rs" onClick={handleRepaint}>↻ Bare wall</button>
         <div id="ring" ref={ringRef}></div>
-        <div className="hbar">
+        <div className="hbar" style={{ zIndex: 10, visibility: 'visible' }}>
           <div>
             <b>Limewash Specialist in Surrey, London and Greater London</b>
             <p>Professional limewash painting and decorative limewash finishes for beautiful, timeless interiors.</p>
           </div>
-          <div className="tones" id="tn">
+          <div className="tones" id="tn" style={{ display: 'flex', alignItems: 'center', gap: '8px', visibility: 'visible' }}>
             {TONES.map(([hex, label], i) => (
               <button
                 key={i}
                 className={`tn ${i === activeToneIdx ? 'on' : ''}`}
                 style={{ background: hex }}
+                title={label}
                 aria-label={label}
                 onClick={() => handleToneChange(i)}
               ></button>
