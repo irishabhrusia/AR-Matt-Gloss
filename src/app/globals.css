@@ -599,34 +599,216 @@ header {
 }
 
 /* ==========================================================================
-   Contact Form Card - Background #B0BBC0
+   Quick Quote Form in #contact sections (Homepage & Service Pages)
    ========================================================================== */
-#contact form,
-form#f {
+#contact form {
   background: #B0BBC0 !important;
   color: #111111 !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
   border: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
-#contact form label,
-form#f label {
+#contact form label {
   color: #222222 !important;
   font-weight: 600 !important;
 }
 
 #contact form input,
-#contact form select,
-form#f input,
-form#f select {
+#contact form select {
   background: #FFFFFF !important;
   color: #111111 !important;
   border-color: rgba(0, 0, 0, 0.16) !important;
 }
 
-#contact form small,
-form#f small {
+#contact form small {
   color: #333333 !important;
+}
+
+#contact form .btn.p,
+#contact form button.btn.p {
+  background: #12251F !important;
+  border-color: #12251F !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 20px rgba(18, 37, 31, 0.18) !important;
+  transition: all 0.2s ease !important;
+}
+
+#contact form .btn.p:hover,
+#contact form button.btn.p:hover {
+  background: #1D3A31 !important;
+  border-color: #1D3A31 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(18, 37, 31, 0.25) !important;
+}
+
+/* ==========================================================================
+   Dedicated Contact Page (/contact) Form Card - Clean Luxury Styling
+   ========================================================================== */
+.fm {
+  background: #FFFFFF !important;
+  border: 2.5px solid #12251F !important;
+  border-radius: 30px !important;
+  padding: clamp(28px, 4.5vw, 48px) !important;
+  box-shadow: 12px 12px 0 var(--acc, #FFC83B) !important;
+}
+
+.fm h2 {
+  color: #12251F !important;
+  font-size: clamp(2rem, 3.5vw, 2.7rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  margin-bottom: 8px !important;
+}
+
+.fm > p {
+  color: #475569 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  margin-bottom: 26px !important;
+}
+
+.fm form,
+.fm form#f {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: grid !important;
+  gap: 18px !important;
+}
+
+.fm label {
+  color: #12251F !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  display: block !important;
+  margin-bottom: 7px !important;
+}
+
+.fm label b {
+  color: #DC2626 !important;
+}
+
+.fm input,
+.fm select,
+.fm textarea {
+  width: 100% !important;
+  background: #F8FAF9 !important;
+  border: 1.5px solid rgba(18, 37, 31, 0.16) !important;
+  border-radius: 14px !important;
+  color: #12251F !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  padding: 14px 16px !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s !important;
+}
+
+.fm select {
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2312251F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 16px 16px !important;
+  padding-right: 42px !important;
+}
+
+.fm input::placeholder,
+.fm textarea::placeholder {
+  color: #8E9B95 !important;
+  opacity: 1 !important;
+}
+
+.fm input:focus,
+.fm select:focus,
+.fm textarea:focus {
+  background: #FFFFFF !important;
+  border-color: #12251F !important;
+  box-shadow: 0 0 0 3.5px rgba(18, 37, 31, 0.09) !important;
+  outline: none !important;
+}
+
+.fm textarea {
+  min-height: 130px !important;
+  resize: vertical !important;
+}
+
+.fm .fld.bad input,
+.fm .fld.bad select,
+.fm .fld.bad textarea {
+  border-color: #DC2626 !important;
+  background: #FEF2F2 !important;
+}
+
+.fm .er {
+  color: #DC2626 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  margin-top: 5px !important;
+}
+
+.fm .btn.p,
+.fm button.btn.p {
+  background: #12251F !important;
+  border: 2px solid #12251F !important;
+  color: #FFFFFF !important;
+  border-radius: 999px !important;
+  padding: 16px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-shadow: 0 8px 22px rgba(18, 37, 31, 0.18) !important;
+  transition: all 0.2s ease !important;
+}
+
+.fm .btn.p:hover,
+.fm button.btn.p:hover {
+  background: #1D3A31 !important;
+  border-color: #1D3A31 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(18, 37, 31, 0.25) !important;
+  filter: none !important;
+}
+
+.fm .btn.p svg.i,
+.fm button.btn.p svg.i {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.fm small.note {
+  color: #64748B !important;
+  font-size: 0.82rem !important;
+  text-align: center !important;
+  display: block !important;
+  margin-top: 6px !important;
+}
+
+.fm .ok .tick {
+  background: #12251F !important;
+  border: 3px solid #12251F !important;
+  color: #FFFFFF !important;
+}
+
+.fm .ok h3 {
+  color: #12251F !important;
+}
+
+.fm .ok p {
+  color: #475569 !important;
 }
 
 /* ==========================================================================
