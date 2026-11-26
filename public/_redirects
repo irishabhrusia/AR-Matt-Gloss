@@ -1,0 +1,2 @@
+# Pass through all static assets directly
+/assets/*  /assets/:splat  200
