@@ -32,8 +32,8 @@ nav {
   align-items: center;
 }
 
-nav>a,
-.dd>a {
+nav > a,
+.dd > a {
   position: relative;
   padding: 6px 0;
   display: inline-flex;
@@ -42,8 +42,8 @@ nav>a,
   text-decoration: none;
 }
 
-nav>a:after,
-.dd>a:after {
+nav > a:after,
+.dd > a:after {
   content: "";
   position: absolute;
   left: 0;
@@ -57,10 +57,10 @@ nav>a:after,
   border-radius: 3px;
 }
 
-nav>a:hover:after,
-.dd:hover>a:after,
-nav>a.on:after,
-.dd>a.on:after {
+nav > a:hover:after,
+.dd:hover > a:after,
+nav > a.on:after,
+.dd > a.on:after {
   transform: scaleX(1);
 }
 
@@ -713,7 +713,7 @@ header {
   cursor: pointer !important;
   appearance: none !important;
   -webkit-appearance: none !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2312251F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2312251F%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 16px center !important;
   background-size: 16px 16px !important;
@@ -1008,7 +1008,9 @@ header {
   overflow: hidden !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
   -webkit-box-orient: vertical !important;
+  box-orient: vertical !important;
 }
 
 .service-card-bullets {
@@ -1049,8 +1051,8 @@ header {
   border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
-.home-services-footer > span,
-.home-projects-footer > span {
+.home-services-footer>span,
+.home-projects-footer>span {
   font-size: 0.88rem !important;
   color: #64748B !important;
   font-style: italic !important;
@@ -1083,6 +1085,7 @@ header {
 }
 
 @media (max-width: 990px) {
+
   .home-services-grid,
   .home-projects-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1090,14 +1093,17 @@ header {
 }
 
 @media (max-width: 640px) {
+
   .home-services-grid,
   .home-projects-grid {
     grid-template-columns: 1fr !important;
   }
+
   .home-services-section,
   .home-projects-section {
     padding: 70px 0 60px !important;
   }
+
   .service-card-desc {
     min-height: auto !important;
   }
@@ -1143,7 +1149,7 @@ header {
   box-sizing: border-box !important;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
   user-select: none !important;
-  -webkit-user-drag: none !important;
+  -webkit-user-select: none !important;
 }
 
 .services-marquee-card:hover {
@@ -1188,14 +1194,15 @@ header {
 }
 
 /* Mobile Touch Scroll Optimization for Hero Banner */
-@media (max-width: 768px), (pointer: coarse) {
+@media (max-width: 768px),
+(pointer: coarse) {
   .hero {
     cursor: auto !important;
     touch-action: pan-y !important;
   }
+
   #cv {
     touch-action: pan-y !important;
     pointer-events: none !important;
   }
 }
-
