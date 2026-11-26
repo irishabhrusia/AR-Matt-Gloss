@@ -32,8 +32,6 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/assets/css/decorative-finishes.css" as="style" />
         <link rel="preload" href="/assets/css/cabinet-refinishing.css" as="style" />
         <link rel="preload" href="/assets/css/commercial-painting.css" as="style" />
-
-        <link id="active-page-style" rel="stylesheet" href="/assets/css/home.css" />
       </head>
       <body suppressHydrationWarning>
         <ClientLayoutWrapper>

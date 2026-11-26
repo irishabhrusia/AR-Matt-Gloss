@@ -72,6 +72,7 @@ export function Services() {
 
   return (
     <main>
+      <link rel="stylesheet" href="/assets/css/services.css" precedence="default" />
       <div className="hero">
         <div className="w">
           <div className="crumb">

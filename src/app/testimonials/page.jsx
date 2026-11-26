@@ -46,6 +46,7 @@ export function Testimonials() {
 
   return (
     <main>
+      <link rel="stylesheet" href="/assets/css/testimonials.css" precedence="default" />
       <div className="hero">
         <div className="bq" aria-hidden="true">“</div>
         <div className="w">

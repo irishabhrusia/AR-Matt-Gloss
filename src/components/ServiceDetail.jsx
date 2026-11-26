@@ -87,6 +87,7 @@ export function ServiceDetail({ slug: propSlug }) {
 
   return (
     <main>
+      <link rel="stylesheet" href={`/assets/css/${svc.slug}.css`} precedence="default" />
       <div className="hero">
         <div className="w">
           <div>

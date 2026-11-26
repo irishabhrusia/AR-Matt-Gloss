@@ -637,6 +637,7 @@ export function Home() {
 
   return (
     <main suppressHydrationWarning>
+      <link rel="stylesheet" href="/assets/css/home.css" precedence="default" />
       {/* Hero */}
       <div className="hero" id="home" ref={heroRef}>
         <canvas id="cv" ref={canvasRef}></canvas>

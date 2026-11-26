@@ -285,6 +285,7 @@ export function LimewashSpecialist() {
 
   return (
     <main>
+      <link rel="stylesheet" href="/assets/css/limewash-specialist.css" precedence="default" />
       {/* Hero */}
       <div className="hero" id="hero" ref={heroRef}>
         <canvas id="wall" ref={canvasRef}></canvas>

@@ -1,5 +1,3 @@
-@import '../../public/assets/css/home.css';
-
 /* Global Layout, Navigation & Responsive Overrides */
 *,
 *::before,
@@ -1198,7 +1196,8 @@ header {
 /* Mobile Touch Scroll Optimization for Hero Banner */
 @media (max-width: 768px),
 (pointer: coarse) {
-  .hero {
+  #home.hero,
+  #hero.hero {
     cursor: auto !important;
     touch-action: pan-y !important;
   }

@@ -158,6 +158,7 @@ export function Contact() {
 
   return (
     <main>
+      <link rel="stylesheet" href="/assets/css/contact.css" precedence="default" />
       {/* Hero */}
       <div className="hero">
         <div className="bg" aria-hidden="true">Hi</div>

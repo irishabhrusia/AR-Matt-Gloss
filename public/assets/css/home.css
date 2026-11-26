@@ -367,7 +367,8 @@ nav>a.on:after,
 }
 
 /* hero */
-.hero {
+#home.hero,
+.hero#home {
     position: relative;
     isolation: isolate;
     height: clamp(560px, 92vh, 860px);
@@ -396,7 +397,8 @@ nav>a.on:after,
     }
 }
 
-.hero h1 {
+#home.hero h1,
+.hero#home h1 {
     position: absolute;
     left: 24px;
     right: 24px;
@@ -2622,7 +2624,8 @@ footer :focus-visible,
         font-size: .82rem
     }
 
-    .hero {
+    #home.hero,
+    .hero#home {
         height: clamp(600px, 90vh, 760px);
         cursor: auto
     }

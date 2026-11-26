@@ -112,6 +112,7 @@ export function Portfolio() {
 
   return (
     <main>
+      <link rel="stylesheet" href="/assets/css/portfolio.css" precedence="default" />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes marqueeScrollLeft {
           0% { transform: translate3d(0, 0, 0); }
